@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.May.lib.subsystems;
 import com.qualcomm.robotcore.hardware.Servo;
 //Rotator Range: 0.02(down) - 0.35(front)
 //Gripper Range: 0(closed) - 0.075(open)
-public class GripperSubsystem {
+public class LeftGripperSubsystem {
     public final Servo gripperServo;
     public final Servo rotatorServo;
 
@@ -13,7 +13,7 @@ public class GripperSubsystem {
 
     boolean rotatorDown = false;
 
-    public GripperSubsystem(Servo gServ, Servo rServ) {
+    public LeftGripperSubsystem(Servo gServ, Servo rServ) {
         gripperServo = gServ;
         rotatorServo = rServ;
         rotatorServo.setPosition(0.36);

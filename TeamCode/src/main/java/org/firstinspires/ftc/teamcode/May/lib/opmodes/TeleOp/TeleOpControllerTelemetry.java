@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.May.lib;
+package org.firstinspires.ftc.teamcode.May.lib.opmodes.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOpControllerTelemetry", group = "Linear OpMode")

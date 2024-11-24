@@ -2,14 +2,14 @@ package org.firstinspires.ftc.teamcode.May.lib.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class SlidesSubsystem {
+public class LeftSlidesSubsystem {
 
     //private final DcMotor slidesMotorLeft;
     private final DcMotor slidesMotorRight;
 
     boolean scoreSample = false;
     boolean sliderState = true;
-    public SlidesSubsystem(DcMotor slideR) {
+    public LeftSlidesSubsystem(DcMotor slideR) {
 
         //slidesMotorLeft = slideL;
         slidesMotorRight = slideR;
