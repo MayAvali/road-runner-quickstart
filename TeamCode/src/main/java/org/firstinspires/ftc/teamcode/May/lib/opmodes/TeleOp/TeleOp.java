@@ -35,7 +35,7 @@ public class TeleOp extends LinearOpMode {
                 hardwareMap.servo.get("rightRotatorServo")
         );
 
-        ManipulationSubsystem manipulation = new ManipulationSubsystem();
+        ManipulationSubsystem manipulation = new ManipulationSubsystem(slide, grippers);
 
         GamepadButton resetIMU = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.START);
 
