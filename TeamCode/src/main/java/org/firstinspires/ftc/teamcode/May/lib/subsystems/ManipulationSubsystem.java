@@ -9,5 +9,9 @@ public class ManipulationSubsystem {
         this.slideSub = slideSub;
         this.gripperSub = gripperSub;
     }
+    public void slidesClimbStage1() {
+        slideSub.setDualSliderTarget(400);
+        slideSub.setDualRotatorTarget(650);
+    }
 
 }

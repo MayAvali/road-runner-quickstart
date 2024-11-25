@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems;
 
 import com.qualcomm.robotcore.hardware.Servo;
 public class GripperSubsystem {
-    public final Servo leftGripperServo;
-    public final Servo leftRotatorServo;
-    public final Servo rightGripperServo;
-    public final Servo rightRotatorServo;
+    private final Servo leftGripperServo;
+    private final Servo leftRotatorServo;
+    private final Servo rightGripperServo;
+    private final Servo rightRotatorServo;
 
     boolean gripperClosed = false;
 

@@ -27,21 +27,33 @@ public class SlidesSubsystem {
         rightRotatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    private void setLeftSliderTarget(int p) {
+    public void setLeftSliderTarget(int p) {
         //leftSlidesMotor.setTargetPosition(p);
         leftSlidesMotor.setTargetPosition(p);
     }
-    private void setLeftRotatorTarget(int p) {
+    public void setLeftRotatorTarget(int p) {
         leftRotatorMotor.setTargetPosition(p);
     }
 
-    private void setRightSliderTarget(int p) {
+    public void setRightSliderTarget(int p) {
         //rightSlidesMotor.setTargetPosition(p);
         rightSlidesMotor.setTargetPosition(p);
     }
-    private void setRightRotatorTarget(int p) {
+    public void setRightRotatorTarget(int p) {
         rightRotatorMotor.setTargetPosition(p);
     }
+
+    public void setDualSliderTarget(int p) {
+        leftSlidesMotor.setTargetPosition(p);
+        rightSlidesMotor.setTargetPosition(p);
+    }
+
+    public void setDualRotatorTarget(int p) {
+        leftRotatorMotor.setTargetPosition(p);
+        rightRotatorMotor.setTargetPosition(p);
+    }
+
+
 
 //    public void toggleMode() {
 //        scoreSample =! scoreSample;
