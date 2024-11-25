@@ -68,16 +68,28 @@ public class SlidesSubsystem {
 //            setSliderTarget(scoreSample ? 0 : 170);
 //        }
 //    }
-//    public int getSlidePosition() {
-//        return leftSlidesMotor.getCurrentPosition();
-//    }
-//    public int getSlideTargetPosition() {
-//        return leftSlidesMotor.getTargetPosition();
-//    }
-//    public boolean getSlideMode() {
-//        return scoreSample;
-//    }
-//    public boolean getSlideState() {
-//        return sliderState;
-//    }
+    public int getSlideLPosition() {
+        return leftSlidesMotor.getCurrentPosition();
+    }
+    public int getSlideLTargetPosition() {
+        return leftSlidesMotor.getTargetPosition();
+    }
+    public int getSlideRPosition() {
+        return rightSlidesMotor.getCurrentPosition();
+    }
+    public int getSlideRTargetPosition() {
+        return rightSlidesMotor.getTargetPosition();
+    }
+    public int getRotatorLPosition() {
+        return leftRotatorMotor.getCurrentPosition();
+    }
+    public int getRotatorLTargetPosition() {
+        return leftRotatorMotor.getTargetPosition();
+    }
+    public int getRotatorRPosition() {
+        return rightRotatorMotor.getCurrentPosition();
+    }
+    public int getRotatorRTargetPosition() {
+        return rightRotatorMotor.getTargetPosition();
+    }
 }

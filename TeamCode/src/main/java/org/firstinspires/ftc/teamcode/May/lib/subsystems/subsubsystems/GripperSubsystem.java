@@ -57,5 +57,18 @@ public class GripperSubsystem {
 //    public boolean getRotatorState() {
 //        return rotatorDown;
 //    }
+    public double getLeftGripperPosition() {
+        return leftGripperServo.getPosition();
+    }
+    public double getLeftRotatorPosition() {
+        return leftRotatorServo.getPosition();
+    }
+    public double getRightGripperPosition() {
+        return rightGripperServo.getPosition();
+    }
+    public double getRightRotatorPosition() {
+        return rightRotatorServo.getPosition();
+
+    }
 
 }
