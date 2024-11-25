@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.May.lib.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.MecanumSubsystem;
-import org.firstinspires.ftc.teamcode.May.lib.subsystems.LeftSlidesSubsystem;
-import org.firstinspires.ftc.teamcode.May.lib.subsystems.LeftGripperSubsystem;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.SlidesSubsystem;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.GripperSubsystem;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "CompetitionTeleOp", group = "Linear OpMode")
 public class TeleOp extends LinearOpMode {
@@ -19,13 +19,19 @@ public class TeleOp extends LinearOpMode {
                 hardwareMap.dcMotor.get("rightBack"),
                 hardwareMap.get(IMU.class, "imu")
         );
-        LeftSlidesSubsystem slide = new LeftSlidesSubsystem(
-                hardwareMap.dcMotor.get("slidesMotorRight")
-                //hardwareMap.dcMotor.get("slidesMotorLeft")
+
+        SlidesSubsystem slide = new SlidesSubsystem(
+                hardwareMap.dcMotor.get("leftSlidesMotor"),
+                hardwareMap.dcMotor.get("leftRotatorMotor"),
+                hardwareMap.dcMotor.get("rightSlidesMotor"),
+                hardwareMap.dcMotor.get("rightRotatorMotor")
         );
-        LeftGripperSubsystem gripper = new LeftGripperSubsystem(
-                hardwareMap.servo.get("gripperServo"),
-                hardwareMap.servo.get("rotatorServo")
+
+        GripperSubsystem gripper = new GripperSubsystem(
+                hardwareMap.servo.get("leftGripperServo"),
+                hardwareMap.servo.get("leftRotatorServo"),
+                hardwareMap.servo.get("rightGripperServo"),
+                hardwareMap.servo.get("rightRotatorServo")
         );
 
         GamepadButton resetIMU = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.START);
