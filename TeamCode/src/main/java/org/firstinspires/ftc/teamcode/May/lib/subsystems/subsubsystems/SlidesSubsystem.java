@@ -9,6 +9,9 @@ public class SlidesSubsystem {
     private final DcMotor objRightRotatorMotor;
     public boolean varRightSliderState = false;
     public boolean varRightRotatorState = false;
+    public boolean varLeftSliderState = false;
+    public boolean varLeftRotatorState = false;
+
     public SlidesSubsystem(DcMotor slideL, DcMotor rotatorL, DcMotor slideR, DcMotor rotatorR) {
 
         objLeftSlidesMotor = slideL;
@@ -52,24 +55,36 @@ public class SlidesSubsystem {
         objLeftRotatorMotor.setTargetPosition(p);
         objRightRotatorMotor.setTargetPosition(p);
     }
-
-
-
     public void toggleRSliderMode() {
-        varRightSliderState =! varRightSliderState;;
+        varRightSliderState =! varRightSliderState;
         if (!varRightSliderState) {
             setRightSliderTarget(600); //(scoreSample ? 2170 : 1950); if scoring sample, set to 1st var, else 2nd var
         } else {
             setRightSliderTarget(0);
         }
     }
-
     public void toggleRRotatorMode() {
         varRightRotatorState =! varRightRotatorState;
         if (!varRightRotatorState) {
             setRightRotatorTarget(80);
         } else {
            setRightRotatorTarget(0);
+        }
+    }
+    public void toggleLSliderMode() {
+        varLeftSliderState =! varLeftSliderState;
+        if (!varLeftSliderState) {
+            setLeftSliderTarget(1500); //(scoreSample ? 2170 : 1950); if scoring sample, set to 1st var, else 2nd var
+        } else {
+            setLeftSliderTarget(0);
+        }
+    }
+    public void toggleLRotatorMode() {
+        varLeftRotatorState =! varLeftRotatorState;
+        if (!varLeftRotatorState) {
+            setLeftRotatorTarget(80);
+        } else {
+            setLeftRotatorTarget(0);
         }
     }
 //    public void dispenseSpecimen() {

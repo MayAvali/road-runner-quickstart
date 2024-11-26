@@ -11,8 +11,7 @@ public class GripperSubsystem {
     boolean leftGripperFront = false;
     enum ThreeStateRightGripper {STOWED, OPEN, CLOSED}
     ThreeStateRightGripper varRightGripperState = ThreeStateRightGripper.STOWED;
-    enum ThreeStateLeftRotator {LEFT90, CENTER, RIGHT90}
-    ThreeStateLeftRotator varLeftRotatorState = ThreeStateLeftRotator.CENTER;
+    int varRightRotatorState = 1;
     public GripperSubsystem(Servo leftGServ, Servo leftRServ, Servo rightGServ, Servo rightRServ) {
         objLeftGripperServo = leftGServ;
         objLeftRotatorServo = leftRServ;
@@ -35,7 +34,13 @@ public class GripperSubsystem {
         }
     }
     public void rightGripperRotate() {
-
+        if (varRightRotatorState == 3) {
+            varRightRotatorState = 1;
+            rightGripperRotateMove();
+        } else {
+            varRightRotatorState++;
+            rightGripperRotateMove();
+        }
     }
     public void rightGripperClampMove() {
         switch (varRightGripperState) {
@@ -51,14 +56,14 @@ public class GripperSubsystem {
         }
     }
     public void rightGripperRotateMove() {
-        switch (varLeftRotatorState) {
-            case LEFT90:
+        switch (varRightRotatorState) {
+            case 1:
                 objRightRotatorServo.setPosition(0.0);
                 break;
-            case CENTER:
+            case 2:
                 objRightRotatorServo.setPosition(0.5);
                 break;
-            case RIGHT90:
+            case 3:
                 objRightRotatorServo.setPosition(1);
                 break;
         }

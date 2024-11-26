@@ -13,5 +13,4 @@ public class ManipulationSubsystem {
         slideSub.setDualSliderTarget(400);
         slideSub.setDualRotatorTarget(650);
     }
-
 }
