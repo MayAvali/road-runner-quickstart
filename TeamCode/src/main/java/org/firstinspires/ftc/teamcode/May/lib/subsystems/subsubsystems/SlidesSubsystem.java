@@ -3,66 +3,75 @@ package org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 public class SlidesSubsystem {
 
-    private final DcMotor leftSlidesMotor;
-    private final DcMotor leftRotatorMotor;
-    private final DcMotor rightSlidesMotor;
-    private final DcMotor rightRotatorMotor;
+    private final DcMotor objLeftSlidesMotor;
+    private final DcMotor objLeftRotatorMotor;
+    private final DcMotor objRightSlidesMotor;
+    private final DcMotor objRightRotatorMotor;
+    public boolean varRightSliderState = false;
+    public boolean varRightRotatorState = false;
     public SlidesSubsystem(DcMotor slideL, DcMotor rotatorL, DcMotor slideR, DcMotor rotatorR) {
 
-        leftSlidesMotor = slideL;
-        leftRotatorMotor = rotatorL;
-        rightSlidesMotor = slideR;
-        rightRotatorMotor = rotatorR;
+        objLeftSlidesMotor = slideL;
+        objLeftRotatorMotor = rotatorL;
+        objRightSlidesMotor = slideR;
+        objRightRotatorMotor = rotatorR;
 
-        leftSlidesMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftSlidesMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        objLeftSlidesMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        objLeftSlidesMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        leftRotatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftRotatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        objLeftRotatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        objLeftRotatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        rightSlidesMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightSlidesMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        objRightSlidesMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        objRightSlidesMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        rightRotatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightRotatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        objRightRotatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        objRightRotatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void setLeftSliderTarget(int p) {
-        //leftSlidesMotor.setTargetPosition(p);
-        leftSlidesMotor.setTargetPosition(p);
+        objLeftSlidesMotor.setTargetPosition(p);
     }
     public void setLeftRotatorTarget(int p) {
-        leftRotatorMotor.setTargetPosition(p);
+        objLeftRotatorMotor.setTargetPosition(p);
     }
 
     public void setRightSliderTarget(int p) {
-        //rightSlidesMotor.setTargetPosition(p);
-        rightSlidesMotor.setTargetPosition(p);
+        objRightSlidesMotor.setTargetPosition(p);
     }
     public void setRightRotatorTarget(int p) {
-        rightRotatorMotor.setTargetPosition(p);
+        objRightRotatorMotor.setTargetPosition(p);
     }
 
     public void setDualSliderTarget(int p) {
-        leftSlidesMotor.setTargetPosition(p);
-        rightSlidesMotor.setTargetPosition(p);
+        objLeftSlidesMotor.setTargetPosition(p);
+        objRightSlidesMotor.setTargetPosition(p);
     }
 
     public void setDualRotatorTarget(int p) {
-        leftRotatorMotor.setTargetPosition(p);
-        rightRotatorMotor.setTargetPosition(p);
+        objLeftRotatorMotor.setTargetPosition(p);
+        objRightRotatorMotor.setTargetPosition(p);
     }
 
 
 
-//    public void toggleMode() {
-//        scoreSample =! scoreSample;
-//        if (!sliderState) {
-//            setSliderTarget(scoreSample ? 2170 : 1950); //if scoring sample, set to 1st var, else 2nd var
-//        } else {
-//            setSliderTarget(scoreSample ? 0 : 130);
-//        }
-//    }
+    public void toggleRSliderMode() {
+        varRightSliderState =! varRightSliderState;;
+        if (!varRightSliderState) {
+            setRightSliderTarget(600); //(scoreSample ? 2170 : 1950); if scoring sample, set to 1st var, else 2nd var
+        } else {
+            setRightSliderTarget(0);
+        }
+    }
+
+    public void toggleRRotatorMode() {
+        varRightRotatorState =! varRightRotatorState;
+        if (!varRightRotatorState) {
+            setRightRotatorTarget(80);
+        } else {
+           setRightRotatorTarget(0);
+        }
+    }
 //    public void dispenseSpecimen() {
 //        if (!scoreSample) {
 //            setSliderTarget(1350);
@@ -81,27 +90,27 @@ public class SlidesSubsystem {
 //        }
 //    }
     public int getSlideLPosition() {
-        return leftSlidesMotor.getCurrentPosition();
+        return objLeftSlidesMotor.getCurrentPosition();
     }
     public int getSlideLTargetPosition() {
-        return leftSlidesMotor.getTargetPosition();
+        return objLeftSlidesMotor.getTargetPosition();
     }
     public int getSlideRPosition() {
-        return rightSlidesMotor.getCurrentPosition();
+        return objRightSlidesMotor.getCurrentPosition();
     }
     public int getSlideRTargetPosition() {
-        return rightSlidesMotor.getTargetPosition();
+        return objRightSlidesMotor.getTargetPosition();
     }
     public int getRotatorLPosition() {
-        return leftRotatorMotor.getCurrentPosition();
+        return objLeftRotatorMotor.getCurrentPosition();
     }
     public int getRotatorLTargetPosition() {
-        return leftRotatorMotor.getTargetPosition();
+        return objLeftRotatorMotor.getTargetPosition();
     }
     public int getRotatorRPosition() {
-        return rightRotatorMotor.getCurrentPosition();
+        return objRightRotatorMotor.getCurrentPosition();
     }
     public int getRotatorRTargetPosition() {
-        return rightRotatorMotor.getTargetPosition();
+        return objRightRotatorMotor.getTargetPosition();
     }
 }
