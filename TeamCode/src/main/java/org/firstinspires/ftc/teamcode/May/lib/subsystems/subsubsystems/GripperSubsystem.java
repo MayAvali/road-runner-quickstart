@@ -7,13 +7,12 @@ public class GripperSubsystem {
     private final Servo objLeftRotatorServo;
     private final Servo objRightGripperServo;
     private final Servo objRightRotatorServo;
-
     boolean leftGripperClosed = false;
-
-    enum threeState {STOWED, OPEN, CLOSED}
-    threeState varRightGripperState = threeState.STOWED;
-
-
+    boolean leftGripperFront = false;
+    enum ThreeStateRightGripper {STOWED, OPEN, CLOSED}
+    ThreeStateRightGripper varRightGripperState = ThreeStateRightGripper.STOWED;
+    enum ThreeStateLeftRotator {LEFT90, CENTER, RIGHT90}
+    ThreeStateLeftRotator varLeftRotatorState = ThreeStateLeftRotator.CENTER;
     public GripperSubsystem(Servo leftGServ, Servo leftRServ, Servo rightGServ, Servo rightRServ) {
         objLeftGripperServo = leftGServ;
         objLeftRotatorServo = leftRServ;
@@ -23,18 +22,22 @@ public class GripperSubsystem {
         objLeftGripperServo.setPosition(0.0);
         objLeftRotatorServo.setPosition(0.0);
         objRightGripperServo.setPosition(0.0);
-        objRightRotatorServo.setPosition(0.0);
+        objRightRotatorServo.setPosition(0.5);
     }
-
-    public void rightGripperMode() {
-        if((varRightGripperState == threeState.STOWED)||(varRightGripperState == threeState.CLOSED))
+    public void rightGripperClamp() {
+        if((varRightGripperState == ThreeStateRightGripper.STOWED)||(varRightGripperState == ThreeStateRightGripper.CLOSED))
         {
-            varRightGripperState = threeState.OPEN;
+            varRightGripperState = ThreeStateRightGripper.OPEN;
+            rightGripperClampMove();
         } else {
-            varRightGripperState = threeState.CLOSED;
+            varRightGripperState = ThreeStateRightGripper.CLOSED;
+            rightGripperClampMove();
         }
     }
-    public void rightGripperPosMove() {
+    public void rightGripperRotate() {
+
+    }
+    public void rightGripperClampMove() {
         switch (varRightGripperState) {
             case STOWED:
                 objRightGripperServo.setPosition(0.0);
@@ -45,6 +48,36 @@ public class GripperSubsystem {
             case CLOSED:
                 objRightGripperServo.setPosition(0.15);
                 break;
+        }
+    }
+    public void rightGripperRotateMove() {
+        switch (varLeftRotatorState) {
+            case LEFT90:
+                objRightRotatorServo.setPosition(0.0);
+                break;
+            case CENTER:
+                objRightRotatorServo.setPosition(0.5);
+                break;
+            case RIGHT90:
+                objRightRotatorServo.setPosition(1);
+                break;
+        }
+    }
+
+    public void leftGripperClamp(){
+        leftGripperClosed = !leftGripperClosed;
+        if (!leftGripperClosed) {
+            objLeftGripperServo.setPosition(0.14);
+        } else {
+            objLeftGripperServo.setPosition(0.00);
+        }
+    }
+    public void leftGripperRotate() {
+        leftGripperFront = !leftGripperFront;
+        if (!leftGripperFront) {
+            objLeftRotatorServo.setPosition(0.0);
+        } else {
+            objLeftRotatorServo.setPosition(0.15);
         }
     }
 //    public void toggleClamp() {
