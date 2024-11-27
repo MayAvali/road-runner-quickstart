@@ -23,7 +23,7 @@ public class GripperSubsystem {
         objRightGripperServo.setPosition(0.0);
         objRightRotatorServo.setPosition(0.5);
     }
-    public void rightGripperClamp() {
+    public void rightGripperClampCall() {
         if((varRightGripperState == ThreeStateRightGripper.STOWED)||(varRightGripperState == ThreeStateRightGripper.CLOSED))
         {
             varRightGripperState = ThreeStateRightGripper.OPEN;
@@ -33,7 +33,7 @@ public class GripperSubsystem {
             rightGripperClampMove();
         }
     }
-    public void rightGripperRotate() {
+    public void rightGripperRotateCall() {
         if (varRightRotatorState == 3) {
             varRightRotatorState = 1;
             rightGripperRotateMove();
