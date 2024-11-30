@@ -103,7 +103,6 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("GripRotator R Position", grippers.getRightRotatorPosition());
 
             telemetry.update();
-
         }
     }
 }
