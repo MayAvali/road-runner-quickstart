@@ -17,20 +17,26 @@ public class ManipulationSubsystem {
 
         varSlidesClimbState++;
 
-        if (varSlidesClimbState == maxSlidesClimbState) {
+        if (varSlidesClimbState == maxSlidesClimbState + 1) {
             varSlidesClimbState = 0;
         }
 
         switch (varSlidesClimbState) {
-            case 1:
+            case 0:
                 objSlideSub.setDualSliderTarget(1500);
-                objSlideSub.setDualRotatorTarget(150);
+                objSlideSub.setDualRotatorTarget(50);
+                break;
+            case 1:
+                objSlideSub.setDualSliderTarget(0);
+                objSlideSub.setDualRotatorTarget(110);
                 break;
             case 2:
                 objSlideSub.setDualSliderTarget(0);
-                objSlideSub.setDualRotatorTarget(80);
+                objSlideSub.setDualRotatorTarget(50);
                 break;
             default:
+                objSlideSub.setDualSliderTarget(0);
+                objSlideSub.setDualRotatorTarget(0);
                 break;
         }
     }
