@@ -35,7 +35,7 @@ public class TeleOp extends LinearOpMode {
                 hardwareMap.servo.get("rightRotatorServo")
         );
 
-        ManipulationSubsystem manipulator = new ManipulationSubsystem(slide, grippers);
+        ManipulationSubsystem ObjManipulationSub = new ManipulationSubsystem(slide, grippers);
 
         GamepadButton resetIMU = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.START);
 
@@ -47,6 +47,8 @@ public class TeleOp extends LinearOpMode {
 //        GamepadButton ManualGripperClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.A);
 //        GamepadButton ManualGripperRotateButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.B);
 
+        GamepadButton AscendStageButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_UP);
+
         waitForStart();
         if (isStopRequested()) return;
 
@@ -56,6 +58,10 @@ public class TeleOp extends LinearOpMode {
             }
             drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
 
+
+            if (AscendStageButton.isPressed()) {
+                ObjManipulationSub.slidesClimbStages();
+            }
 //            if (ManualSlideButton.isPressed()) {
 //                slide.togglePos();
 //            }

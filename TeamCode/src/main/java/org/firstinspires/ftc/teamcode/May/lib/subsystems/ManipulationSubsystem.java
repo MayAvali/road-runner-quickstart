@@ -13,7 +13,7 @@ public class ManipulationSubsystem {
     }
     public void slidesClimbStages() {
 
-        int maxSlidesClimbState = 2;
+        int maxSlidesClimbState = 5;
 
         varSlidesClimbState++;
 
@@ -34,10 +34,23 @@ public class ManipulationSubsystem {
                 objSlideSub.setDualSliderTarget(0);
                 objSlideSub.setDualRotatorTarget(50);
                 break;
+            case 3:
+                objSlideSub.setDualSliderTarget(400);
+                objSlideSub.setDualRotatorTarget(50);
+                break;
+            case 4:
+                objSlideSub.setDualSliderTarget(1500);
+                objSlideSub.setDualRotatorTarget(50);
+                break;
+            case 5:
+                objSlideSub.setDualSliderTarget(0);
+                objSlideSub.setDualRotatorTarget(110);
+                break;
             default:
                 objSlideSub.setDualSliderTarget(0);
-                objSlideSub.setDualRotatorTarget(0);
+                objSlideSub.setDualRotatorTarget(50);
                 break;
         }
     }
+
 }
