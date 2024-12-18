@@ -41,8 +41,8 @@ public class MecanumSubsystem {
         // but only if at least one is out of the range [-1, 1]
         double denominator = Math.max(Math.abs(rx) + Math.abs(x) + Math.abs(-y), 1);
         double frontLeftPower = ((-rx - x + y) / denominator) * (1 - (0.6 * sp));
-        double backLeftPower = ((-rx + x + y) / denominator) * (1 - (0.6 * sp));
-        double frontRightPower = ((-rx + x - y) / denominator) * (1 - (0.6 * sp));
+        double backLeftPower = ((-rx + x - y) / denominator) * (1 - (0.6 * sp));
+        double frontRightPower = ((-rx + x + y) / denominator) * (1 - (0.6 * sp));
         double backRightPower = ((-rx - x - y) / denominator) * (1 - (0.6 * sp));
 
         leftFront.setPower(frontLeftPower);

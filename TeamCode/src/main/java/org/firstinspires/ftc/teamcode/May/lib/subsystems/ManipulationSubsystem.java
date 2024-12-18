@@ -1,56 +1,49 @@
 package org.firstinspires.ftc.teamcode.May.lib.subsystems;
 
+import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
+
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.SlidesSubsystem;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.GripperSubsystem;
 public class ManipulationSubsystem {
     private final SlidesSubsystem objSlideSub;
     private final GripperSubsystem objGripperSub;
-
-    int varSlidesClimbState = 0;
+    private final int upConstant = 3;
+    public boolean varSpecimenState = false;
+    public boolean varSampleState = false;
     public ManipulationSubsystem(SlidesSubsystem slideSub, GripperSubsystem gripperSub) {
         this.objSlideSub = slideSub;
         this.objGripperSub = gripperSub;
     }
-    public void slidesClimbStages() {
-
-        int maxSlidesClimbState = 5;
-
-        varSlidesClimbState++;
-
-        if (varSlidesClimbState == maxSlidesClimbState + 1) {
-            varSlidesClimbState = 0;
-        }
-
-        switch (varSlidesClimbState) {
-            case 0:
-                objSlideSub.setDualSliderTarget(1500);
-                objSlideSub.setDualRotatorTarget(50);
-                break;
-            case 1:
-                objSlideSub.setDualSliderTarget(0);
-                objSlideSub.setDualRotatorTarget(110);
-                break;
-            case 2:
-                objSlideSub.setDualSliderTarget(0);
-                objSlideSub.setDualRotatorTarget(50);
-                break;
-            case 3:
-                objSlideSub.setDualSliderTarget(400);
-                objSlideSub.setDualRotatorTarget(50);
-                break;
-            case 4:
-                objSlideSub.setDualSliderTarget(1500);
-                objSlideSub.setDualRotatorTarget(50);
-                break;
-            case 5:
-                objSlideSub.setDualSliderTarget(0);
-                objSlideSub.setDualRotatorTarget(110);
-                break;
-            default:
-                objSlideSub.setDualSliderTarget(0);
-                objSlideSub.setDualRotatorTarget(50);
-                break;
+    public void toggleSpeciMode() {
+        varSpecimenState = !varSpecimenState;
+        if (!varSpecimenState)
+        {
+            objSlideSub.setLeftSliderTarget(0);
+            objSlideSub.setLeftRotatorTarget(6);
+            objGripperSub.setLeftRotatorTarget(0);
+        } else {
+            objSlideSub.setLeftSliderTarget(0);
+            objSlideSub.setLeftRotatorTarget(upConstant);
+            objGripperSub.setLeftRotatorTarget(0.25);
         }
     }
+    public void toggleSampleMode() {
+        varSampleState = !varSampleState;
+        if (!varSampleState)
+        {
+            objSlideSub.setRightSliderTarget(0);
+            objSlideSub.setRightRotatorTarget(9);
+        } else {
+            objSlideSub.setRightSliderTarget(0);
+            objSlideSub.setRightRotatorTarget(upConstant);
+        }
+    }
+
 
 }

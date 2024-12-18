@@ -3,6 +3,14 @@ package org.firstinspires.ftc.teamcode.May.lib.opmodes.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
+
 import org.firstinspires.ftc.teamcode.May.lib.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.ManipulationSubsystem;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.MecanumSubsystem;
@@ -13,7 +21,7 @@ import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.GripperSu
 public class TeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        MecanumSubsystem drivetrain = new MecanumSubsystem(
+        MecanumSubsystem objDrivetrain = new MecanumSubsystem(
                 hardwareMap.dcMotor.get("leftFront"),
                 hardwareMap.dcMotor.get("leftBack"),
                 hardwareMap.dcMotor.get("rightFront"),
@@ -21,92 +29,80 @@ public class TeleOp extends LinearOpMode {
                 hardwareMap.get(IMU.class, "imu")
         );
 
-        SlidesSubsystem slide = new SlidesSubsystem(
+        SlidesSubsystem objSlides = new SlidesSubsystem(
                 hardwareMap.dcMotor.get("leftSlidesMotor"),
                 hardwareMap.dcMotor.get("leftRotatorMotor"),
                 hardwareMap.dcMotor.get("rightSlidesMotor"),
                 hardwareMap.dcMotor.get("rightRotatorMotor")
         );
 
-        GripperSubsystem grippers = new GripperSubsystem(
+        GripperSubsystem objGrippers = new GripperSubsystem(
                 hardwareMap.servo.get("leftGripperServo"),
                 hardwareMap.servo.get("leftRotatorServo"),
                 hardwareMap.servo.get("rightGripperServo"),
                 hardwareMap.servo.get("rightRotatorServo")
         );
 
-        ManipulationSubsystem ObjManipulationSub = new ManipulationSubsystem(slide, grippers);
+        ManipulationSubsystem objManipulationSub = new ManipulationSubsystem(objSlides, objGrippers);
 
         GamepadButton resetIMU = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.START);
 
-//        GamepadButton ManualSlideButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.X);
-//        GamepadButton SliderModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.Y);
-//        GamepadButton DispenseSpecimenButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.RIGHT_BUMPER);
-//        GamepadButton DeclineButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.LEFT_BUMPER);
-//
-//        GamepadButton ManualGripperClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.A);
-//        GamepadButton ManualGripperRotateButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.B);
-
         GamepadButton AscendStageButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_UP);
+        GamepadButton SpeciModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.A);
+        GamepadButton SpeciClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.B);
+        GamepadButton SampleModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.X);
+        GamepadButton SampleClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.Y);
 
         waitForStart();
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
             if (resetIMU.isPressed()) {
-                drivetrain.resetIMU();
+                objDrivetrain.resetIMU();
             }
-            drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
+            objDrivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
 
 
             if (AscendStageButton.isPressed()) {
-                ObjManipulationSub.slidesClimbStages();
+                objSlides.slidesClimbStages();
             }
-//            if (ManualSlideButton.isPressed()) {
-//                slide.togglePos();
-//            }
-//            if (SliderModeButton.isPressed()) {
-//                slide.toggleMode();
-//                gripper.toggleMode();
-//            }
-//            if (DispenseSpecimenButton.isPressed()) {
-//                slide.dispenseSpecimen();
-//            }
-//            if (DeclineButton.isPressed()) {
-//                slide.decline();
-//            }
-//            if (ManualGripperClampButton.isPressed()) {
-//                gripper.toggleClamp();
-//            }
-//            if (ManualGripperRotateButton.isPressed()) {
-//                gripper.toggleRotate();
-//            }
+            if (SpeciModeButton.isPressed()) {
+                objManipulationSub.toggleSpeciMode();
+            }
+            if (SpeciClampButton.isPressed()) {
+                objGrippers.leftGripperClamp();
+            }
+            if (SampleModeButton.isPressed()) {
+                objManipulationSub.toggleSampleMode();
+            }
+            if (SampleClampButton.isPressed()) {
+                objGrippers.rightGripperClampCall();
+            }
+
+            telemetry.addData("Front Left Motor Power " , objDrivetrain.getFrontLeftPower());
+            telemetry.addData("Back Left Motor Power " , objDrivetrain.getBackLeftPower());
+            telemetry.addData("Front Right Motor Power " , objDrivetrain.getFrontRightPower());
+            telemetry.addData("Back Right Motor Power " , objDrivetrain.getBackRightPower());
 
 
-            telemetry.addData("Front Left Motor Power " , drivetrain.getFrontLeftPower());
-            telemetry.addData("Back Left Motor Power " , drivetrain.getBackLeftPower());
-            telemetry.addData("Front Right Motor Power " , drivetrain.getFrontRightPower());
-            telemetry.addData("Back Right Motor Power " , drivetrain.getBackRightPower());
+            telemetry.addData("Slide L Height ", objSlides.getSlideLPosition());
+            telemetry.addData("Slide L Target ", objSlides.getSlideLTargetPosition());
+
+            telemetry.addData(" SlideRotator L Position ", objSlides.getRotatorLPosition());
+            telemetry.addData("SlideRotator L Target ", objSlides.getRotatorLTargetPosition());
+
+            telemetry.addData("Slide R Height ", objSlides.getSlideRPosition());
+            telemetry.addData("Slide R Target ", objSlides.getSlideRTargetPosition());
+
+            telemetry.addData("SlideRotator R Position ", objSlides.getRotatorRPosition());
+            telemetry.addData("SlideRotator R Target ", objSlides.getRotatorRTargetPosition());
 
 
-            telemetry.addData("Slide L Height ", slide.getSlideLPosition());
-            telemetry.addData("Slide L Target ", slide.getSlideLTargetPosition());
+            telemetry.addData("Gripper L Position", objGrippers.getLeftGripperPosition());
+            telemetry.addData("GripRotator L Position", objGrippers.getLeftRotatorPosition());
 
-            telemetry.addData(" SlideRotator L Position ", slide.getRotatorLPosition());
-            telemetry.addData("SlideRotator L Target ", slide.getRotatorLTargetPosition());
-
-            telemetry.addData("Slide R Height ", slide.getSlideRPosition());
-            telemetry.addData("Slide R Target ", slide.getSlideRTargetPosition());
-
-            telemetry.addData("SlideRotator R Position ", slide.getRotatorRPosition());
-            telemetry.addData("SlideRotator R Target ", slide.getRotatorRTargetPosition());
-
-
-            telemetry.addData("Gripper L Position", grippers.getLeftGripperPosition());
-            telemetry.addData("GripRotator L Position", grippers.getLeftRotatorPosition());
-
-            telemetry.addData("Gripper R Position", grippers.getRightGripperPosition());
-            telemetry.addData("GripRotator R Position", grippers.getRightRotatorPosition());
+            telemetry.addData("Gripper R Position", objGrippers.getRightGripperPosition());
+            telemetry.addData("GripRotator R Position", objGrippers.getRightRotatorPosition());
 
             telemetry.update();
         }

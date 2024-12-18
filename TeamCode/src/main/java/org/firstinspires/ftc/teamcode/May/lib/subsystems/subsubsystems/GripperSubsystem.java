@@ -21,7 +21,7 @@ public class GripperSubsystem {
         objLeftGripperServo.setPosition(0.0);
         objLeftRotatorServo.setPosition(0.0);
         objRightGripperServo.setPosition(0.0);
-        objRightRotatorServo.setPosition(0.5);
+        objRightRotatorServo.setPosition(0.0);
     }
     public void rightGripperClampCall() {
         if((varRightGripperState == ThreeStateRightGripper.STOWED)||(varRightGripperState == ThreeStateRightGripper.CLOSED))
@@ -121,6 +121,12 @@ public class GripperSubsystem {
 //    public boolean getRotatorState() {
 //        return rotatorDown;
 //    }
+    public void setLeftRotatorTarget(double target) {
+        objLeftRotatorServo.setPosition(target);
+    }
+    public void setRightRotatorTarget(double target) {
+        objRightRotatorServo.setPosition(target);
+    }
     public double getLeftGripperPosition() {
         return objLeftGripperServo.getPosition();
     }
@@ -132,7 +138,7 @@ public class GripperSubsystem {
     }
     public double getRightRotatorPosition() {
         return objRightRotatorServo.getPosition();
-
     }
 
 }
+//Huzzington.start;
