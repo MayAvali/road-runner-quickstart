@@ -15,7 +15,6 @@ public class TeleOpDrivetrain extends LinearOpMode {
                 hardwareMap.dcMotor.get("rightBack"),
                 hardwareMap.get(IMU.class, "imu")
         );
-
         waitForStart();
         if (isStopRequested()) return;
 
