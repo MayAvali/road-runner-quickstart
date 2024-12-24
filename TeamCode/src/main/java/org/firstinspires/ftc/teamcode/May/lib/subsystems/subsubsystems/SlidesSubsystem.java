@@ -32,7 +32,6 @@ public class SlidesSubsystem {
         objRightRotatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         objRightRotatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
-
     public void setLeftSliderTarget(int p) {
         objLeftSlidesMotor.setTargetPosition(p);
     }
