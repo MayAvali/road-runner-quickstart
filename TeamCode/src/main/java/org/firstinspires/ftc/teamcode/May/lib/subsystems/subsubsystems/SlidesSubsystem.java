@@ -63,7 +63,7 @@ public class SlidesSubsystem {
 
     public void setDualSliderTarget(int p) {
         objLeftSlidesMotor.setTargetPosition(p);
-        objRightSlidesMotor.setTargetPosition(-p);
+        objRightSlidesMotor.setTargetPosition(p);
     }
 
     public void setDualRotatorTarget(int p) {
