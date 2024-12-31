@@ -9,7 +9,7 @@ public class SlidesSubsystem {
     private final DcMotor objRightRotatorMotor;
     private final int rotUpConstant = 200;
     private final double slidePowConstant = 0.5;
-    private final double rotPowConstant = 0.5;
+    private final double rotPowConstant = -0.5;
     public boolean varRightSliderState = false;
     public boolean varRightRotatorState = false;
     public boolean varLeftSliderState = false;
@@ -55,10 +55,10 @@ public class SlidesSubsystem {
     }
 
     public void setRightSliderTarget(int p) {
-        objRightSlidesMotor.setTargetPosition(-p);
+        objRightSlidesMotor.setTargetPosition(p);
     }
     public void setRightRotatorTarget(int p) {
-        objRightRotatorMotor.setTargetPosition(-p);
+        objRightRotatorMotor.setTargetPosition(p);
     }
 
     public void setDualSliderTarget(int p) {
@@ -68,7 +68,7 @@ public class SlidesSubsystem {
 
     public void setDualRotatorTarget(int p) {
         objLeftRotatorMotor.setTargetPosition(p);
-        objRightRotatorMotor.setTargetPosition(-p);
+        objRightRotatorMotor.setTargetPosition(p);
     }
     public void toggleRSliderMode() {
         varRightSliderState =! varRightSliderState;
