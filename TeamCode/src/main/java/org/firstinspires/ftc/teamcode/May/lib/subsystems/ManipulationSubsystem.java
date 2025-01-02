@@ -25,7 +25,7 @@ public class ManipulationSubsystem {
         if (!varSpecimenState)
         {
             objSlideSub.setLeftSliderTarget(0);
-            objSlideSub.setLeftRotatorTarget(120);
+            objSlideSub.setLeftRotatorTarget(240);
             objGripperSub.setLeftRotatorTarget(0);
         } else {
             objSlideSub.setLeftSliderTarget(0);
@@ -37,8 +37,8 @@ public class ManipulationSubsystem {
         varSampleState = !varSampleState;
         if (!varSampleState)
         {
-            objSlideSub.setRightSliderTarget(0);
-            objSlideSub.setRightRotatorTarget(220);
+            objSlideSub.setRightSliderTarget(500);
+            objSlideSub.setRightRotatorTarget(450);
         } else {
             objSlideSub.setRightSliderTarget(0);
             objSlideSub.setRightRotatorTarget(rotUpConstant);

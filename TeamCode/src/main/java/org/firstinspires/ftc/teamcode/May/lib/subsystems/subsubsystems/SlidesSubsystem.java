@@ -10,7 +10,7 @@ public class SlidesSubsystem {
     private final DcMotor objRightSlidesMotor;
     private final DcMotor objRightRotatorMotor;
     private final int rotUpConstant = 200;
-    private final double slidePowConstant = 0.2;
+    private final double slidePowConstant = 0.5;
     private final double rotPowConstant = 0.5;
     public boolean varRightSliderState = false;
     public boolean varRightRotatorState = false;
@@ -24,9 +24,10 @@ public class SlidesSubsystem {
         objRightSlidesMotor = slideR;
         objRightRotatorMotor = rotatorR;
 
-        objLeftSlidesMotor.setTargetPosition(1);
+        objLeftSlidesMotor.setTargetPosition(0);
         objLeftSlidesMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         objLeftSlidesMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        objLeftSlidesMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         objLeftSlidesMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         objLeftSlidesMotor.setPower(slidePowConstant);
 
@@ -37,7 +38,7 @@ public class SlidesSubsystem {
         objLeftRotatorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         objLeftRotatorMotor.setPower(rotPowConstant);
 
-        objRightSlidesMotor.setTargetPosition(1);
+        objRightSlidesMotor.setTargetPosition(0);
         objRightSlidesMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         objRightSlidesMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         objRightSlidesMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -117,24 +118,24 @@ public class SlidesSubsystem {
 
         switch (varSlidesClimbState) {
             case 0:
-                setDualSliderTarget(1500);
+                setDualSliderTarget(0);
                 setDualRotatorTarget(50);
                 break;
             case 1:
-                setDualSliderTarget(0);
-                setDualRotatorTarget(110);
+                setDualSliderTarget(2000);
+                setDualRotatorTarget(220);
                 break;
             case 2:
                 setDualSliderTarget(0);
-                setDualRotatorTarget(50);
+                setDualRotatorTarget(0);
                 break;
             case 3:
-                setDualSliderTarget(400);
-                setDualRotatorTarget(110);
+                setDualSliderTarget(2000);
+                setDualRotatorTarget(220);
                 break;
             case 4:
-                setDualSliderTarget(1500);
-                setDualRotatorTarget(50);
+                setDualSliderTarget(0);
+                setDualRotatorTarget(0);
                 break;
             case 5:
                 setDualSliderTarget(0);
@@ -146,11 +147,9 @@ public class SlidesSubsystem {
                 break;
         }
     }
-    public void ManualControl(double leftRotPower, double rightRotPower, double leftSlidePower, double rightSlidePower) {
-        objLeftRotatorMotor.setPower(leftRotPower);
-        objRightRotatorMotor.setPower(rightRotPower);
-        objLeftSlidesMotor.setPower(leftSlidePower);
-        objRightSlidesMotor.setPower(rightSlidePower);
+    public void ManualControl(double RotPos, double SlidePos) {
+        setDualRotatorTarget((int)RotPos*400);
+        setDualSliderTarget((int)SlidePos*3000);
     }
 //    public void dispenseSpecimen() {
 //        if (!scoreSample) {
