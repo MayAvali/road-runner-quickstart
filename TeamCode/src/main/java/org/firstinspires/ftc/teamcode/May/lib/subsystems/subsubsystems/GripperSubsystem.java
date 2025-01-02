@@ -80,9 +80,9 @@ public class GripperSubsystem {
     public void leftGripperRotate() {
         leftGripperFront = !leftGripperFront;
         if (!leftGripperFront) {
-            objLeftRotatorServo.setPosition(0.0);
+            objLeftRotatorServo.setPosition(1);
         } else {
-            objLeftRotatorServo.setPosition(0.15);
+            objLeftRotatorServo.setPosition(0.85);
         }
     }
 //    public void toggleClamp() {

@@ -30,7 +30,7 @@ public class ManipulationSubsystem {
         } else {
             objSlideSub.setLeftSliderTarget(0);
             objSlideSub.setLeftRotatorTarget(rotUpConstant);
-            objGripperSub.setLeftRotatorTarget(0.25);
+            objGripperSub.setLeftRotatorTarget(0.15);
         }
     }
     public void toggleSampleMode() {

@@ -84,18 +84,21 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Front Right Motor Power " , objDrivetrain.getFrontRightPower());
             telemetry.addData("Back Right Motor Power " , objDrivetrain.getBackRightPower());
 
-
             telemetry.addData("Slide L Height ", objSlides.getSlideLPosition());
             telemetry.addData("Slide L Target ", objSlides.getSlideLTargetPosition());
+            telemetry.addData("Slide L Power", objSlides.getSlideLPower());
 
-            telemetry.addData(" SlideRotator L Position ", objSlides.getRotatorLPosition());
+            telemetry.addData("SlideRotator L Position ", objSlides.getRotatorLPosition());
             telemetry.addData("SlideRotator L Target ", objSlides.getRotatorLTargetPosition());
+            telemetry.addData("SlideRotator L Power", objSlides.getRotatorLPower());
 
             telemetry.addData("Slide R Height ", objSlides.getSlideRPosition());
             telemetry.addData("Slide R Target ", objSlides.getSlideRTargetPosition());
+            telemetry.addData("Slide R Power ", objSlides.getSlideRPower());
 
             telemetry.addData("SlideRotator R Position ", objSlides.getRotatorRPosition());
             telemetry.addData("SlideRotator R Target ", objSlides.getRotatorRTargetPosition());
+            telemetry.addData("SlideRotator R Power ", objSlides.getRotatorRPower());
 
 
             telemetry.addData("Gripper L Position", objGrippers.getLeftGripperPosition());
