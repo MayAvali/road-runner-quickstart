@@ -10,8 +10,8 @@ public class SlidesSubsystem {
     private final DcMotor objRightSlidesMotor;
     private final DcMotor objRightRotatorMotor;
     private final int rotUpConstant = 200;
-    private final double slidePowConstant = 0.5;
-    private final double rotPowConstant = 0.5;
+    private final double slidePowConstant = 0;
+    private final double rotPowConstant = 0;
     public boolean varRightSliderState = false;
     public boolean varRightRotatorState = false;
     public boolean varLeftSliderState = false;
@@ -28,27 +28,27 @@ public class SlidesSubsystem {
         objLeftSlidesMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         objLeftSlidesMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         objLeftSlidesMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        objLeftSlidesMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //objLeftSlidesMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         objLeftSlidesMotor.setPower(slidePowConstant);
 
 
         objLeftRotatorMotor.setTargetPosition(0);
         objLeftRotatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         objLeftRotatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        objLeftRotatorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //objLeftRotatorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         objLeftRotatorMotor.setPower(rotPowConstant);
 
         objRightSlidesMotor.setTargetPosition(0);
         objRightSlidesMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         objRightSlidesMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        objRightSlidesMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //objRightSlidesMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         objRightSlidesMotor.setPower(slidePowConstant);
 
         objRightRotatorMotor.setTargetPosition(0);
         objRightRotatorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         objRightRotatorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         objRightRotatorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        objRightRotatorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //]objRightRotatorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         objRightRotatorMotor.setPower(rotPowConstant);
     }
     public void setLeftSliderTarget(int p) {
