@@ -18,7 +18,7 @@ public class GripperSubsystem {
         objRightGripperServo = rightGServ;
         objRightRotatorServo = rightRServ;
 
-        objLeftGripperServo.setPosition(0.0);
+        objLeftGripperServo.setPosition(0.1);
         objLeftRotatorServo.setPosition(0.0);
         objRightGripperServo.setPosition(0.0);
         objRightRotatorServo.setPosition(0.0);

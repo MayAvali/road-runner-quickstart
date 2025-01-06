@@ -73,7 +73,7 @@ public class TeleOp extends LinearOpMode {
                 objGrippers.leftGripperClamp();
             }
             if (SampleModeButton.isPressed()) {
-                objManipulationSub.toggleSampleMode();
+                objManipulationSub.toggleSubmersibleMode();
             }
             if (SampleClampButton.isPressed()) {
                 objGrippers.rightGripperClampCall();

@@ -10,8 +10,8 @@ public class SlidesSubsystem {
     private final DcMotor objRightSlidesMotor;
     private final DcMotor objRightRotatorMotor;
     private final int rotUpConstant = 200;
-    private final double slidePowConstant = 0;
-    private final double rotPowConstant = 0;
+    private final double slidePowConstant = 0.5;
+    private final double rotPowConstant = 0.5;
     public boolean varRightSliderState = false;
     public boolean varRightRotatorState = false;
     public boolean varLeftSliderState = false;
@@ -121,15 +121,15 @@ public class SlidesSubsystem {
                 break;
             case 1:
                 setDualSliderTarget(2000);
-                setDualRotatorTarget(220);
+                setDualRotatorTarget(1025);
                 break;
             case 2:
                 setDualSliderTarget(0);
-                setDualRotatorTarget(0);
+                setDualRotatorTarget(100);
                 break;
             case 3:
                 setDualSliderTarget(2000);
-                setDualRotatorTarget(220);
+                setDualRotatorTarget(1025);
                 break;
             case 4:
                 setDualSliderTarget(0);

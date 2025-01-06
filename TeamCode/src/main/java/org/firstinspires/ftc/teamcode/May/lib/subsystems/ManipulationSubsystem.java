@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.GripperSu
 public class ManipulationSubsystem {
     private final SlidesSubsystem objSlideSub;
     private final GripperSubsystem objGripperSub;
-    private final int rotUpConstant = 30;
+    private final int rotUpConstant = 120;
     public boolean varSpecimenState = false;
     public boolean varSampleState = false;
     public ManipulationSubsystem(SlidesSubsystem slideSub, GripperSubsystem gripperSub) {
@@ -25,20 +25,19 @@ public class ManipulationSubsystem {
         if (!varSpecimenState)
         {
             objSlideSub.setLeftSliderTarget(0);
-            objSlideSub.setLeftRotatorTarget(240);
-            objGripperSub.setLeftRotatorTarget(0);
+            objSlideSub.setLeftRotatorTarget(900);
         } else {
             objSlideSub.setLeftSliderTarget(0);
             objSlideSub.setLeftRotatorTarget(rotUpConstant);
             objGripperSub.setLeftRotatorTarget(0.15);
         }
     }
-    public void toggleSampleMode() {
+    public void toggleSubmersibleMode() {
         varSampleState = !varSampleState;
         if (!varSampleState)
         {
-            objSlideSub.setRightSliderTarget(500);
-            objSlideSub.setRightRotatorTarget(450);
+            objSlideSub.setRightSliderTarget(1200);
+            objSlideSub.setRightRotatorTarget(1400);
         } else {
             objSlideSub.setRightSliderTarget(0);
             objSlideSub.setRightRotatorTarget(rotUpConstant);
