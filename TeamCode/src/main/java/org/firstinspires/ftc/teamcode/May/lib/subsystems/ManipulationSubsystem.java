@@ -1,37 +1,32 @@
 package org.firstinspires.ftc.teamcode.May.lib.subsystems;
 
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
-
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.SlidesSubsystem;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.GripperSubsystem;
 public class ManipulationSubsystem {
     private final SlidesSubsystem objSlideSub;
     private final GripperSubsystem objGripperSub;
     private final int rotUpConstant = 120;
-    public boolean varSpecimenState = false;
+    public boolean varSpecimenRotState = false;
     public boolean varSampleState = false;
     public ManipulationSubsystem(SlidesSubsystem slideSub, GripperSubsystem gripperSub) {
         this.objSlideSub = slideSub;
         this.objGripperSub = gripperSub;
     }
-    public void toggleSpeciMode() {
-        varSpecimenState = !varSpecimenState;
-        if (!varSpecimenState)
+    public void toggleSpeciSlideRotPosition() {
+        varSpecimenRotState = !varSpecimenRotState;
+        if (!varSpecimenRotState)
         {
-            objSlideSub.setLeftSliderTarget(0);
             objSlideSub.setLeftRotatorTarget(900);
+            objGripperSub.setLeftRotatorTarget(0.05);
         } else {
-            objSlideSub.setLeftSliderTarget(0);
             objSlideSub.setLeftRotatorTarget(rotUpConstant);
-            objGripperSub.setLeftRotatorTarget(0.15);
+            objGripperSub.setLeftRotatorTarget(0);
         }
     }
+    public void toggleSpeciSlideExtendPosition() {
+
+    }
+
     public void toggleSubmersibleMode() {
         varSampleState = !varSampleState;
         if (!varSampleState)

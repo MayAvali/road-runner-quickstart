@@ -50,8 +50,8 @@ public class TeleOp extends LinearOpMode {
         GamepadButton AscendStageButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_UP);
         GamepadButton SpeciModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.A);
         GamepadButton SpeciClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.B);
-        GamepadButton SampleModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.X);
-        GamepadButton SampleClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.Y);
+        //GamepadButton SampleModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.X);
+        //GamepadButton SampleClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.Y);
 
         waitForStart();
         if (isStopRequested()) return;
@@ -67,17 +67,17 @@ public class TeleOp extends LinearOpMode {
                 objSlides.slidesClimbStages();
             }
             if (SpeciModeButton.isPressed()) {
-                objManipulationSub.toggleSpeciMode();
+                objManipulationSub.toggleSpeciSlideRotPosition();
             }
             if (SpeciClampButton.isPressed()) {
                 objGrippers.leftGripperClamp();
             }
-            if (SampleModeButton.isPressed()) {
-                objManipulationSub.toggleSubmersibleMode();
-            }
-            if (SampleClampButton.isPressed()) {
-                objGrippers.rightGripperClampCall();
-            }
+//            if (SampleModeButton.isPressed()) {
+//                objManipulationSub.toggleSubmersibleMode();
+//            }
+//            if (SampleClampButton.isPressed()) {
+//                objGrippers.rightGripperClampCall();
+//            }
 
             telemetry.addData("Front Left Motor Power " , objDrivetrain.getFrontLeftPower());
             telemetry.addData("Back Left Motor Power " , objDrivetrain.getBackLeftPower());
