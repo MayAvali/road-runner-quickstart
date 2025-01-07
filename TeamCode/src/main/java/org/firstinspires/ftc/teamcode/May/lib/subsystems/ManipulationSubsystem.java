@@ -7,6 +7,7 @@ public class ManipulationSubsystem {
     private final GripperSubsystem objGripperSub;
     private final int rotUpConstant = 120;
     public boolean varSpecimenRotState = false;
+    public boolean varSpeciExtendState = false;
     public boolean varSampleState = false;
     public ManipulationSubsystem(SlidesSubsystem slideSub, GripperSubsystem gripperSub) {
         this.objSlideSub = slideSub;
@@ -24,7 +25,13 @@ public class ManipulationSubsystem {
         }
     }
     public void toggleSpeciSlideExtendPosition() {
-
+        varSpeciExtendState = !varSpeciExtendState;
+        if (!varSpeciExtendState)
+        {
+            objSlideSub.setLeftSliderTarget(1200);
+        } else {
+            objSlideSub.setLeftSliderTarget(0);
+        }
     }
 
     public void toggleSubmersibleMode() {

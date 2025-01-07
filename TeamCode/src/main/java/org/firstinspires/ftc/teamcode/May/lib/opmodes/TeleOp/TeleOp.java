@@ -50,6 +50,8 @@ public class TeleOp extends LinearOpMode {
         GamepadButton AscendStageButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_UP);
         GamepadButton SpeciModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.A);
         GamepadButton SpeciClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.B);
+
+        
         //GamepadButton SampleModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.X);
         //GamepadButton SampleClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.Y);
 
