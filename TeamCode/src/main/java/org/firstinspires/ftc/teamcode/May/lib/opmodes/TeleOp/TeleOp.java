@@ -50,6 +50,7 @@ public class TeleOp extends LinearOpMode {
         GamepadButton AscendStageButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_UP);
         GamepadButton SpeciModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.A);
         GamepadButton SpeciClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.B);
+        GamepadButton SpeciSlideButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.X);
 
         
         //GamepadButton SampleModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.X);
@@ -73,6 +74,9 @@ public class TeleOp extends LinearOpMode {
             }
             if (SpeciClampButton.isPressed()) {
                 objGrippers.leftGripperClamp();
+            }
+            if (SpeciSlideButton.isPressed()) {
+                objManipulationSub.toggleSpeciSlideExtendPosition();
             }
 //            if (SampleModeButton.isPressed()) {
 //                objManipulationSub.toggleSubmersibleMode();

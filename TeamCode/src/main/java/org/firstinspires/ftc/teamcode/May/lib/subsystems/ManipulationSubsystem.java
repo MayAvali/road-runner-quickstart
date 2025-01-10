@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.GripperSu
 public class ManipulationSubsystem {
     private final SlidesSubsystem objSlideSub;
     private final GripperSubsystem objGripperSub;
-    private final int rotUpConstant = 120;
+    private final int retractConstant = 120;
     public boolean varSpecimenRotState = false;
     public boolean varSpeciExtendState = false;
     public boolean varSampleState = false;
@@ -15,18 +15,19 @@ public class ManipulationSubsystem {
     }
     public void toggleSpeciSlideRotPosition() {
         varSpecimenRotState = !varSpecimenRotState;
-        if (!varSpecimenRotState)
+        if (varSpecimenRotState)
         {
             objSlideSub.setLeftRotatorTarget(900);
-            objGripperSub.setLeftRotatorTarget(0.05);
+            objGripperSub.setLeftRotatorTarget(0.1);
         } else {
-            objSlideSub.setLeftRotatorTarget(rotUpConstant);
+            objSlideSub.setLeftRotatorTarget(retractConstant);
             objGripperSub.setLeftRotatorTarget(0);
+            toggleSpeciSlideExtendPosition();
         }
     }
     public void toggleSpeciSlideExtendPosition() {
         varSpeciExtendState = !varSpeciExtendState;
-        if (!varSpeciExtendState)
+        if (varSpeciExtendState && varSpecimenRotState)
         {
             objSlideSub.setLeftSliderTarget(1200);
         } else {
@@ -42,7 +43,7 @@ public class ManipulationSubsystem {
             objSlideSub.setRightRotatorTarget(1400);
         } else {
             objSlideSub.setRightSliderTarget(0);
-            objSlideSub.setRightRotatorTarget(rotUpConstant);
+            objSlideSub.setRightRotatorTarget(retractConstant);
         }
     }
 }
