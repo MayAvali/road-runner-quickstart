@@ -29,7 +29,7 @@ public class ManipulationSubsystem {
         varSpeciExtendState = !varSpeciExtendState;
         if (varSpeciExtendState && varSpecimenRotState)
         {
-            objSlideSub.setLeftSliderTarget(1200);
+            objSlideSub.setLeftSliderTarget(1650); // Needs tweaking.
         } else {
             objSlideSub.setLeftSliderTarget(0);
         }
