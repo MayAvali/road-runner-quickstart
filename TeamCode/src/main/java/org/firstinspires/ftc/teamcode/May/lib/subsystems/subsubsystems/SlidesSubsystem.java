@@ -35,14 +35,14 @@ public class SlidesSubsystem {
     public void toggleMode() {
         scoreSample =! scoreSample;
         if (!sliderState) {
-            setSliderTarget(scoreSample ? 2170 : 1950); //if scoring sample, set to 1st var, else 2nd var
+            setSliderTarget(scoreSample ? 4100 : 1950); //if scoring sample, set to 1st var, else 2nd var
         } else {
             setSliderTarget(scoreSample ? 0 : 130);
         }
     }
     public void dispenseSpecimen() {
         if (!scoreSample) {
-            setSliderTarget(1350);
+            setSliderTarget(1400);
             sliderState = true;
         }
     }
@@ -65,7 +65,7 @@ public class SlidesSubsystem {
     public void togglePos() {
         sliderState =! sliderState;
         if (!sliderState) {
-            setSliderTarget(scoreSample ? 2170 : 1950); //if scoring sample, set to 1st var, else 2nd var
+            setSliderTarget(scoreSample ? 4250 : 1950); //if scoring sample, set to 1st var, else 2nd var
         } else {
             setSliderTarget(scoreSample ? 0 : 170);
         }
@@ -73,7 +73,7 @@ public class SlidesSubsystem {
     public void RRtogglePos() {
         sliderState =! sliderState;
         if (!sliderState) {
-            setSliderTarget(scoreSample ? 2170 : 1950); //if scoring sample, set to 1st var, else 2nd var
+            setSliderTarget(scoreSample ? 4250 : 1950); //if scoring sample, set to 1st var, else 2nd var
         } else {
             setSliderTarget(scoreSample ? 0 : 170);
         }

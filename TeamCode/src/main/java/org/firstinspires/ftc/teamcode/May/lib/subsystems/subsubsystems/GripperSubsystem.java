@@ -25,18 +25,18 @@ public class GripperSubsystem {
     public void toggleClamp() {
         gripperClosed = !gripperClosed;
         if (!gripperClosed) {
-            gripperServo.setPosition(0.14);
+            gripperServo.setPosition(0.2);
         } else {
-            gripperServo.setPosition(0.00);
+            gripperServo.setPosition(0.05);
         }
     }
 
     public void RRtoggleClamp() {
         gripperClosed = !gripperClosed;
         if (!gripperClosed) {
-            gripperServo.setPosition(0.14);
+            gripperServo.setPosition(0.2);
         } else {
-            gripperServo.setPosition(0.00);
+            gripperServo.setPosition(0.05);
         }
     }
 
@@ -44,16 +44,16 @@ public class GripperSubsystem {
         scoreSample = !scoreSample;
         if (!rotatorDown) {
             rotatorServo.setPosition(scoreSample ? 0.45 : 0.36);
-        } else if (gripperClosed) {
+        } else {
             rotatorServo.setPosition(0.02);
         }
     }
 
     public void toggleRotate() {
         rotatorDown = !rotatorDown;
-        if (!rotatorDown && gripperClosed) {
+        if (!rotatorDown) {
             rotatorServo.setPosition(scoreSample ? 0.45 : 0.36);
-        } else if (gripperClosed) {
+        } else {
             rotatorServo.setPosition(0.02);
         }
     }

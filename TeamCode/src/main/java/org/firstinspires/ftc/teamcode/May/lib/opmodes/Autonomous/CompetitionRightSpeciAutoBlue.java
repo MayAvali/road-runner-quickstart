@@ -16,6 +16,19 @@ import org.firstinspires.ftc.teamcode.RoadRunnerUtils.tuning.MecanumDrive;
 public class CompetitionRightSpeciAutoBlue extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
+        Pose2d initialPose = new Pose2d(-8, 62.7, Math.toRadians(270));
+        Pose2d secondPose = new Pose2d(-8, 32, Math.toRadians(270));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+
+        TrajectoryActionBuilder move1 = drive.actionBuilder(initialPose)
+                .lineToY(32);
+
+        TrajectoryActionBuilder move2 = drive.actionBuilder(secondPose)
+                .lineToY(60);
+                //.turn(Math.toRadians(90))
+                //.lineToX(-50);
+
+        waitForStart();
 
         GripperSubsystem objGrippers = new GripperSubsystem(
                 hardwareMap.servo.get("gripperServo"),
@@ -26,19 +39,7 @@ public class CompetitionRightSpeciAutoBlue extends LinearOpMode {
                 hardwareMap.dcMotor.get("slidesMotor")
         );
 
-        Pose2d initialPose = new Pose2d(-8, 62.7, Math.toRadians(270));
-        Pose2d secondPose = new Pose2d(-8, 32, Math.toRadians(270));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
-
-        TrajectoryActionBuilder move1 = drive.actionBuilder(initialPose)
-                .lineToY(32);
-
-        TrajectoryActionBuilder move2 = drive.actionBuilder(secondPose)
-                .lineToY(55);
-                //.turn(Math.toRadians(90))
-                //.lineToX(-50);
-
-        waitForStart();
+        sleep(500);
 
         objSlides.togglePos();
 
@@ -52,7 +53,7 @@ public class CompetitionRightSpeciAutoBlue extends LinearOpMode {
 
         sleep(500);
 
-        objGrippers.RRtoggleClamp();
+        objGrippers.toggleClamp();
 
         Actions.runBlocking(
                 new SequentialAction(
