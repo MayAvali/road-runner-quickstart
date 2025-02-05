@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems;
+package org.firstinspires.ftc.teamcode.May.lib.subsystems;
 
 import androidx.annotation.NonNull;
 
@@ -6,31 +6,25 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class SlidesSubsystem {
-
-    //private final DcMotor slidesMotorLeft;
-    private final DcMotor slidesMotorRight;
+public class PrimarySlidesSubsystem {
+    public final DcMotor primarySlideMotor;
 
     boolean scoreSample = false;
     boolean sliderState = true;
-    public SlidesSubsystem(DcMotor slideR) {
+    public PrimarySlidesSubsystem(DcMotor primarySlideMotor) {
 
-        //slidesMotorLeft = slideL;
-        slidesMotorRight = slideR;
+        this.primarySlideMotor = primarySlideMotor;
 
-        //slidesMotorLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slidesMotorRight.setDirection(DcMotor.Direction.REVERSE);
-        slidesMotorRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //slidesMotorLeft.setTargetPosition(0);
-        slidesMotorRight.setTargetPosition(scoreSample ? 0 : 130);
-        slidesMotorRight.setPower(1);
-        //slidesMotorLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slidesMotorRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        primarySlideMotor.setDirection(DcMotor.Direction.REVERSE);
+        primarySlideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        primarySlideMotor.setTargetPosition(scoreSample ? 0 : 130);
+        primarySlideMotor.setPower(1);
+        primarySlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     private void setSliderTarget(int p) {
         //slidesMotorLeft.setTargetPosition(p);
-        slidesMotorRight.setTargetPosition(p);
+        primarySlideMotor.setTargetPosition(p);
     }
     public void toggleMode() {
         scoreSample =! scoreSample;
@@ -46,19 +40,7 @@ public class SlidesSubsystem {
             sliderState = true;
         }
     }
-    public class RRdispenseSpecimen implements Action {
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            if (!scoreSample) {
-                setSliderTarget(1350);
-                sliderState = true;
 
-            }
-            return true;
-        }
-    } {
-
-    }
     public void decline() {
         setSliderTarget(getSlideTargetPosition() - 5);
     }
@@ -79,10 +61,10 @@ public class SlidesSubsystem {
         }
     }
     public int getSlidePosition() {
-        return slidesMotorRight.getCurrentPosition();
+        return primarySlideMotor.getCurrentPosition();
     }
     public int getSlideTargetPosition() {
-        return slidesMotorRight.getTargetPosition();
+        return primarySlideMotor.getTargetPosition();
     }
     public boolean getSlideMode() {
         return scoreSample;

@@ -8,8 +8,8 @@ import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.GripperSubsystem;
-import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.SlidesSubsystem;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.PrimaryGripperSubsystem;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.PrimarySlidesSubsystem;
 import org.firstinspires.ftc.teamcode.RoadRunnerUtils.tuning.MecanumDrive;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "CompetitionRightSpeciAutoBlue", group = "Autonomous OpMode")
@@ -30,12 +30,12 @@ public class CompetitionRightSpeciAutoBlue extends LinearOpMode {
 
         waitForStart();
 
-        GripperSubsystem objGrippers = new GripperSubsystem(
+        PrimaryGripperSubsystem objGrippers = new PrimaryGripperSubsystem(
                 hardwareMap.servo.get("gripperServo"),
                 hardwareMap.servo.get("rotatorServo")
         );
 
-        SlidesSubsystem objSlides = new SlidesSubsystem(
+        PrimarySlidesSubsystem objSlides = new PrimarySlidesSubsystem(
                 hardwareMap.dcMotor.get("slidesMotor")
         );
 

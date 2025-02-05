@@ -3,19 +3,10 @@ package org.firstinspires.ftc.teamcode.May.lib.opmodes.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
-
 import org.firstinspires.ftc.teamcode.May.lib.libraries.GamepadButton;
-import org.firstinspires.ftc.teamcode.May.lib.subsystems.ManipulationSubsystem;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.MecanumSubsystem;
-import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.SlidesSubsystem;
-import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsubsystems.GripperSubsystem;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.PrimarySlidesSubsystem;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.PrimaryGripperSubsystem;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "CompetitionTeleOp", group = "Linear OpMode")
 public class TeleOp extends LinearOpMode {
@@ -29,13 +20,13 @@ public class TeleOp extends LinearOpMode {
                 hardwareMap.get(IMU.class, "imu")
         );
 
-        SlidesSubsystem objSlides = new SlidesSubsystem(
-                hardwareMap.dcMotor.get("slidesMotor")
+        PrimarySlidesSubsystem objSlides = new PrimarySlidesSubsystem(
+                hardwareMap.dcMotor.get("primarySlidesMotor")
         );
 
-        GripperSubsystem objGrippers = new GripperSubsystem(
-                hardwareMap.servo.get("gripperServo"),
-                hardwareMap.servo.get("rotatorServo")
+        PrimaryGripperSubsystem objGrippers = new PrimaryGripperSubsystem(
+                hardwareMap.servo.get("primaryGripperServo"),
+                hardwareMap.servo.get("primaryRotatorServo")
         );
 
         GamepadButton resetIMU = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.START);
