@@ -22,28 +22,28 @@ public class PrimaryGripperSubsystem {
     }
 
     public void toggleClamp() {
-        gripperClosed = !gripperClosed;
-        if (!gripperClosed) {
+        if (gripperClosed) {
             primaryGripperServo.setPosition(0.2);
         } else {
             primaryGripperServo.setPosition(0.05);
         }
+        gripperClosed = !gripperClosed;
     }
     public void toggleMode() {
-        scoreSample = !scoreSample;
-        if (!rotatorDown) {
+        if (rotatorDown) {
             primaryRotatorServo.setPosition(scoreSample ? 0.45 : 0.36);
         } else {
             primaryRotatorServo.setPosition(0.02);
         }
+        scoreSample = !scoreSample;
     }
     public void toggleRotate() {
-        rotatorDown = !rotatorDown;
-        if (!rotatorDown) {
+        if (rotatorDown) {
             primaryRotatorServo.setPosition(scoreSample ? 0.45 : 0.36);
         } else {
             primaryRotatorServo.setPosition(0.02);
         }
+        rotatorDown = !rotatorDown;
     }
     public double getGripperPosition() {
         return primaryGripperServo.getPosition();

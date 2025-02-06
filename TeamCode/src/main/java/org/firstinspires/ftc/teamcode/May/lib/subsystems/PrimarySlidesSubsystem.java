@@ -27,12 +27,12 @@ public class PrimarySlidesSubsystem {
         primarySlideMotor.setTargetPosition(p);
     }
     public void toggleMode() {
-        scoreSample =! scoreSample;
-        if (!sliderState) {
+        if (sliderState) {
             setSliderTarget(scoreSample ? 4400 : 1950); //if scoring sample, set to 1st var, else 2nd var
         } else {
             setSliderTarget(scoreSample ? 0 : 200);
         }
+        scoreSample =! scoreSample;
     }
     public void dispenseSpecimen() {
         if (!scoreSample) {
@@ -45,12 +45,12 @@ public class PrimarySlidesSubsystem {
         setSliderTarget(getSlideTargetPosition() - 5);
     }
     public void togglePos() {
-        sliderState =! sliderState;
-        if (!sliderState) {
+        if (sliderState) {
             setSliderTarget(scoreSample ? 4400 : 1950); //if scoring sample, set to 1st var, else 2nd var
         } else {
             setSliderTarget(scoreSample ? 0 : 200);
         }
+        sliderState =! sliderState;
     }
     public int getSlidePosition() {
         return primarySlideMotor.getCurrentPosition();

@@ -9,4 +9,31 @@ public class SubmersibleGripperSubsystem {
         this.submersibleGripperServo = submersibleGripperServo;
         this.submersibleRotatorServo = submersibleRotatorServo;
     }
+    public void toggleClamp() {
+        if (gripperClosed) {
+            submersibleGripperServo.setPosition(0.2);
+        } else {
+            submersibleGripperServo.setPosition(0);
+        }
+        gripperClosed = !gripperClosed;
+    }
+    public void toggleRotate() {
+        if (rotatorDown) {
+            submersibleRotatorServo.setPosition(0);
+        } else {
+            submersibleRotatorServo.setPosition(0.36);
+        }
+    }
+    public double getGripperPosition() {
+        return submersibleGripperServo.getPosition();
+    }
+    public boolean getGripperState() {
+        return gripperClosed;
+    }
+    public double getRotatorPosition() {
+        return submersibleRotatorServo.getPosition();
+    }
+    public boolean getRotatorState() {
+        return rotatorDown;
+    }
 }
