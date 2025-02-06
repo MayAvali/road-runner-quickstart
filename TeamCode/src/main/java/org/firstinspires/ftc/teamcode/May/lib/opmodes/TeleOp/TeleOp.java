@@ -7,6 +7,8 @@ import org.firstinspires.ftc.teamcode.May.lib.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.MecanumSubsystem;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.PrimarySlidesSubsystem;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.PrimaryGripperSubsystem;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.SubmersibleGripperSubsystem;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.SubmersibleSlidesSubsystem;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "CompetitionTeleOp", group = "Linear OpMode")
 public class TeleOp extends LinearOpMode {
@@ -20,14 +22,24 @@ public class TeleOp extends LinearOpMode {
                 hardwareMap.get(IMU.class, "imu")
         );
 
-        PrimarySlidesSubsystem objSlides = new PrimarySlidesSubsystem(
+        PrimarySlidesSubsystem objPrimarySlides = new PrimarySlidesSubsystem(
                 hardwareMap.dcMotor.get("primarySlidesMotor")
         );
 
-        PrimaryGripperSubsystem objGrippers = new PrimaryGripperSubsystem(
+        PrimaryGripperSubsystem objPrimaryGrippers = new PrimaryGripperSubsystem(
                 hardwareMap.servo.get("primaryGripperServo"),
                 hardwareMap.servo.get("primaryRotatorServo")
         );
+
+        SubmersibleSlidesSubsystem objSubmersibleSlides = new SubmersibleSlidesSubsystem(
+                hardwareMap.dcMotor.get("submersibleSlideMotor")
+        );
+
+        SubmersibleGripperSubsystem objSubmersibleGrippers = new SubmersibleGripperSubsystem(
+                hardwareMap.servo.get("submersibleGripperServo"),
+                hardwareMap.servo.get("submersibleRotatorServo")
+        );
+        
 
         GamepadButton resetIMU = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.START);
 
@@ -48,23 +60,23 @@ public class TeleOp extends LinearOpMode {
             }
 
             if (ManualSlideButton.isPressed()) {
-                objSlides.togglePos();
+                objPrimarySlides.togglePos();
             }
             if (SliderModeButton.isPressed()) {
-                objSlides.toggleMode();
-                objGrippers.toggleMode();
+                objPrimarySlides.toggleMode();
+                objPrimaryGrippers.toggleMode();
             }
             if (DispenseSpecimenButton.isPressed()) {
-                objSlides.dispenseSpecimen();
+                objPrimarySlides.dispenseSpecimen();
             }
             if (DeclineButton.isPressed()) {
-                objSlides.decline();
+                objPrimarySlides.decline();
             }
             if (ManualGripperClampButton.isPressed()) {
-                objGrippers.toggleClamp();
+                objPrimaryGrippers.toggleClamp();
             }
             if (ManualGripperRotateButton.isPressed()) {
-                objGrippers.toggleRotate();
+                objPrimaryGrippers.toggleRotate();
             }
             objDrivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
 
@@ -73,15 +85,15 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Front Right Motor Power " , objDrivetrain.getFrontRightPower());
             telemetry.addData("Back Right Motor Power " , objDrivetrain.getBackRightPower());
 
-            telemetry.addData("Slides Position ", objSlides.getSlidePosition());
-            telemetry.addData("Slides Target ", objSlides.getSlideTargetPosition());
-            telemetry.addData("Slides Scoring Sample ", objSlides.getSlideMode());
-            telemetry.addData("Slides State ", objSlides.getSlideState());
+            telemetry.addData("Slides Position ", objPrimarySlides.getSlidePosition());
+            telemetry.addData("Slides Target ", objPrimarySlides.getSlideTargetPosition());
+            telemetry.addData("Slides Scoring Sample ", objPrimarySlides.getSlideMode());
+            telemetry.addData("Slides State ", objPrimarySlides.getSlideState());
 
-            telemetry.addData("Gripper Position ", objGrippers.getGripperPosition());
-            telemetry.addData("Gripper Scoring Sample ", objGrippers.getGripperMode());
-            telemetry.addData("Gripper Closed ", objGrippers.getGripperState());
-            telemetry.addData("Gripper Down ", objGrippers.getRotatorState());
+            telemetry.addData("Gripper Position ", objPrimaryGrippers.getGripperPosition());
+            telemetry.addData("Gripper Scoring Sample ", objPrimaryGrippers.getGripperMode());
+            telemetry.addData("Gripper Closed ", objPrimaryGrippers.getGripperState());
+            telemetry.addData("Gripper Down ", objPrimaryGrippers.getRotatorState());
 
             telemetry.update();
 
