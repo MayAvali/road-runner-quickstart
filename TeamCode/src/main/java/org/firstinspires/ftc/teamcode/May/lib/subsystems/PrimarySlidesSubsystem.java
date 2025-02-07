@@ -10,7 +10,7 @@ public class PrimarySlidesSubsystem {
     public final DcMotor primarySlideMotor;
 
     boolean scoreSample = false;
-    boolean sliderState = true;
+    boolean sliderState = false;
     public PrimarySlidesSubsystem(DcMotor primarySlideMotor) {
 
         this.primarySlideMotor = primarySlideMotor;
@@ -23,20 +23,19 @@ public class PrimarySlidesSubsystem {
     }
 
     private void setSliderTarget(int p) {
-        //slidesMotorLeft.setTargetPosition(p);
         primarySlideMotor.setTargetPosition(p);
     }
     public void toggleMode() {
+        scoreSample =! scoreSample;
         if (sliderState) {
             setSliderTarget(scoreSample ? 4400 : 1950); //if scoring sample, set to 1st var, else 2nd var
         } else {
             setSliderTarget(scoreSample ? 0 : 200);
         }
-        scoreSample =! scoreSample;
     }
     public void dispenseSpecimen() {
         if (!scoreSample) {
-            setSliderTarget(1400);
+            setSliderTarget(1500);
             sliderState = true;
         }
     }
@@ -45,12 +44,12 @@ public class PrimarySlidesSubsystem {
         setSliderTarget(getSlideTargetPosition() - 5);
     }
     public void togglePos() {
-        if (sliderState) {
-            setSliderTarget(scoreSample ? 4400 : 1950); //if scoring sample, set to 1st var, else 2nd var
-        } else {
-            setSliderTarget(scoreSample ? 0 : 200);
-        }
         sliderState =! sliderState;
+        if (!sliderState) {
+            setSliderTarget(scoreSample ? 0 : 200);
+        } else {
+            setSliderTarget(scoreSample ? 4400 : 1950); //if scoring sample, set to 1st var, else 2nd var
+        }
     }
     public int getSlidePosition() {
         return primarySlideMotor.getCurrentPosition();

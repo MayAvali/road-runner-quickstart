@@ -10,15 +10,17 @@ public class SubmersibleGripperSubsystem {
         this.submersibleRotatorServo = submersibleRotatorServo;
     }
     public void toggleClamp() {
-        if (gripperClosed) {
+        gripperClosed = !gripperClosed;
+        if (!gripperClosed) {
             submersibleGripperServo.setPosition(0.2);
         } else {
             submersibleGripperServo.setPosition(0);
         }
-        gripperClosed = !gripperClosed;
+
     }
     public void toggleRotate() {
-        if (rotatorDown) {
+        rotatorDown = !rotatorDown;
+        if (!rotatorDown) {
             submersibleRotatorServo.setPosition(0);
         } else {
             submersibleRotatorServo.setPosition(0.36);

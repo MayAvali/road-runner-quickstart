@@ -18,32 +18,34 @@ public class PrimaryGripperSubsystem {
         this.primaryGripperServo = primaryGripperServo;
         this.primaryRotatorServo = primaryRotatorServo;
         primaryRotatorServo.setPosition(0.36);
-        primaryGripperServo.setPosition(0.00);
+        primaryGripperServo.setPosition(0.05);
     }
 
     public void toggleClamp() {
-        if (gripperClosed) {
-            primaryGripperServo.setPosition(0.2);
+        gripperClosed = !gripperClosed;
+        if (!gripperClosed) {
+            primaryGripperServo.setPosition(0.3);
         } else {
             primaryGripperServo.setPosition(0.05);
         }
-        gripperClosed = !gripperClosed;
+
     }
     public void toggleMode() {
-        if (rotatorDown) {
+        scoreSample  = !scoreSample;
+        if (!rotatorDown) {
             primaryRotatorServo.setPosition(scoreSample ? 0.45 : 0.36);
         } else {
             primaryRotatorServo.setPosition(0.02);
         }
-        scoreSample = !scoreSample;
     }
     public void toggleRotate() {
-        if (rotatorDown) {
+        rotatorDown = !rotatorDown;
+        if (!rotatorDown) {
             primaryRotatorServo.setPosition(scoreSample ? 0.45 : 0.36);
         } else {
             primaryRotatorServo.setPosition(0.02);
         }
-        rotatorDown = !rotatorDown;
+
     }
     public double getGripperPosition() {
         return primaryGripperServo.getPosition();

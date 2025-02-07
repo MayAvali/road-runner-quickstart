@@ -32,7 +32,7 @@ public class TeleOp extends LinearOpMode {
         );
 
         SubmersibleSlidesSubsystem objSubmersibleSlides = new SubmersibleSlidesSubsystem(
-                hardwareMap.dcMotor.get("submersibleSlideMotor")
+                hardwareMap.dcMotor.get("submersibleSlidesMotor")
         );
 
         SubmersibleGripperSubsystem objSubmersibleGrippers = new SubmersibleGripperSubsystem(
