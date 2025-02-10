@@ -1,9 +1,5 @@
 package org.firstinspires.ftc.teamcode.May.lib.subsystems;
 
-import androidx.annotation.NonNull;
-
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class PrimarySlidesSubsystem {
@@ -28,14 +24,14 @@ public class PrimarySlidesSubsystem {
     public void toggleMode() {
         scoreSample =! scoreSample;
         if (sliderState) {
-            setSliderTarget(scoreSample ? 4400 : 1950); //if scoring sample, set to 1st var, else 2nd var
+            setSliderTarget(scoreSample ? 4400 : 2300); //if scoring sample, set to 1st var, else 2nd var
         } else {
-            setSliderTarget(scoreSample ? 0 : 200);
+            setSliderTarget(scoreSample ? 0 : 300);
         }
     }
     public void dispenseSpecimen() {
         if (!scoreSample) {
-            setSliderTarget(1500);
+            setSliderTarget(1950);
             sliderState = true;
         }
     }
@@ -46,9 +42,9 @@ public class PrimarySlidesSubsystem {
     public void togglePos() {
         sliderState =! sliderState;
         if (!sliderState) {
-            setSliderTarget(scoreSample ? 0 : 200);
+            setSliderTarget(scoreSample ? 0 : 300);
         } else {
-            setSliderTarget(scoreSample ? 4400 : 1950); //if scoring sample, set to 1st var, else 2nd var
+            setSliderTarget(scoreSample ? 4400 : 2300); //if scoring sample, set to 1st var, else 2nd var
         }
     }
     public int getSlidePosition() {

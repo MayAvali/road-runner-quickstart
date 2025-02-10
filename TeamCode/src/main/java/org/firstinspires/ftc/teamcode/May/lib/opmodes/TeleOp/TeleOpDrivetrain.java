@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.May.lib.opmodes.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
-import org.firstinspires.ftc.teamcode.May.lib.subsystems.MecanumSubsystem;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsystems.MecanumSubsystem;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOpDrivetrain", group = "Linear OpMode")
 public class TeleOpDrivetrain extends LinearOpMode {
     @Override

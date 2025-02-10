@@ -1,32 +1,34 @@
 package org.firstinspires.ftc.teamcode.May.lib.opmodes.Autonomous;
 
 // RR-specific imports
-
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.ftc.Actions;
+
+// Non-RR imports
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.PrimaryGripperSubsystem;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.PrimarySlidesSubsystem;
 import org.firstinspires.ftc.teamcode.RoadRunnerUtils.tuning.MecanumDrive;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "CompetitionRightSpeciAutoBlue", group = "Autonomous OpMode")
-public class CompetitionRightSpeciAutoBlue extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "CompetitionRightSpecimenAutoRed", group = "Autonomous OpMode")
+public class CompetitionRightSpecimenAutoRed extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
-        Pose2d initialPose = new Pose2d(-8, 62.7, Math.toRadians(270));
-        Pose2d secondPose = new Pose2d(-8, 32, Math.toRadians(270));
+
+        Pose2d initialPose = new Pose2d(8, -62.7, Math.toRadians(90));
+        Pose2d secondPose = new Pose2d(8, -32, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder move1 = drive.actionBuilder(initialPose)
-                .lineToY(32);
+                .lineToY(-32);
 
         TrajectoryActionBuilder move2 = drive.actionBuilder(secondPose)
-                .lineToY(60);
-                //.turn(Math.toRadians(90))
-                //.lineToX(-50);
+                .lineToY(-60);
+        //.turn(Math.toRadians(90))
+        //.lineToX(-50);
 
         waitForStart();
 
@@ -38,7 +40,6 @@ public class CompetitionRightSpeciAutoBlue extends LinearOpMode {
         PrimarySlidesSubsystem objSlides = new PrimarySlidesSubsystem(
                 hardwareMap.dcMotor.get("slidesMotor")
         );
-
         sleep(500);
 
         objSlides.togglePos();

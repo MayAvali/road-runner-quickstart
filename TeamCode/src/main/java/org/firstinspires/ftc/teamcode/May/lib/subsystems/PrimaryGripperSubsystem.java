@@ -18,7 +18,7 @@ public class PrimaryGripperSubsystem {
         this.primaryGripperServo = primaryGripperServo;
         this.primaryRotatorServo = primaryRotatorServo;
         primaryRotatorServo.setPosition(0.36);
-        primaryGripperServo.setPosition(0.05);
+        primaryGripperServo.setPosition(0.1);
     }
 
     public void toggleClamp() {
@@ -26,7 +26,7 @@ public class PrimaryGripperSubsystem {
         if (!gripperClosed) {
             primaryGripperServo.setPosition(0.3);
         } else {
-            primaryGripperServo.setPosition(0.05);
+            primaryGripperServo.setPosition(0.1);
         }
 
     }
@@ -35,7 +35,7 @@ public class PrimaryGripperSubsystem {
         if (!rotatorDown) {
             primaryRotatorServo.setPosition(scoreSample ? 0.45 : 0.36);
         } else {
-            primaryRotatorServo.setPosition(0.02);
+            primaryRotatorServo.setPosition(scoreSample ? 0.02 : 0.24);
         }
     }
     public void toggleRotate() {
@@ -43,7 +43,7 @@ public class PrimaryGripperSubsystem {
         if (!rotatorDown) {
             primaryRotatorServo.setPosition(scoreSample ? 0.45 : 0.36);
         } else {
-            primaryRotatorServo.setPosition(0.02);
+            primaryRotatorServo.setPosition(scoreSample ? 0.02 : 0.24);
         }
 
     }
@@ -53,11 +53,9 @@ public class PrimaryGripperSubsystem {
     public boolean getGripperMode() {
         return scoreSample;
     }
-
     public boolean getGripperState() {
         return gripperClosed;
     }
-
     public boolean getRotatorState() {
         return rotatorDown;
     }

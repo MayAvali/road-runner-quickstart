@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.May.lib.libraries.GamepadButton;
-import org.firstinspires.ftc.teamcode.May.lib.subsystems.MecanumSubsystem;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.subsystems.MecanumSubsystem;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.PrimarySlidesSubsystem;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.PrimaryGripperSubsystem;
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.SubmersibleGripperSubsystem;
