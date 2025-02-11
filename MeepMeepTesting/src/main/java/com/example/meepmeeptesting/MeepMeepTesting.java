@@ -16,12 +16,16 @@ public class MeepMeepTesting {
                 .setConstraints(60, 80, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
+        double pickTime = 0.5;
+        double scoreTime = 0.7;
+
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(8, -62.7,(Math.toRadians(90))))
-                .splineTo(new Vector2d(3, -31), Math.toRadians(90.00))
+                .splineTo(new Vector2d(4, -31), Math.toRadians(90.00))
 
                 //Score Preloaded Specimen
+                .waitSeconds(1)
                 
-                        .setTangent(Math.toRadians(270))
+                .setTangent(Math.toRadians(270))
                 .splineToSplineHeading(new Pose2d(35,-33, Math.toRadians(-90)), Math.toRadians(90))
                 .splineToLinearHeading(new Pose2d(38,-21, Math.toRadians(-90)), Math.toRadians(90))
 
@@ -36,13 +40,50 @@ public class MeepMeepTesting {
                 .splineToLinearHeading(new Pose2d(61.3, -45, Math.toRadians(-90)), Math.toRadians(-90))
                 .splineToLinearHeading(new Pose2d(46.3, -62, Math.toRadians(-90)), Math.toRadians(-90))
 
-                //Pick Up Specimen
+                //Pick Up Specimen 2
+                .waitSeconds(pickTime)
 
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(-3,-37, Math.toRadians(90)), Math.toRadians(180))
+                .splineToLinearHeading(new Pose2d(2,-31, Math.toRadians(90)), Math.toRadians(90))
 
-                //Score Specimen
+                //Score Specimen 2
+                .waitSeconds(scoreTime)
 
+                .setTangent(Math.toRadians(-90))
+                .splineToSplineHeading(new Pose2d(46.3,-62, Math.toRadians(-90)), Math.toRadians(-90))
+
+                //Pick Up Specimen 3
+                .waitSeconds(pickTime)
+
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(0,-31, Math.toRadians(90)), Math.toRadians(90))
+
+                //Score Specimen 3
+                .waitSeconds(scoreTime)
+
+                .setTangent(Math.toRadians(-90))
+                .splineToSplineHeading(new Pose2d(46.3,-62, Math.toRadians(-90)), Math.toRadians(-90))
+
+                //Pick Up Specimen 4
+                .waitSeconds(pickTime)
+
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-2,-31, Math.toRadians(90)), Math.toRadians(90))
+
+                //Score Specimen 4
+                .waitSeconds(scoreTime)
+
+                .setTangent(Math.toRadians(-90))
+                .splineToSplineHeading(new Pose2d(46.3,-62, Math.toRadians(-90)), Math.toRadians(-90))
+
+                //Pick Up Specimen 5
+                .waitSeconds(pickTime)
+
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-4,-31, Math.toRadians(90)), Math.toRadians(90))
+
+                //Score Specimen 5
+                .waitSeconds(scoreTime)
 
                 .build());
 
