@@ -8,7 +8,7 @@ public class SubmersibleGripperSubsystem {
     public SubmersibleGripperSubsystem(Servo submersibleGripperServo, Servo submersibleRotatorServo) {
         this.submersibleGripperServo = submersibleGripperServo;
         this.submersibleRotatorServo = submersibleRotatorServo;
-        submersibleRotatorServo.setPosition(1);
+        submersibleRotatorServo.setPosition(0.05);
         submersibleGripperServo.setPosition(0.12);
     }
     public void toggleClamp() {
@@ -23,9 +23,9 @@ public class SubmersibleGripperSubsystem {
     public void toggleRotate() {
         rotatorDown = !rotatorDown;
         if (!rotatorDown) {
-            submersibleRotatorServo.setPosition(0.8);
+            submersibleRotatorServo.setPosition((SubmersibleSlidesSubsystem.sliderState ? 0.8 : 0.5));
         } else {
-            submersibleRotatorServo.setPosition(0.1);
+            submersibleRotatorServo.setPosition(0.05);
         }
     }
     public double getGripperPosition() {
