@@ -23,7 +23,7 @@ public class MeepMeepTesting {
                 .splineTo(new Vector2d(4, -31), Math.toRadians(90.00))
 
                 //Score Preloaded Specimen
-                .waitSeconds(1)
+                .waitSeconds(scoreTime)
                 
                 .setTangent(Math.toRadians(270))
                 .splineToSplineHeading(new Pose2d(35,-33, Math.toRadians(-45)), Math.toRadians(90))
