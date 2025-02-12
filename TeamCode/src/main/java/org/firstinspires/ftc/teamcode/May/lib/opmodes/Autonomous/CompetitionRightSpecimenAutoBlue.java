@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.May.lib.subsystems.SubmersibleGripperSubsy
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.SubmersibleSlidesSubsystem;
 import org.firstinspires.ftc.teamcode.RoadRunnerUtils.tuning.MecanumDrive;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "CompetitionRightSpecimenAutoRed", group = "Autonomous OpMode")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "CompetitionRightSpecimenAutoBlue", group = "Autonomous OpMode")
 public class CompetitionRightSpecimenAutoBlue extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
