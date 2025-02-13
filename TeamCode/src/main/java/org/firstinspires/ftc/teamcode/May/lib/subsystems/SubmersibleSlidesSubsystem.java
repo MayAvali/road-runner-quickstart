@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.May.lib.subsystems;
+import static java.lang.Thread.sleep;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
+import org.firstinspires.ftc.teamcode.May.lib.subsystems.SubmersibleGripperSubsystem;
 public class SubmersibleSlidesSubsystem {
     public final DcMotor submersibleSlideMotor;
-    public static boolean sliderState = false;
+    public boolean sliderState = false;
     public SubmersibleSlidesSubsystem(DcMotor submersibleSlideMotor) {
         this.submersibleSlideMotor = submersibleSlideMotor;
 
@@ -14,7 +17,11 @@ public class SubmersibleSlidesSubsystem {
     }
     public void togglePos() {
         sliderState = !sliderState;
-        setSliderTarget(sliderState ? 1800 : 0);
+        if (sliderState) {
+            setSliderTarget(1800);
+        } else {
+            setSliderTarget(0);
+        }
     }
     private void setSliderTarget(int p) {
         submersibleSlideMotor.setTargetPosition(p);

@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.May.lib.subsystems;
 import com.qualcomm.robotcore.hardware.Servo;
 public class SubmersibleGripperSubsystem {
-    public final Servo submersibleGripperServo;
-    public final Servo submersibleRotatorServo;
+    public Servo submersibleGripperServo;
+    public Servo submersibleRotatorServo;
     boolean gripperClosed = true;
     boolean rotatorDown = false;
     public SubmersibleGripperSubsystem(Servo submersibleGripperServo, Servo submersibleRotatorServo) {
@@ -22,8 +22,8 @@ public class SubmersibleGripperSubsystem {
     }
     public void toggleRotate() {
         rotatorDown = !rotatorDown;
-        if (!rotatorDown) {
-            submersibleRotatorServo.setPosition((SubmersibleSlidesSubsystem.sliderState ? 0.8 : 0.5));
+        if (rotatorDown) {
+            submersibleRotatorServo.setPosition(0.85);
         } else {
             submersibleRotatorServo.setPosition(0.05);
         }

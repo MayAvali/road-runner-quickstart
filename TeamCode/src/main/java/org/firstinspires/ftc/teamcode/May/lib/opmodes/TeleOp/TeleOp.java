@@ -50,10 +50,9 @@ public class TeleOp extends LinearOpMode {
 
         GamepadButton primaryClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.A);
         GamepadButton primaryRotateButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.B);
-        
-        GamepadButton SubmersibleSlideButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_UP);
+
         GamepadButton SubmersibleGripperClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_LEFT);
-        GamepadButton SubmersibleGripperRotateButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_DOWN);
+        GamepadButton SubmersibleButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_RIGHT);
 
         waitForStart();
         if (isStopRequested()) return;
@@ -81,14 +80,13 @@ public class TeleOp extends LinearOpMode {
             if (primaryRotateButton.isPressed()) {
                 objPrimaryGrippers.toggleRotate();
             }
-            if (SubmersibleSlideButton.isPressed()) {
-                objSubmersibleSlides.togglePos();
-            }
             if (SubmersibleGripperClampButton.isPressed()) {
                 objSubmersibleGrippers.toggleClamp();
             }
-            if (SubmersibleGripperRotateButton.isPressed()) {
+            if (SubmersibleButton.isPressed()) {
+                objSubmersibleSlides.togglePos();
                 objSubmersibleGrippers.toggleRotate();
+                objSubmersibleGrippers.toggleClamp();
             }
             objDrivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
 

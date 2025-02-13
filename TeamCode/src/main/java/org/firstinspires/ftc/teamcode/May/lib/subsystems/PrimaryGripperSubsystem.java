@@ -18,15 +18,15 @@ public class PrimaryGripperSubsystem {
         this.primaryGripperServo = primaryGripperServo;
         this.primaryRotatorServo = primaryRotatorServo;
         primaryRotatorServo.setPosition(0.36);
-        primaryGripperServo.setPosition(0.1);
+        primaryGripperServo.setPosition(0.12);
     }
 
     public void toggleClamp() {
         gripperClosed = !gripperClosed;
         if (!gripperClosed) {
-            primaryGripperServo.setPosition(0.3);
+            primaryGripperServo.setPosition(0.22);
         } else {
-            primaryGripperServo.setPosition(0.1);
+            primaryGripperServo.setPosition(0.12);
         }
 
     }
