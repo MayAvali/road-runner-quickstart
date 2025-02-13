@@ -81,12 +81,12 @@ public class CompetitionRightSpecimenAutoRed extends LinearOpMode {
         waitForStart();
 
         PrimaryGripperSubsystem objGrippers = new PrimaryGripperSubsystem(
-                hardwareMap.servo.get("gripperServo"),
-                hardwareMap.servo.get("rotatorServo")
+                hardwareMap.servo.get("primaryGripperServo"),
+                hardwareMap.servo.get("primaryRotatorServo")
         );
 
         PrimarySlidesSubsystem objSlides = new PrimarySlidesSubsystem(
-                hardwareMap.dcMotor.get("slidesMotor")
+                hardwareMap.dcMotor.get("primarySlidesMotor")
         );
 
         SubmersibleGripperSubsystem objSubmersibleGrippers = new SubmersibleGripperSubsystem(
