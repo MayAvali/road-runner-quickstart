@@ -43,12 +43,12 @@ public class CompetitionRightSpecimenAutoBlue extends LinearOpMode {
 
                 //Push Sample 1
 
-                .splineToSplineHeading(new Pose2d(-46.00, 13.00, Math.toRadians(-270)), Math.toRadians(-270))
+                .splineToSplineHeading(new Pose2d(-43.00, 13.00, Math.toRadians(-270)), Math.toRadians(-270))
 
                 //Push Sample 2
 
                 .splineTo(new Vector2d(-46.00, 55.00), Math.toRadians(-270))
-                .strafeTo(new Vector2d(-49.00, 13.00))
+                .strafeTo(new Vector2d(-46.00, 13.00))
                 .strafeTo(new Vector2d(-56.00, 13.00))
                 .strafeTo(new Vector2d(-56.00, 55.00))
 
