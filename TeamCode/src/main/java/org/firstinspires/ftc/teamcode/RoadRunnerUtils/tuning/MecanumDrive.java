@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.RoadRunnerUtils.tuning;
-
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.canvas.Canvas;
@@ -61,12 +60,12 @@ public final class MecanumDrive {
                 RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
         // drive model parameters
         public double inPerTick = 1;
-        public double lateralInPerTick = inPerTick = 0.002944785276;
+        public double lateralInPerTick = inPerTick = 0.002944785;
         public double trackWidthTicks = 4633.607985016985; //339.5833333?
 
         // feedforward parameters (in tick units)
-        public double kS = 0.7099852235267785;
-        public double kV = 0.0005929942778100444;
+        public double kS = 0.575676791283378;
+        public double kV =  0.0005946171138996072;
         public double kA = 0.0001;
 
         // path profile parameters (in inches)
