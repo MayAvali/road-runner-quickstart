@@ -12,7 +12,7 @@ public class PrimarySlidesSubsystem {
 
         primarySlideMotor.setDirection(DcMotor.Direction.REVERSE);
         primarySlideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        primarySlideMotor.setTargetPosition(scoreSample ? 0 : 300;
+        primarySlideMotor.setTargetPosition(scoreSample ? 0 : 300);
         primarySlideMotor.setPower(1);
         primarySlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
