@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.May.lib.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-
 public class PrimarySlidesSubsystem {
     public final DcMotor primarySlideMotor;
 
@@ -13,7 +12,7 @@ public class PrimarySlidesSubsystem {
 
         primarySlideMotor.setDirection(DcMotor.Direction.REVERSE);
         primarySlideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        primarySlideMotor.setTargetPosition(scoreSample ? 0 : 200);
+        primarySlideMotor.setTargetPosition(scoreSample ? 0 : 300;
         primarySlideMotor.setPower(1);
         primarySlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
@@ -24,7 +23,7 @@ public class PrimarySlidesSubsystem {
     public void toggleMode() {
         scoreSample =! scoreSample;
         if (sliderState) {
-            setSliderTarget(scoreSample ? 4400 : 2300); //if scoring sample, set to 1st var, else 2nd var
+            setSliderTarget(scoreSample ? 4400 : 2150); //if scoring sample, set to 1st var, else 2nd var
         } else {
             setSliderTarget(scoreSample ? 0 : 300);
         }
@@ -44,7 +43,7 @@ public class PrimarySlidesSubsystem {
         if (!sliderState) {
             setSliderTarget(scoreSample ? 0 : 300);
         } else {
-            setSliderTarget(scoreSample ? 4400 : 2300); //if scoring sample, set to 1st var, else 2nd var
+            setSliderTarget(scoreSample ? 4400 : 2150); //if scoring sample, set to 1st var, else 2nd var
         }
     }
     public int getSlidePosition() {
