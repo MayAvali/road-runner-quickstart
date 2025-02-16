@@ -17,7 +17,7 @@ public class PrimarySlidesSubsystem {
         primarySlideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    private void setSliderTarget(int p) {
+    public void setSliderTarget(int p) {
         primarySlideMotor.setTargetPosition(p);
     }
     public void toggleMode() {

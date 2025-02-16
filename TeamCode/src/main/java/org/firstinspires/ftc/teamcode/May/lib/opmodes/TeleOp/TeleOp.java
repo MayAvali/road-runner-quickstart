@@ -70,6 +70,7 @@ public class TeleOp extends LinearOpMode {
             }
             if (dispenseSpecimenButton.isPressed()) {
                 objPrimarySlides.dispenseSpecimen();
+                //objPrimaryGrippers.toggleRotate();
             }
             if (declineButton.isPressed()) {
                 objPrimarySlides.decline();

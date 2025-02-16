@@ -28,7 +28,6 @@ public class PrimaryGripperSubsystem {
         } else {
             primaryGripperServo.setPosition(0.12);
         }
-
     }
     public void toggleMode() {
         scoreSample  = !scoreSample;
@@ -45,7 +44,6 @@ public class PrimaryGripperSubsystem {
         } else {
             primaryRotatorServo.setPosition(scoreSample ? 0.02 : 0.24);
         }
-
     }
     public double getGripperPosition() {
         return primaryGripperServo.getPosition();
