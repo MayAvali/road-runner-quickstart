@@ -28,46 +28,47 @@ public class CompetitionRightSpecimenAutoRed extends LinearOpMode {
         double scoreDist = 2.5;
 
         Pose2d initialPose = new Pose2d(8, -62.7, Math.toRadians(90));
-        Pose2d secondPose = new Pose2d(initScoreVal, -33, Math.toRadians(90));
-        Pose2d pickupPose = new Pose2d(46.3, -58, Math.toRadians(-90));
+        Pose2d secondPose = new Pose2d(initScoreVal, -37, Math.toRadians(90));
+        Pose2d pickupPose = new Pose2d(47.3, -60, Math.toRadians(-90));
         Pose2d pickupPose2 = new Pose2d(46.3, -56, Math.toRadians(-90));
         Pose2d pickupPose3 = new Pose2d(46.3, -53, Math.toRadians(-90));
-        Pose2d pickupPose4 = new Pose2d(46.3, -50, Math.toRadians(-90));
-        Pose2d fourthPose = new Pose2d(initScoreVal-scoreDist, -30, Math.toRadians(90));
-        Pose2d fifthPose = new Pose2d(initScoreVal-(2*scoreDist), -27, Math.toRadians(90));
-        Pose2d sixthPose = new Pose2d(initScoreVal-(3*scoreDist), -24, Math.toRadians(90));
+        Pose2d pickupPose4 = new Pose2d(46.3, -47, Math.toRadians(-90));
+        Pose2d fourthPose = new Pose2d(initScoreVal-scoreDist, -31, Math.toRadians(90));
+        Pose2d fifthPose = new Pose2d(initScoreVal-(2*scoreDist), -31, Math.toRadians(90));
+        Pose2d sixthPose = new Pose2d(initScoreVal-(3*scoreDist), -28, Math.toRadians(90));
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder initScore = drive.actionBuilder(initialPose)
 
-                .splineTo(new Vector2d(initScoreVal, -33), Math.toRadians(90.00));
+                .splineTo(new Vector2d(initScoreVal, -37), Math.toRadians(90.00));
 
         TrajectoryActionBuilder samplePush = drive.actionBuilder(secondPose)
                 .setTangent(Math.toRadians(270))
                 .splineToSplineHeading(new Pose2d(35,-32, Math.toRadians(-45)), Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(38,-21, Math.toRadians(-90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(36,-21, Math.toRadians(-90)), Math.toRadians(90))
 
                 //Push Sample 1
 
-                .splineToSplineHeading(new Pose2d(44.00, -13.00, Math.toRadians(270)), Math.toRadians(270))
+                .splineToSplineHeading(new Pose2d(44.00, -16.00, Math.toRadians(270)), Math.toRadians(270))
 
                 //Push Sample 2
 
                 .splineTo(new Vector2d(46.00, -50.00), Math.toRadians(270))
                 .strafeTo(new Vector2d(46.00, -13.00))
                 .setTangent(Math.toRadians(0))
-                .splineToLinearHeading(new Pose2d(56.00, -45.00, Math.toRadians(270)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(56.00, -50.00, Math.toRadians(270)), Math.toRadians(90))
 
                 //.strafeTo(new Vector2d(56, -18.00))
 
-                .splineToLinearHeading(new Pose2d(61.00, -12.00, Math.toRadians(270)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(61.5, -12.00, Math.toRadians(270)), Math.toRadians(0))
                 // Push Sample 3
 
                 //.strafeTo(new Vector2d(61, -10.00))
 
                 .setTangent(Math.toRadians(270))
-                .splineToLinearHeading(new Pose2d(61, -40, Math.toRadians(-90)), Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(61.5, -46, Math.toRadians(-90)), Math.toRadians(-90))
+                .setTangent(Math.toRadians(180))
                 .splineToLinearHeading(pickupPose, Math.toRadians(-90));
 
         TrajectoryActionBuilder postScore1 = drive.actionBuilder(pickupPose)
@@ -92,7 +93,7 @@ public class CompetitionRightSpecimenAutoRed extends LinearOpMode {
 
         TrajectoryActionBuilder postReturn3 = drive.actionBuilder(sixthPose)
                 .setTangent(Math.toRadians(-90))
-                .splineToSplineHeading(pickupPose4, Math.toRadians(-90));
+                .strafeTo(new Vector2d(46.3, -47));
 
         waitForStart();
 
