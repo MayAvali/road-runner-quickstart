@@ -40,7 +40,8 @@ public class MeepMeepTesting {
                 .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(new Pose2d(56.00, -45.00, Math.toRadians(270)), Math.toRadians(90))
 
-                .strafeTo(new Vector2d(56, -18.00))
+                //.strafeTo(new Vector2d(56, -18.00))
+                .splineToLinearHeading(new Pose2d(61.00, -12.00, Math.toRadians(270)), Math.toRadians(0))
 
 //                .splineTo(new Vector2d(46.00, -55.00), Math.toRadians(270))
 //                .strafeTo(new Vector2d(46.00, -13.00))
@@ -49,7 +50,7 @@ public class MeepMeepTesting {
 //
 //                .lineToY(-13)
                 // Push Sample 3
-                .strafeTo(new Vector2d(61.30, -10.00))
+                //.strafeTo(new Vector2d(61.30, -10.00))
 
                 .setTangent(Math.toRadians(270))
                 .splineToLinearHeading(new Pose2d(61.3, -45, Math.toRadians(-90)), Math.toRadians(-90))
@@ -89,7 +90,7 @@ public class MeepMeepTesting {
                 .waitSeconds(scoreTime)
 
                 .setTangent(Math.toRadians(-90))
-                .splineToSplineHeading(new Pose2d(46.3,-62, Math.toRadians(-90)), Math.toRadians(-90))
+                .splineToSplineHeading(new Pose2d(46.3,-62, Math.toRadians(-90)), Math.toRadians(-45))
 
                 //Pick Up Specimen 5
                 .waitSeconds(pickTime)
