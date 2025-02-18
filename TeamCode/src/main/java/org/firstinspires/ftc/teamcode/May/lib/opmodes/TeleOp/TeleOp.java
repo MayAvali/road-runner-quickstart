@@ -14,6 +14,22 @@ import org.firstinspires.ftc.teamcode.May.lib.subsystems.SubmersibleSlidesSubsys
 public class TeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
+        GamepadButton resetIMU = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.START);
+
+        GamepadButton primarySlideButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.X);
+        GamepadButton primarySliderModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.Y);
+        GamepadButton dispenseSpecimenButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.RIGHT_BUMPER);
+        GamepadButton declineButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.LEFT_BUMPER);
+
+        GamepadButton primaryClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.A);
+        GamepadButton primaryRotateButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.B);
+
+        GamepadButton SubmersibleGripperClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_LEFT);
+        GamepadButton SubmersibleButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_RIGHT);
+
+        waitForStart();
+        if (isStopRequested()) return;
+
         MecanumSubsystem objDrivetrain = new MecanumSubsystem(
                 hardwareMap.dcMotor.get("leftFront"),
                 hardwareMap.dcMotor.get("leftBack"),
@@ -39,23 +55,8 @@ public class TeleOp extends LinearOpMode {
                 hardwareMap.servo.get("submersibleGripperServo"),
                 hardwareMap.servo.get("submersibleRotatorServo")
         );
-        
 
-        GamepadButton resetIMU = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.START);
-
-        GamepadButton primarySlideButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.X);
-        GamepadButton primarySliderModeButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.Y);
-        GamepadButton dispenseSpecimenButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.RIGHT_BUMPER);
-        GamepadButton declineButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.LEFT_BUMPER);
-
-        GamepadButton primaryClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.A);
-        GamepadButton primaryRotateButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.B);
-
-        GamepadButton SubmersibleGripperClampButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_LEFT);
-        GamepadButton SubmersibleButton = new GamepadButton(gamepad1, GamepadButton.GamepadKeys.DPAD_RIGHT);
-
-        waitForStart();
-        if (isStopRequested()) return;
+        objPrimaryGrippers.toggleClamp();
 
         while (opModeIsActive()) {
             if (resetIMU.isPressed()) {

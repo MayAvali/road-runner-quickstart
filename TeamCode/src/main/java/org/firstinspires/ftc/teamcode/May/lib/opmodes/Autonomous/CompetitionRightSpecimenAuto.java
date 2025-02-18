@@ -34,7 +34,7 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
         Pose2d pickupPose4 = new Pose2d(46.3, -47, Math.toRadians(-90));
         Pose2d fourthPose = new Pose2d(initScoreVal-scoreDist, -32, Math.toRadians(90));
         Pose2d fifthPose = new Pose2d(initScoreVal-(2*scoreDist), -29, Math.toRadians(90));
-        Pose2d sixthPose = new Pose2d(initScoreVal-(3*scoreDist), -26.5, Math.toRadians(90));
+        Pose2d sixthPose = new Pose2d(initScoreVal-(3*scoreDist), -26, Math.toRadians(90));
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
@@ -212,5 +212,6 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
                         postReturn3.build()
                 )
         );
+        objGrippers.toggleClamp();
     }
 }
