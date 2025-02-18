@@ -28,19 +28,19 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
 
         Pose2d initialPose = new Pose2d(8, -62.7, Math.toRadians(90));
         Pose2d secondPose = new Pose2d(initScoreVal, -37, Math.toRadians(90));
-        Pose2d pickupPose = new Pose2d(47.3, -60, Math.toRadians(-90));
-        Pose2d pickupPose2 = new Pose2d(46.3, -56, Math.toRadians(-90));
+        Pose2d pickupPose = new Pose2d(47.3, -59.4, Math.toRadians(-90));
+        Pose2d pickupPose2 = new Pose2d(46.3, -57, Math.toRadians(-90));
         Pose2d pickupPose3 = new Pose2d(46.3, -53, Math.toRadians(-90));
         Pose2d pickupPose4 = new Pose2d(46.3, -47, Math.toRadians(-90));
-        Pose2d fourthPose = new Pose2d(initScoreVal-scoreDist, -31, Math.toRadians(90));
-        Pose2d fifthPose = new Pose2d(initScoreVal-(2*scoreDist), -31, Math.toRadians(90));
-        Pose2d sixthPose = new Pose2d(initScoreVal-(3*scoreDist), -28, Math.toRadians(90));
+        Pose2d fourthPose = new Pose2d(initScoreVal-scoreDist, -32, Math.toRadians(90));
+        Pose2d fifthPose = new Pose2d(initScoreVal-(2*scoreDist), -29, Math.toRadians(90));
+        Pose2d sixthPose = new Pose2d(initScoreVal-(3*scoreDist), -26.5, Math.toRadians(90));
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder initScore = drive.actionBuilder(initialPose)
 
-                .splineTo(new Vector2d(initScoreVal, -37), Math.toRadians(90.00));
+                .splineTo(new Vector2d(initScoreVal, -37), Math.toRadians(92.00));
 
         TrajectoryActionBuilder samplePush = drive.actionBuilder(secondPose)
                 .setTangent(Math.toRadians(270))
@@ -72,7 +72,7 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
 
         TrajectoryActionBuilder postScore1 = drive.actionBuilder(pickupPose)
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(fourthPose, Math.toRadians(90));
+                .splineToLinearHeading(fourthPose, Math.toRadians(92));
 
         TrajectoryActionBuilder postReturn1 = drive.actionBuilder(fourthPose)
                 .setTangent(Math.toRadians(-90))
@@ -80,7 +80,7 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
 
         TrajectoryActionBuilder postScore2 = drive.actionBuilder(pickupPose2)
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(fifthPose, Math.toRadians(90));
+                .splineToLinearHeading(fifthPose, Math.toRadians(92));
 
         TrajectoryActionBuilder postReturn2 = drive.actionBuilder(fifthPose)
                 .setTangent(Math.toRadians(-90))
@@ -88,11 +88,11 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
 
         TrajectoryActionBuilder postScore3 = drive.actionBuilder(pickupPose3)
                 .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(sixthPose, Math.toRadians(90));
+                .splineToLinearHeading(sixthPose, Math.toRadians(92));
 
         TrajectoryActionBuilder postReturn3 = drive.actionBuilder(sixthPose)
                 .setTangent(Math.toRadians(-90))
-                .strafeTo(new Vector2d(46.3, -47));
+                .splineToSplineHeading(pickupPose4, Math.toRadians(-90));
 
         waitForStart();
 
