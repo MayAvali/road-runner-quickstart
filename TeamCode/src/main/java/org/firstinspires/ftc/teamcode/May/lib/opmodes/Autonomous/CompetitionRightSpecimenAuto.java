@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode.May.lib.opmodes.Autonomous;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 
@@ -17,8 +16,8 @@ import org.firstinspires.ftc.teamcode.May.lib.subsystems.SubmersibleGripperSubsy
 import org.firstinspires.ftc.teamcode.May.lib.subsystems.SubmersibleSlidesSubsystem;
 import org.firstinspires.ftc.teamcode.RoadRunnerUtils.tuning.MecanumDrive;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "CompetitionRightSpecimenAutoRed", group = "Autonomous OpMode")
-public class CompetitionRightSpecimenAutoRed extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "CompetitionRightSpecimenAuto", group = "Autonomous OpMode")
+public class CompetitionRightSpecimenAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
 
