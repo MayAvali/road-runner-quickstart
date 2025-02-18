@@ -93,7 +93,7 @@ public class CompetitionRightSpecimenAutoBlue extends LinearOpMode {
 
         TrajectoryActionBuilder postReturn3 = drive.actionBuilder(sixthPose)
                 .setTangent(Math.toRadians(90))
-                .strafeTo(new Vector2d(46.3, 47));
+                .strafeTo(new Vector2d(-46.3, 47));
 
         waitForStart();
 
