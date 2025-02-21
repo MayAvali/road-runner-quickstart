@@ -17,7 +17,7 @@ public class PrimaryGripperSubsystem {
     public PrimaryGripperSubsystem(Servo primaryGripperServo, Servo primaryRotatorServo) {
         this.primaryGripperServo = primaryGripperServo;
         this.primaryRotatorServo = primaryRotatorServo;
-        primaryRotatorServo.setPosition(0.36);
+        primaryRotatorServo.setPosition(0.42);
         primaryGripperServo.setPosition(0.12);
     }
 
@@ -32,7 +32,7 @@ public class PrimaryGripperSubsystem {
     public void toggleMode() {
         scoreSample  = !scoreSample;
         if (!rotatorDown) {
-            primaryRotatorServo.setPosition(scoreSample ? 0.45 : 0.36);
+            primaryRotatorServo.setPosition(scoreSample ? 0.45 : 0.42);
         } else {
             primaryRotatorServo.setPosition(scoreSample ? 0.04 : 0.24);
         }
@@ -40,10 +40,13 @@ public class PrimaryGripperSubsystem {
     public void toggleRotate() {
         rotatorDown = !rotatorDown;
         if (!rotatorDown) {
-            primaryRotatorServo.setPosition(scoreSample ? 0.45 : 0.36);
+            primaryRotatorServo.setPosition(scoreSample ? 0.45 : 0.42);
         } else {
             primaryRotatorServo.setPosition(scoreSample ? 0.04 : 0.24);
         }
+    }
+    public void autoRotate() {
+        primaryRotatorServo.setPosition(0.36);
     }
     public double getGripperPosition() {
         return primaryGripperServo.getPosition();

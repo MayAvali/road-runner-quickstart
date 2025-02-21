@@ -28,8 +28,8 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
 
         Pose2d initialPose = new Pose2d(8, -62.7, Math.toRadians(90));
         Pose2d secondPose = new Pose2d(initScoreVal, -36, Math.toRadians(90));
-        Pose2d pickupPose = new Pose2d(46.3, -59.4, Math.toRadians(-90));
-        Pose2d pickupPose2 = new Pose2d(45.3, -56.5, Math.toRadians(-90));
+        Pose2d pickupPose = new Pose2d(46.3, -60, Math.toRadians(-90));
+        Pose2d pickupPose2 = new Pose2d(45.3, -57, Math.toRadians(-90));
         Pose2d pickupPose3 = new Pose2d(45.3, -54, Math.toRadians(-90));
         Pose2d pickupPose4 = new Pose2d(45.3, -48, Math.toRadians(-90));
         Pose2d fourthPose = new Pose2d(initScoreVal-scoreDist, -30.5, Math.toRadians(90));
@@ -91,8 +91,9 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
                 .splineToLinearHeading(sixthPose, Math.toRadians(92));
 
         TrajectoryActionBuilder postReturn3 = drive.actionBuilder(sixthPose)
-                .setTangent(Math.toRadians(-90))
-                .splineToSplineHeading(pickupPose4, Math.toRadians(-90));
+                //.setTangent(Math.toRadians(-90))
+                //.splineToSplineHeading(pickupPose4, Math.toRadians(-90));
+                .strafeTo(new Vector2d(45.3, -48));
 
         waitForStart();
 
@@ -117,6 +118,7 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
         //sleep(300);
 
         objSlides.togglePos();
+        objGrippers.autoRotate();
 
         Actions.runBlocking(
                 new SequentialAction(
@@ -144,6 +146,7 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
         sleep(pickTime);
 
         objSlides.togglePos();
+        objGrippers.autoRotate();
 
         Actions.runBlocking(
                 new SequentialAction(
@@ -170,6 +173,7 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
         sleep(pickTime);
 
         objSlides.togglePos();
+        objGrippers.autoRotate();
 
         Actions.runBlocking(
                 new SequentialAction(
@@ -197,6 +201,7 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
         sleep(pickTime);
 
         objSlides.togglePos();
+        objGrippers.autoRotate();
 
         Actions.runBlocking(
                 new SequentialAction(

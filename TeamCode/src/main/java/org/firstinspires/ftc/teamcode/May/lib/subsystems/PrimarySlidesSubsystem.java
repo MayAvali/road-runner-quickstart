@@ -23,14 +23,14 @@ public class PrimarySlidesSubsystem {
     public void toggleMode() {
         scoreSample =! scoreSample;
         if (sliderState) {
-            setSliderTarget(scoreSample ? 4400 : 2150); //if scoring sample, set to 1st var, else 2nd var
+            setSliderTarget(scoreSample ? 4400 : 2100); //if scoring sample, set to 1st var, else 2nd var
         } else {
-            setSliderTarget(scoreSample ? 0 : 300);
+            setSliderTarget(scoreSample ? 0 : 250);
         }
     }
     public void dispenseSpecimen() {
         if (!scoreSample) {
-            setSliderTarget(1750);
+            setSliderTarget(1700);
             sliderState = true;
         }
     }
