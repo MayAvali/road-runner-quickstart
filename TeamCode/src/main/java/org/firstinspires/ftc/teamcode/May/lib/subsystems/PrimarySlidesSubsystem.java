@@ -30,7 +30,7 @@ public class PrimarySlidesSubsystem {
     }
     public void dispenseSpecimen() {
         if (!scoreSample) {
-            setSliderTarget(1950);
+            setSliderTarget(1750);
             sliderState = true;
         }
     }

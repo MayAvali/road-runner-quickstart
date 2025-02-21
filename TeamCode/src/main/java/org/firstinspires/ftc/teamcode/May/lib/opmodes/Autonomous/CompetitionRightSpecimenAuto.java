@@ -27,14 +27,14 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
         double scoreDist = 2.5;
 
         Pose2d initialPose = new Pose2d(8, -62.7, Math.toRadians(90));
-        Pose2d secondPose = new Pose2d(initScoreVal, -37, Math.toRadians(90));
-        Pose2d pickupPose = new Pose2d(47.3, -59.4, Math.toRadians(-90));
-        Pose2d pickupPose2 = new Pose2d(46.3, -57, Math.toRadians(-90));
-        Pose2d pickupPose3 = new Pose2d(46.3, -53, Math.toRadians(-90));
-        Pose2d pickupPose4 = new Pose2d(46.3, -47, Math.toRadians(-90));
-        Pose2d fourthPose = new Pose2d(initScoreVal-scoreDist, -32, Math.toRadians(90));
-        Pose2d fifthPose = new Pose2d(initScoreVal-(2*scoreDist), -29, Math.toRadians(90));
-        Pose2d sixthPose = new Pose2d(initScoreVal-(3*scoreDist), -26, Math.toRadians(90));
+        Pose2d secondPose = new Pose2d(initScoreVal, -36, Math.toRadians(90));
+        Pose2d pickupPose = new Pose2d(46.3, -59.4, Math.toRadians(-90));
+        Pose2d pickupPose2 = new Pose2d(45.3, -56.5, Math.toRadians(-90));
+        Pose2d pickupPose3 = new Pose2d(45.3, -54, Math.toRadians(-90));
+        Pose2d pickupPose4 = new Pose2d(45.3, -48, Math.toRadians(-90));
+        Pose2d fourthPose = new Pose2d(initScoreVal-scoreDist, -30.5, Math.toRadians(90));
+        Pose2d fifthPose = new Pose2d(initScoreVal-(2*scoreDist), -27.5, Math.toRadians(90));
+        Pose2d sixthPose = new Pose2d(initScoreVal-(3*scoreDist), -25, Math.toRadians(90));
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
@@ -125,10 +125,12 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
         );
 
         objSlides.dispenseSpecimen();
+        objGrippers.toggleRotate();
 
         sleep(scoreTime);
 
         objGrippers.toggleClamp();
+        objGrippers.toggleRotate();
         objSlides.togglePos();
 
         Actions.runBlocking(
@@ -150,10 +152,12 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
         );
 
         objSlides.dispenseSpecimen();
+        objGrippers.toggleRotate();
 
         sleep(scoreTime);
 
         objGrippers.toggleClamp();
+        objGrippers.toggleRotate();
         objSlides.togglePos();
 
         Actions.runBlocking(
@@ -174,11 +178,12 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
         );
 
         objSlides.dispenseSpecimen();
+        objGrippers.toggleRotate();
 
         sleep(scoreTime);
 
         objGrippers.toggleClamp();
-
+        objGrippers.toggleRotate();
         objSlides.togglePos();
 
         Actions.runBlocking(
@@ -200,12 +205,12 @@ public class CompetitionRightSpecimenAuto extends LinearOpMode {
         );
 
         objSlides.dispenseSpecimen();
+        objGrippers.toggleRotate();
 
         sleep(scoreTime);
 
         objGrippers.toggleClamp();
-
-        objSlides.setSliderTarget(0);
+        objGrippers.toggleRotate();        objSlides.setSliderTarget(0);
 
         Actions.runBlocking(
                 new SequentialAction(
