@@ -10,6 +10,8 @@ public class MecanumSubsystem {
     public final DcMotor rightFront;
     public final DcMotor rightBack;
     public final IMU imu;
+
+    double powerMult = 0.5;
     public MecanumSubsystem(DcMotor FL, DcMotor BL, DcMotor FR, DcMotor BR, IMU imu) {
         leftFront = FL;
         leftBack = BL;
@@ -42,10 +44,10 @@ public class MecanumSubsystem {
         double frontRightPower = ((-rx - x + y) / denominator) * (1 - (0.6 * sp));
         double backRightPower = ((-rx + x + y) / denominator) * (1 - (0.6 * sp));
 
-        leftFront.setPower(frontLeftPower);
-        leftBack.setPower(backLeftPower);
-        rightFront.setPower(frontRightPower);
-        rightBack.setPower(backRightPower);
+        leftFront.setPower(frontLeftPower*powerMult);
+        leftBack.setPower(backLeftPower*powerMult);
+        rightFront.setPower(frontRightPower*powerMult);
+        rightBack.setPower(backRightPower*powerMult);
     }
     public double getFrontLeftPower() {
         return leftFront.getPower();
