@@ -3,12 +3,20 @@ package org.firstinspires.ftc.teamcode.team.opmodes.testing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.teamcode.team.opmodes.internalLib.gamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.mecanumDrive;
+import org.firstinspires.ftc.teamcode.team.subsystems.servoGate;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOpDrivetrain", group = "Linear OpMode")
 public class teleOpDrivetrain extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
+
+        gamepadButton launchButton = new gamepadButton(gamepad1, gamepadButton.gamepadKeys.RIGHT_BUMPER);
+
+        waitForStart();
+        if (isStopRequested()) return;
+
         mecanumDrive drivetrain = new mecanumDrive(
                 hardwareMap.dcMotor.get("leftFront"),
                 hardwareMap.dcMotor.get("leftBack"),
@@ -16,12 +24,20 @@ public class teleOpDrivetrain extends LinearOpMode {
                 hardwareMap.dcMotor.get("rightBack"),
                 hardwareMap.get(IMU.class, "imu")
         );
-        waitForStart();
-        if (isStopRequested()) return;
+        servoGate servoGate = new servoGate(
+                hardwareMap.servo.get("leftGate"),
+                hardwareMap.servo.get("rightGate")
+        );
 
         while (opModeIsActive())
         {
             drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
+
+            if (launchButton.isPressed()) {
+                servoGate.toggleGate();
+            }
+
+            telemetry.addData("RightBumper", gamepad1.right_bumper);
 
             telemetry.addData("Front Left Motor Power " , drivetrain.getFrontLeftPower());
             telemetry.addData("Back Left Motor Power " , drivetrain.getBackLeftPower());

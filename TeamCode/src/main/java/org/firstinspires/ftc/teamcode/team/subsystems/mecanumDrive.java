@@ -9,6 +9,7 @@ public class mecanumDrive {
     public final DcMotor leftBack;
     public final DcMotor rightFront;
     public final DcMotor rightBack;
+    //DcMotor.ZeroPowerBehavior zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE;
     public final IMU imu;
     public mecanumDrive(DcMotor leftFront, DcMotor leftBack, DcMotor rightFront, DcMotor rightBack, IMU imu) {
         this.leftFront = leftFront;
@@ -17,8 +18,8 @@ public class mecanumDrive {
         this.rightBack = rightBack;
         this.imu = imu;
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+                RevHubOrientationOnRobot.LogoFacingDirection.BACKWARD,
+                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT));
         // Without this, the REV Hub's orientation is assumed to be logo up / USB
         // forward
         imu.initialize(parameters);
