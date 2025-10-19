@@ -1,13 +1,14 @@
-package org.firstinspires.ftc.teamcode.team.opmodes.testing;
+package org.firstinspires.ftc.teamcode.team.opmodes.competition;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.teamcode.team.opmodes.internalLib.gamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.mecanumDrive;
+import org.firstinspires.ftc.teamcode.team.subsystems.scoringSystem;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOpDrivetrain", group = "Linear OpMode")
-public class teleOpDrivetrain extends LinearOpMode {
+public class teleOpCompetition extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -26,7 +27,15 @@ public class teleOpDrivetrain extends LinearOpMode {
 
         while (opModeIsActive())
         {
+            scoringSystem.launcherOn();
+
             drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
+
+            scoringSystem.intake(gamepad1.right_trigger, gamepad1.left_trigger);
+
+            if (launchButton.isPressed()) {
+                scoringSystem.score();
+            }
 
             telemetry.addData("RightBumper", gamepad1.right_bumper);
 
