@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.team.opmodes.internalLib;
+package org.firstinspires.ftc.teamcode.team.libraries;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 public class gamepadButton {

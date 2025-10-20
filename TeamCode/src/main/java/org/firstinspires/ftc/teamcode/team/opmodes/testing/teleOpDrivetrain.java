@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.team.opmodes.testing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
-import org.firstinspires.ftc.teamcode.team.opmodes.internalLib.gamepadButton;
+import org.firstinspires.ftc.teamcode.team.libraries.gamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.mecanumDrive;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOpDrivetrain", group = "Linear OpMode")

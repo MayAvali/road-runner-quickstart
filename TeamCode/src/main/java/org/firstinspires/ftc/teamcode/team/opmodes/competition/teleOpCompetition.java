@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.team.opmodes.competition;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
-import org.firstinspires.ftc.teamcode.team.opmodes.internalLib.gamepadButton;
+import org.firstinspires.ftc.teamcode.team.libraries.gamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.mecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.scoringSystem;
 
