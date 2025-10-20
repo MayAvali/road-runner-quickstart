@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.team.libraries;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
-public class gamepadButton {
+public class GamepadButton {
     public enum gamepadKeys {
         A,
         B,
@@ -26,7 +26,7 @@ public class gamepadButton {
     private final Gamepad pad;
     private boolean previousState = false;
     private final gamepadKeys key;
-    public gamepadButton(Gamepad pad, gamepadKeys key) {
+    public GamepadButton(Gamepad pad, gamepadKeys key) {
         this.pad = pad;
         this.key = key;
     }

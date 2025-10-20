@@ -3,21 +3,21 @@ package org.firstinspires.ftc.teamcode.team.opmodes.competition;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
-import org.firstinspires.ftc.teamcode.team.libraries.gamepadButton;
-import org.firstinspires.ftc.teamcode.team.subsystems.mecanumDrive;
-import org.firstinspires.ftc.teamcode.team.subsystems.scoringSystem;
+import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
+import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
+import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOpDrivetrain", group = "Linear OpMode")
-public class teleOpCompetition extends LinearOpMode {
+public class TeleOpCompetition extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        gamepadButton launchButton = new gamepadButton(gamepad1, gamepadButton.gamepadKeys.RIGHT_BUMPER);
+        GamepadButton launchButton = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.RIGHT_BUMPER);
 
         waitForStart();
         if (isStopRequested()) return;
 
-        mecanumDrive drivetrain = new mecanumDrive(
+        MecanumDrive drivetrain = new MecanumDrive(
                 hardwareMap.dcMotor.get("leftFront"),
                 hardwareMap.dcMotor.get("leftBack"),
                 hardwareMap.dcMotor.get("rightFront"),
@@ -27,14 +27,14 @@ public class teleOpCompetition extends LinearOpMode {
 
         while (opModeIsActive())
         {
-            scoringSystem.launcherOn();
+            ScoringSystem.launcherOn();
 
-            drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
+            drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 1);
 
-            scoringSystem.intake(gamepad1.right_trigger, gamepad1.left_trigger);
+            ScoringSystem.intake(gamepad1.right_trigger, gamepad1.left_trigger);
 
             if (launchButton.isPressed()) {
-                scoringSystem.score();
+                ScoringSystem.score();
             }
 
             telemetry.addData("RightBumper", gamepad1.right_bumper);

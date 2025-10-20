@@ -4,14 +4,14 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 
-public class mecanumDrive {
+public class MecanumDrive {
     public final DcMotor leftFront;
     public final DcMotor leftBack;
     public final DcMotor rightFront;
     public final DcMotor rightBack;
     //DcMotor.ZeroPowerBehavior zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE;
     public final IMU imu;
-    public mecanumDrive(DcMotor leftFront, DcMotor leftBack, DcMotor rightFront, DcMotor rightBack, IMU imu) {
+    public MecanumDrive(DcMotor leftFront, DcMotor leftBack, DcMotor rightFront, DcMotor rightBack, IMU imu) {
         this.leftFront = leftFront;
         this.leftBack = leftBack;
         this.rightFront = rightFront;

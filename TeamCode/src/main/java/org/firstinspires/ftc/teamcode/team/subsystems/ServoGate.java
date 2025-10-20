@@ -2,17 +2,17 @@ package org.firstinspires.ftc.teamcode.team.subsystems;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class servoGate {
+public class ServoGate {
     public static Servo leftGate;
     public static Servo rightGate;
 
     static boolean isGateClosed = false;
 
-    public servoGate(Servo leftGate, Servo rightGate) {
-        servoGate.leftGate = leftGate;
-        servoGate.rightGate = rightGate;
-        servoGate.leftGate.setPosition(0.5);
-        servoGate.rightGate.setPosition(0.5);
+    public ServoGate(Servo leftGate, Servo rightGate) {
+        ServoGate.leftGate = leftGate;
+        ServoGate.rightGate = rightGate;
+        ServoGate.leftGate.setPosition(0.5);
+        ServoGate.rightGate.setPosition(0.5);
     }
 
     public static void toggleGate() {

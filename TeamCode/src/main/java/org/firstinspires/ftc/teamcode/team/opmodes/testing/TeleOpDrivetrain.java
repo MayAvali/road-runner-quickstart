@@ -3,20 +3,20 @@ package org.firstinspires.ftc.teamcode.team.opmodes.testing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.IMU;
 
-import org.firstinspires.ftc.teamcode.team.libraries.gamepadButton;
-import org.firstinspires.ftc.teamcode.team.subsystems.mecanumDrive;
+import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
+import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOpDrivetrain", group = "Linear OpMode")
-public class teleOpDrivetrain extends LinearOpMode {
+public class TeleOpDrivetrain extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        gamepadButton launchButton = new gamepadButton(gamepad1, gamepadButton.gamepadKeys.RIGHT_BUMPER);
+        GamepadButton launchButton = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.RIGHT_BUMPER);
 
         waitForStart();
         if (isStopRequested()) return;
 
-        mecanumDrive drivetrain = new mecanumDrive(
+        MecanumDrive drivetrain = new MecanumDrive(
                 hardwareMap.dcMotor.get("leftFront"),
                 hardwareMap.dcMotor.get("leftBack"),
                 hardwareMap.dcMotor.get("rightFront"),
