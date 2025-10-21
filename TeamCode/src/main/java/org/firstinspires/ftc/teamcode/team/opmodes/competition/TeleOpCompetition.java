@@ -25,6 +25,9 @@ public class TeleOpCompetition extends LinearOpMode {
                 hardwareMap.get(IMU.class, "imu")
         );
 
+        hardwareMap.dcMotor.get("intake");
+        hardwareMap.dcMotor.get("launcher");
+
         while (opModeIsActive())
         {
             ScoringSystem.launcherOn();
