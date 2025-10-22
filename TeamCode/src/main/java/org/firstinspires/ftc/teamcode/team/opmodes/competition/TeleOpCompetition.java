@@ -6,13 +6,12 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
+import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOpDrivetrain", group = "Linear OpMode")
 public class TeleOpCompetition extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-
-        GamepadButton launchButton = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.RIGHT_BUMPER);
 
         waitForStart();
         if (isStopRequested()) return;
@@ -25,19 +24,39 @@ public class TeleOpCompetition extends LinearOpMode {
                 hardwareMap.get(IMU.class, "imu")
         );
 
-        hardwareMap.dcMotor.get("intake");
-        hardwareMap.dcMotor.get("launcher");
+        ScoringSystem ScoringSystem = new ScoringSystem(
+                hardwareMap.dcMotor.get("intake"),
+                hardwareMap.dcMotor.get("launcher")
+        );
+
+        ServoGate ServoGate = new ServoGate(
+                hardwareMap.servo.get("leftGate"),
+                hardwareMap.servo.get("rightGate")
+        );
+
+        GamepadButton gateButton = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.LEFT_BUMPER);
+        GamepadButton launcherToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.RIGHT_BUMPER);
+        GamepadButton launcherAccel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_UP);
+        GamepadButton launcherDecel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_DOWN);
 
         while (opModeIsActive())
         {
-            ScoringSystem.launcherOn();
 
             drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 1);
 
-            ScoringSystem.intake(gamepad1.right_trigger, gamepad1.left_trigger);
+            ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
-            if (launchButton.isPressed()) {
-                ScoringSystem.score();
+            if (gateButton.isPressed()) {
+                ServoGate.toggleGate();
+            }
+            if (launcherToggle.isPressed()) {
+                ScoringSystem.launcherToggle();
+            }
+            if (launcherAccel.isPressed()) {
+                ScoringSystem.launchAccel();
+            }
+            if (launcherDecel.isPressed()) {
+                ScoringSystem.launchDecel();
             }
 
             telemetry.addData("RightBumper", gamepad1.right_bumper);
@@ -47,9 +66,13 @@ public class TeleOpCompetition extends LinearOpMode {
             telemetry.addData("Front Right Motor Power " , drivetrain.getFrontRightPower());
             telemetry.addData("Back Right Motor Power " , drivetrain.getBackRightPower());
 
+            telemetry.addData("Intake Motor Power " , ScoringSystem.getIntakePower());
+            telemetry.addData("Launcher Motor Power " , ScoringSystem.getLauncherPower());
+
             telemetry.addData("Left Stick X " , gamepad1.left_stick_x);
             telemetry.addData("Left Stick Y " , gamepad1.left_stick_y);
             telemetry.addData("Right Stick X " , gamepad1.right_stick_x);
+            telemetry.addData("Left Trigger " , gamepad1.left_trigger);
             telemetry.addData("Right Trigger " , gamepad1.right_trigger);
             telemetry.update();
         }

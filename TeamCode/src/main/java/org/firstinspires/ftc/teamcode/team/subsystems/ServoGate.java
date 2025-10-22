@@ -3,25 +3,25 @@ package org.firstinspires.ftc.teamcode.team.subsystems;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class ServoGate {
-    public static Servo leftGate;
-    public static Servo rightGate;
+    public Servo leftGate;
+    public Servo rightGate;
 
-    static boolean isGateClosed = false;
+    static boolean isGateOpen = false;
 
     public ServoGate(Servo leftGate, Servo rightGate) {
-        ServoGate.leftGate = leftGate;
-        ServoGate.rightGate = rightGate;
-        ServoGate.leftGate.setPosition(0.5);
-        ServoGate.rightGate.setPosition(0.5);
+        this.leftGate = leftGate;
+        this.rightGate = rightGate;
+        leftGate.setPosition(0.5);
+        rightGate.setPosition(0.5);
     }
 
-    public static void toggleGate() {
-        if (isGateClosed) {
-            isGateClosed = false;
+    public void toggleGate() {
+        if (isGateOpen) {
+            isGateOpen = false;
             leftGate.setPosition(0.18);
             rightGate.setPosition(0.84);
         } else {
-            isGateClosed = true;
+            isGateOpen = true;
             leftGate.setPosition(0.5);
             rightGate.setPosition(0.5);
         }
