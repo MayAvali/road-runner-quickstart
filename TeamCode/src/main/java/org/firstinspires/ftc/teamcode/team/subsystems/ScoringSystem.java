@@ -22,6 +22,15 @@ public class ScoringSystem {
             launcher.setPower(LaunchMult);
         }
     }
+    public void launcherOn(){
+        launcher.setPower(LaunchMult);
+    }
+    public void launcherOff(){
+        launcher.setPower(0);
+    }
+    public void launcherUpdate(){
+        launcher.setPower(LaunchMult);
+    }
     public void launchAccel(){
         LaunchMult += 0.02;
     }

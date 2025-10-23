@@ -26,4 +26,14 @@ public class ServoGate {
             rightGate.setPosition(0.5);
         }
     }
+    public void openGate() {
+        isGateOpen = true;
+        leftGate.setPosition(0.5);
+        rightGate.setPosition(0.5);
+    }
+    public void closeGate() {
+        isGateOpen = false;
+        leftGate.setPosition(0.18);
+        rightGate.setPosition(0.84);
+    }
 }
