@@ -42,7 +42,7 @@ public class TeleOpCompetition extends LinearOpMode {
         while (opModeIsActive())
         {
 
-            drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 1);
+            drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 0);
 
             ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
