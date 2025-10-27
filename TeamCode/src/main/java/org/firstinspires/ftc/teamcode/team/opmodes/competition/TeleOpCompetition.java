@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.team.opmodes.competition;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.TeleOpCompetition.RobotState.INTAKE;
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.TeleOpCompetition.RobotState.PRESCORE;
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.TeleOpCompetition.RobotState.SCORE;
@@ -37,7 +38,8 @@ public class TeleOpCompetition extends LinearOpMode {
 
         ScoringSystem ScoringSystem = new ScoringSystem(
                 hardwareMap.dcMotor.get("intake"),
-                hardwareMap.dcMotor.get("launcher")
+                hardwareMap.dcMotor.get("launcher"),
+                hardwareMap.voltageSensor.iterator().next()
         );
 
         ServoGate ServoGate = new ServoGate(
@@ -75,7 +77,7 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.closeGate();
                     drivetrain.zeroPowerFloat();
 
-                    ScoringSystem.launcherOn();
+                    ScoringSystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 0);
 
@@ -103,11 +105,11 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.openGate();
                     drivetrain.zeroPowerBrake();
 
-                    ScoringSystem.launcherOn();
+                    ScoringSystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 0);
 
-                    ScoringSystem.intake(gamepad1.left_trigger, ((gamepad1.right_trigger * 0.5) + 0.5));
+                    ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
                     if (launcherAccel.isPressed()) {
                         ScoringSystem.launchAccel();

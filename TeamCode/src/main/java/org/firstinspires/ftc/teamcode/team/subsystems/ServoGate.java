@@ -28,12 +28,12 @@ public class ServoGate {
     }
     public void openGate() {
         isGateOpen = true;
-        leftGate.setPosition(0.5);
-        rightGate.setPosition(0.5);
+        leftGate.setPosition(0.4);
+        rightGate.setPosition(0.6);
     }
     public void closeGate() {
         isGateOpen = false;
-        leftGate.setPosition(0.18);
-        rightGate.setPosition(0.84);
+        leftGate.setPosition(0.22);
+        rightGate.setPosition(0.80);
     }
 }
