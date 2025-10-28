@@ -3,54 +3,86 @@ package org.firstinspires.ftc.teamcode.team.subsystems;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
+import com.acmerobotics.dashboard.config.Config;
 
 
 public class ScoringSystem {
-    private final DcMotor intake;
-    private final DcMotor launcher;
+    private final DcMotorEx intake;
+    private final DcMotorEx launcher;
     private final VoltageSensor voltageSensor;
 
 
-    double LaunchMult = 0.925;
+    //REPLACE INTAKE PIDF SOON.
 
-    public ScoringSystem(DcMotor intake, DcMotor launcher, VoltageSensor voltageSensor) {
+    //it is currently designed around the encoder NOT being plugged in which defeats the purpose. Once that is fixed it needs to be re-adjusted ASAP.
+    public static class intakePIDF {
+        public double P = 250;
+        public double I = 0;
+        public double D = 16;
+        public double F = 0;
+    }
+    public static class launcherPIDF {
+        public double P = 150;
+        public double I = 5;
+        public double D = 10;
+        public double F = 0;
+    }
+    public static intakePIDF IntakePIDF = new intakePIDF();
+    public static launcherPIDF LauncherPIDF = new launcherPIDF();
+
+
+    public double LaunchVel = 2100;
+    public double LaunchMult = 0.88;
+
+    public ScoringSystem(DcMotorEx intake, DcMotorEx launcher, VoltageSensor voltageSensor) {
         this.intake = intake;
-        //intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        intake.setVelocityPIDFCoefficients(IntakePIDF.P, IntakePIDF.I, IntakePIDF.D, IntakePIDF.F);
+
         this.launcher = launcher;
-        //launcher.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        launcher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        launcher.setVelocityPIDFCoefficients(LauncherPIDF.P, LauncherPIDF.I, LauncherPIDF.D, LauncherPIDF.F);
         this.voltageSensor = voltageSensor;
     }
     public void launcherToggle(){
         if(launcher.getPower() != 0)
-            launcher.setPower(0);
+            launcher.setVelocity(0);
+            //launcher.setPower(0);
         else{
-            launcher.setPower(LaunchMult);
+            launcher.setVelocity(LaunchVel);
+            //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
         }
     }
     public void launcherOn(){
-        launcher.setPower(LaunchMult);
+        launcher.setVelocity(LaunchVel);
+        //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
     }
     public void launcherOff(){
-        launcher.setPower(0);
+        launcher.setVelocity(0);
     }
     public void launcherUpdate(){
-        launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
+        launcher.setVelocity(LaunchVel);
+        //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
     }
     public void launchAccel(){
-        LaunchMult += 0.02;
+        LaunchVel += 25;
+        //LaunchMult += 0.01;
+
     }
     public void launchDecel(){
-        LaunchMult -= 0.02;
+        LaunchVel -= 25;
+        //LaunchMult -= 0.01;
     }
     public void intake(double out, double in){
-        intake.setPower((0.4*out)-(0.6*in)*(12/(voltageSensor.getVoltage())));
+        intake.setVelocity((90*out)-(110*in));
     }
 
-    public String getIntakePower() {
-        return String.valueOf(intake.getPower());
+    public double getIntakeVel() {
+        return intake.getVelocity();
     }
-    public String getLauncherPower() {
-        return String.valueOf(launcher.getPower());
+    public double getLauncherVel() {
+        return launcher.getVelocity();
     }
 }

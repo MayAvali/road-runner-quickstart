@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.team.opmodes.competition.TeleOpComp
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -37,8 +38,8 @@ public class TeleOpCompetition extends LinearOpMode {
         );
 
         ScoringSystem ScoringSystem = new ScoringSystem(
-                hardwareMap.dcMotor.get("intake"),
-                hardwareMap.dcMotor.get("launcher"),
+                (DcMotorEx) hardwareMap.dcMotor.get("intake"),
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
                 hardwareMap.voltageSensor.iterator().next()
         );
 
@@ -130,19 +131,23 @@ public class TeleOpCompetition extends LinearOpMode {
             }
             telemetry.addData("RobotState", robotState);
 
-            telemetry.addData("Front Left Motor Power ", drivetrain.getFrontLeftPower());
-            telemetry.addData("Back Left Motor Power ", drivetrain.getBackLeftPower());
-            telemetry.addData("Front Right Motor Power ", drivetrain.getFrontRightPower());
-            telemetry.addData("Back Right Motor Power ", drivetrain.getBackRightPower());
+            telemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());
+            telemetry.addData("Back Left Motor Power: ", drivetrain.getBackLeftPower());
+            telemetry.addData("Front Right Motor Power: ", drivetrain.getFrontRightPower());
+            telemetry.addData("Back Right Motor Power: ", drivetrain.getBackRightPower());
 
-            telemetry.addData("Intake Motor Power ", ScoringSystem.getIntakePower());
-            telemetry.addData("Launcher Motor Power ", ScoringSystem.getLauncherPower());
+            telemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());
+            telemetry.addData("Launcher Motor Velocity ", ScoringSystem.getLauncherVel());
 
-            telemetry.addData("Left Stick X ", gamepad1.left_stick_x);
-            telemetry.addData("Left Stick Y ", gamepad1.left_stick_y);
-            telemetry.addData("Right Stick X ", gamepad1.right_stick_x);
-            telemetry.addData("Left Trigger ", gamepad1.left_trigger);
-            telemetry.addData("Right Trigger ", gamepad1.right_trigger);
+            telemetry.addData("Launcher Motor Target Vel: ", ScoringSystem.LaunchVel);
+
+            //telemetry.addData("Launcher Motor Multiplier: ", ScoringSystem.LaunchMult);
+
+            telemetry.addData("Left Stick X: ", gamepad1.left_stick_x);
+            telemetry.addData("Left Stick Y: ", gamepad1.left_stick_y);
+            telemetry.addData("Right Stick X: ", gamepad1.right_stick_x);
+            telemetry.addData("Left Trigger: ", gamepad1.left_trigger);
+            telemetry.addData("Right Trigger: ", gamepad1.right_trigger);
             telemetry.update();
         }
     }
