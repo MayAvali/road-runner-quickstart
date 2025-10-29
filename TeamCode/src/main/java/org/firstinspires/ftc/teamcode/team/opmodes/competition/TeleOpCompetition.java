@@ -5,12 +5,14 @@ import static org.firstinspires.ftc.teamcode.team.opmodes.competition.TeleOpComp
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.TeleOpCompetition.RobotState.PRESCORE;
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.TeleOpCompetition.RobotState.SCORE;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
@@ -23,6 +25,9 @@ public class TeleOpCompetition extends LinearOpMode {
 
         waitForStart();
         if (isStopRequested()) return;
+
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
         RobotState robotState = INTAKE;
 
@@ -110,7 +115,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
                     drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 0);
 
-                    ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
+                    ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.475);
 
                     if (launcherAccel.isPressed()) {
                         ScoringSystem.launchAccel();
@@ -149,6 +154,24 @@ public class TeleOpCompetition extends LinearOpMode {
             telemetry.addData("Left Trigger: ", gamepad1.left_trigger);
             telemetry.addData("Right Trigger: ", gamepad1.right_trigger);
             telemetry.update();
+
+            dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());
+            dashboardTelemetry.addData("Back Left Motor Power: ", drivetrain.getBackLeftPower());
+            dashboardTelemetry.addData("Front Right Motor Power: ", drivetrain.getFrontRightPower());
+            dashboardTelemetry.addData("Back Right Motor Power: ", drivetrain.getBackRightPower());
+
+            dashboardTelemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());
+            dashboardTelemetry.addData("Launcher Motor Velocity ", ScoringSystem.getLauncherVel());
+
+            dashboardTelemetry.addData("Launcher Motor Target Vel: ", ScoringSystem.LaunchVel);
+
+            dashboardTelemetry.addData("Left Stick X: ", gamepad1.left_stick_x);
+            dashboardTelemetry.addData("Left Stick Y: ", gamepad1.left_stick_y);
+            dashboardTelemetry.addData("Right Stick X: ", gamepad1.right_stick_x);
+            dashboardTelemetry.addData("Left Trigger: ", gamepad1.left_trigger);
+            dashboardTelemetry.addData("Right Trigger: ", gamepad1.right_trigger);
+
+            dashboardTelemetry.update();
         }
     }
     enum RobotState {
