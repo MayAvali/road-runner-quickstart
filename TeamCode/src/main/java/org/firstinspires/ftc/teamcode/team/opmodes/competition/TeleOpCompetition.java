@@ -115,7 +115,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
                     drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 0);
 
-                    ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.475);
+                    ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.525);
 
                     if (launcherAccel.isPressed()) {
                         ScoringSystem.launchAccel();
