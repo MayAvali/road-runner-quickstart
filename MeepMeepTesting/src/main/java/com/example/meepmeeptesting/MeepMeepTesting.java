@@ -18,10 +18,10 @@ public class MeepMeepTesting {
 
         Pose2d InitPosition = new Pose2d(-62.9, -31.2, 0);
 
-        Vector2d PreloadScorePosition = new Vector2d( -40, -40);
+        Vector2d PreloadScorePosition = new Vector2d( -36, -36);
 
         myBot.runAction(myBot.getDrive().actionBuilder(InitPosition)
-                .strafeToLinearHeading(PreloadScorePosition, Math.toRadians(135))
+                .strafeToLinearHeading(PreloadScorePosition, Math.toRadians(-135))
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_JUICE_DARK)

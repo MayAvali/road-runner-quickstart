@@ -34,7 +34,7 @@ public class BlueCornerAuto extends LinearOpMode {
 
 
         Pose2d InitPosition = new Pose2d(-62.9, -31.2, 0);
-        Vector2d PreloadScorePosition = new Vector2d( -40, -40);
+        Vector2d PreloadScorePosition = new Vector2d( -36, -36);
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
@@ -62,11 +62,15 @@ public class BlueCornerAuto extends LinearOpMode {
 
         sleep(littlePause);
 
-        ScoringSystem.intake(0,0.525);
+        ScoringSystem.intake(0,0);
 
         sleep(littlePause);
 
         ServoGate.openGate();
+
+        sleep(littlePause);
+
+        ScoringSystem.intake(0,0.525);
 
         while(opModeIsActive()) {
             telemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());
