@@ -1,16 +1,14 @@
-package org.firstinspires.ftc.teamcode.team.opmodes.competition;
+package org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.TeleOpCompetition.RobotState.INTAKE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.TeleOpCompetition.RobotState.PRESCORE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.TeleOpCompetition.RobotState.SCORE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.INTAKE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.PRESCORE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.SCORE;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
