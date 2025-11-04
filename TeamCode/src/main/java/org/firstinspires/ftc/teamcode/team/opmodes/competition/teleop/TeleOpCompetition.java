@@ -88,7 +88,7 @@ public class TeleOpCompetition extends LinearOpMode {
                     if(precision){
                         ScoringSystem.setLaunchVel(1800);
                     } else {
-                        ScoringSystem.setLaunchVel(2100);
+                        ScoringSystem.setLaunchVel(1850);
                     }
                     ScoringSystem.launcherUpdate();
 
@@ -121,7 +121,7 @@ public class TeleOpCompetition extends LinearOpMode {
                     if(precision){
                         ScoringSystem.setLaunchVel(1800);
                     } else {
-                        ScoringSystem.setLaunchVel(2100);
+                        ScoringSystem.setLaunchVel(1850);
                     }
                     ScoringSystem.launcherUpdate();
 
@@ -132,7 +132,7 @@ public class TeleOpCompetition extends LinearOpMode {
                     if(precision){
                         ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.525);
                     } else {
-                        ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.525);
+                        ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.750);
                     }
 
                     if (launcherAccel.isPressed()) {
