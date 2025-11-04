@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop;
 
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.INTAKE;
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.PRESCORE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.PRIME;
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.SCORE;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -28,6 +29,8 @@ public class TeleOpCompetition extends LinearOpMode {
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
         RobotState robotState = INTAKE;
+
+        boolean precision = false;
 
         //ElapsedTime timer = new ElapsedTime();
         //timer.reset();
@@ -57,6 +60,7 @@ public class TeleOpCompetition extends LinearOpMode {
         GamepadButton stateForward = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.RIGHT_BUMPER);
         GamepadButton launcherAccel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_UP);
         GamepadButton launcherDecel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_DOWN);
+        GamepadButton modeSwitcher = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);
 
         while (opModeIsActive()) {
             switch (robotState) {
@@ -81,6 +85,11 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.closeGate();
                     drivetrain.zeroPowerFloat();
 
+                    if(precision){
+                        ScoringSystem.setLaunchVel(1800);
+                    } else {
+                        ScoringSystem.setLaunchVel(2100);
+                    }
                     ScoringSystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 0);
@@ -109,11 +118,22 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.openGate();
                     drivetrain.zeroPowerBrake();
 
+                    if(precision){
+                        ScoringSystem.setLaunchVel(1800);
+                    } else {
+                        ScoringSystem.setLaunchVel(2100);
+                    }
                     ScoringSystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 0);
 
-                    ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.525);
+                    ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*1);
+
+                    if(precision){
+                        ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.525);
+                    } else {
+                        ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.525);
+                    }
 
                     if (launcherAccel.isPressed()) {
                         ScoringSystem.launchAccel();
@@ -132,7 +152,14 @@ public class TeleOpCompetition extends LinearOpMode {
                 default:
                     throw new IllegalStateException("Unexpected value: " + robotState);
             }
+
+            if (modeSwitcher.isPressed()) {
+                precision = !precision;
+            }
+
+
             telemetry.addData("RobotState", robotState);
+            telemetry.addData("RobotIsInPreciseMode", precision);
 
             telemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());
             telemetry.addData("Back Left Motor Power: ", drivetrain.getBackLeftPower());
@@ -175,6 +202,7 @@ public class TeleOpCompetition extends LinearOpMode {
     enum RobotState {
         INTAKE,
         PRESCORE,
+        PRIME,
         SCORE
     }
 }

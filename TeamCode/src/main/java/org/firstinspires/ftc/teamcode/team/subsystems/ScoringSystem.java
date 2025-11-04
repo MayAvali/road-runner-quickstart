@@ -74,6 +74,10 @@ public class ScoringSystem {
         //LaunchMult += 0.01;
 
     }
+
+    public void setLaunchVel(int velocity){
+        LaunchVel = velocity;
+    }
     public void launchDecel(){
         LaunchVel -= 25;
         //LaunchMult -= 0.01;

@@ -31,7 +31,7 @@ public class RedCornerAuto extends LinearOpMode {
 
 
         Pose2d InitPosition = new Pose2d(-62.9, 31.2, 0);
-        Vector2d PreloadScorePosition = new Vector2d( -36, 36);
+        Vector2d PreloadScorePosition = new Vector2d( -38, 38);
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
