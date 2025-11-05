@@ -30,12 +30,22 @@ public class BlueCornerAuto extends LinearOpMode {
 
 
         Pose2d InitPosition = new Pose2d(-62.9, -31.2, 0);
-        Vector2d PreloadScorePosition = new Vector2d( -38, -38);
+
+        Vector2d ScorePosition = new Vector2d( -35, -35);
+
+        Vector2d CollectAlignPos = new Vector2d(-35, -25);
+
+        Vector2d PPGAlignPos = new Vector2d(-12,-25);
+        Vector2d PPGGrabPos = new Vector2d(-12,-50);
+        Vector2d PGPAlignPos = new Vector2d(11.5,-25);
+        Vector2d PGPGrabPos = new Vector2d(11.5,-50);
+        Vector2d GPPAlignPos = new Vector2d(35, -25);
+        Vector2d GPPGrabPos = new Vector2d(35,-50);
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
         TrajectoryActionBuilder initScore = drivetrain.actionBuilder(InitPosition)
-                .strafeToLinearHeading(PreloadScorePosition, Math.toRadians(-135));
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
 
         waitForStart();
         if (isStopRequested()) return;
