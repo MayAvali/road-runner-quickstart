@@ -1,15 +1,14 @@
 package org.firstinspires.ftc.teamcode.team.subsystems;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.acmerobotics.dashboard.config.Config;
 
 
 public class ScoringSystem {
     private final DcMotorEx intake;
+    private final DcMotorEx intake2;
     private final DcMotorEx launcher;
     private final VoltageSensor voltageSensor;
 
@@ -38,10 +37,14 @@ public class ScoringSystem {
     public double LaunchVel = 1800;
     public double LaunchMult = 0.88;
 
-    public ScoringSystem(DcMotorEx intake, DcMotorEx launcher, VoltageSensor voltageSensor) {
+    public ScoringSystem(DcMotorEx intake, DcMotorEx intake2, DcMotorEx launcher, VoltageSensor voltageSensor) {
         this.intake = intake;
         intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
+
+        this.intake2 = intake2;
+        intake2.setDirection(DcMotorSimple.Direction.REVERSE);
+        intake2.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         this.launcher = launcher;
         launcher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
@@ -84,7 +87,9 @@ public class ScoringSystem {
     }
     public void intake(double out, double in){
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
+        intake2.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
         intake.setVelocity((1000*out)-(1200*in));
+        intake2.setVelocity((1000*out)-(1200*in));
     }
 
     public void intakeShiftStrong() {

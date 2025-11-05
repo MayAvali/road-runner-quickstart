@@ -3,19 +3,15 @@ package org.firstinspires.ftc.teamcode.team.opmodes.competition.autonomous;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.IMU;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
@@ -47,7 +43,7 @@ public class BlueCornerAuto extends LinearOpMode {
         ScoringSystem ScoringSystem = new ScoringSystem(
                 (DcMotorEx) hardwareMap.dcMotor.get("intake"),
                 (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
-                hardwareMap.voltageSensor.iterator().next()
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher"), hardwareMap.voltageSensor.iterator().next()
         );
         ServoGate ServoGate = new ServoGate(
                 hardwareMap.servo.get("leftGate"),

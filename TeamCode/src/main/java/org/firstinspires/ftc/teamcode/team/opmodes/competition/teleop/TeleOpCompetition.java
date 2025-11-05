@@ -45,6 +45,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
         ScoringSystem ScoringSystem = new ScoringSystem(
                 (DcMotorEx) hardwareMap.dcMotor.get("intake"),
+                (DcMotorEx) hardwareMap.dcMotor.get("intake2"),
                 (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
                 hardwareMap.voltageSensor.iterator().next()
         );
@@ -85,11 +86,8 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.closeGate();
                     drivetrain.zeroPowerFloat();
 
-                    if(precision){
-                        ScoringSystem.setLaunchVel(1800);
-                    } else {
-                        ScoringSystem.setLaunchVel(1850);
-                    }
+                    ScoringSystem.setLaunchVel(1800);
+
                     ScoringSystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 0);
@@ -118,11 +116,8 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.openGate();
                     drivetrain.zeroPowerBrake();
 
-                    if(precision){
-                        ScoringSystem.setLaunchVel(1800);
-                    } else {
-                        ScoringSystem.setLaunchVel(1850);
-                    }
+                    ScoringSystem.setLaunchVel(1800);
+
                     ScoringSystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, 0);
@@ -130,9 +125,9 @@ public class TeleOpCompetition extends LinearOpMode {
                     ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*1);
 
                     if(precision){
-                        ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.525);
+                        ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.35);
                     } else {
-                        ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.750);
+                        ScoringSystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.525);
                     }
 
                     if (launcherAccel.isPressed()) {
