@@ -43,8 +43,9 @@ public class RedCornerAuto extends LinearOpMode {
 
         ScoringSystem ScoringSystem = new ScoringSystem(
                 (DcMotorEx) hardwareMap.dcMotor.get("intake"),
+                (DcMotorEx) hardwareMap.dcMotor.get("intake2"),
                 (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
-                (DcMotorEx) hardwareMap.dcMotor.get("launcher"), hardwareMap.voltageSensor.iterator().next()
+                hardwareMap.voltageSensor.iterator().next()
         );
         ServoGate ServoGate = new ServoGate(
                 hardwareMap.servo.get("leftGate"),
@@ -53,7 +54,7 @@ public class RedCornerAuto extends LinearOpMode {
 
         ServoGate.closeGate();
         ScoringSystem.launcherUpdate();
-        ScoringSystem.intake(0,0.8);
+        ScoringSystem.intake(0,1);
 
         Actions.runBlocking(new SequentialAction(initScore.build()));
 
@@ -67,7 +68,7 @@ public class RedCornerAuto extends LinearOpMode {
 
         sleep(littlePause);
 
-        ScoringSystem.intake(0,0.525);
+        ScoringSystem.intake(0,0.5);
 
         while(opModeIsActive()) {
             telemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());

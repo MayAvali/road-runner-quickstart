@@ -18,16 +18,16 @@ public class ScoringSystem {
     //it is currently designed around the encoder NOT being plugged in which defeats the purpose. Once that is fixed it needs to be re-adjusted ASAP.
     @Config
     public static class intakePIDF {
-        public static double P = 16;
-        public static double I = 2;
-        public static double D = 5;
-        public static double F = 0;
+        public static double P = 0;
+        public static double I = 0;
+        public static double D = 4;
+        public static double F = 12;
     }
     @Config
     public static class launcherPIDF {
         public static double P = 150;
         public static double I = 8;
-        public static double D = 20;
+        public static double D = 12;
         public static double F = 0;
     }
     public static intakePIDF IntakePIDF = new intakePIDF();
@@ -88,8 +88,8 @@ public class ScoringSystem {
     public void intake(double out, double in){
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
         intake2.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
-        intake.setVelocity((1000*out)-(1200*in));
-        intake2.setVelocity((1000*out)-(1200*in));
+        intake.setVelocity((1200*out)-(1600*in));
+        intake2.setVelocity((1200*out)-(1600*in));
     }
 
     public void intakeShiftStrong() {
