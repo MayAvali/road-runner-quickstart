@@ -88,6 +88,7 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
         int par1PosDelta = par1PosVel.position - lastPar1Pos;
         int perpPosDelta = perpPosVel.position - lastPerpPos;
 
+        double perpScalar = 1.53333333;
         Twist2dDual<Time> twist = new Twist2dDual<>(
                 new Vector2dDual<>(
                         new DualNum<Time>(new double[] {
@@ -95,8 +96,8 @@ public final class ThreeDeadWheelLocalizer implements Localizer {
                                 (PARAMS.par0YTicks * par1PosVel.velocity - PARAMS.par1YTicks * par0PosVel.velocity) / (PARAMS.par0YTicks - PARAMS.par1YTicks),
                         }).times(inPerTick),
                         new DualNum<Time>(new double[] {
-                                (PARAMS.perpXTicks / (PARAMS.par0YTicks - PARAMS.par1YTicks) * (par1PosDelta - par0PosDelta) + perpPosDelta),
-                                (PARAMS.perpXTicks / (PARAMS.par0YTicks - PARAMS.par1YTicks) * (par1PosVel.velocity - par0PosVel.velocity) + perpPosVel.velocity),
+                                (PARAMS.perpXTicks* perpScalar / (PARAMS.par0YTicks - PARAMS.par1YTicks) * (par1PosDelta - par0PosDelta) + perpPosDelta* perpScalar),
+                                (PARAMS.perpXTicks* perpScalar / (PARAMS.par0YTicks - PARAMS.par1YTicks) * (par1PosVel.velocity - par0PosVel.velocity) + perpPosVel.velocity* perpScalar),
                         }).times(inPerTick)
                 ),
                 new DualNum<>(new double[] {
