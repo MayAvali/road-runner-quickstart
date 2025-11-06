@@ -24,6 +24,7 @@ public class BlueCornerAuto extends LinearOpMode {
         int tinyPause = 200;
         int littlePause = 250;
         int bigPause = 500;
+        int scorePause = 4000;
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
@@ -31,9 +32,10 @@ public class BlueCornerAuto extends LinearOpMode {
 
         Pose2d InitPosition = new Pose2d(-62.9, -31.2, 0);
 
-        Vector2d ScorePosition = new Vector2d( -35, -35);
+        Pose2d ScorePositionPose = new Pose2d(-37, -37, Math.toRadians(-135));
+        Vector2d ScorePosition = new Vector2d( -37, -37);
 
-        Vector2d CollectAlignPos = new Vector2d(-35, -25);
+        Vector2d CollectAlignPos = new Vector2d(-37, -25);
 
         Vector2d PPGAlignPos = new Vector2d(-12,-25);
         Vector2d PPGGrabPos = new Vector2d(-12,-50);
@@ -46,6 +48,11 @@ public class BlueCornerAuto extends LinearOpMode {
 
         TrajectoryActionBuilder initScore = drivetrain.actionBuilder(InitPosition)
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
+
+        TrajectoryActionBuilder moveToIntakePPG = drivetrain.actionBuilder(ScorePositionPose)
+                .strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
+                .strafeToLinearHeading(PPGAlignPos, Math.toRadians(-90));
+
 
         waitForStart();
         if (isStopRequested()) return;
@@ -78,6 +85,14 @@ public class BlueCornerAuto extends LinearOpMode {
         sleep(littlePause);
 
         ScoringSystem.intake(0,0.5);
+
+        sleep(scorePause);
+
+        ScoringSystem.intake(0,0);
+
+        Actions.runBlocking(new SequentialAction(moveToIntakePPG.build()));
+
+        ScoringSystem.intake(0,1);
 
         while(opModeIsActive()) {
             telemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());

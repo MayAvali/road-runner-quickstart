@@ -23,6 +23,7 @@ public class RedCornerAuto extends LinearOpMode {
         int tinyPause = 200;
         int littlePause = 250;
         int bigPause = 500;
+        int scorePause = 4000;
 
 
 
@@ -32,9 +33,9 @@ public class RedCornerAuto extends LinearOpMode {
 
         Pose2d InitPosition = new Pose2d(-62.9, 31.2, 0);
 
-        Vector2d ScorePosition = new Vector2d( -35, 35);
+        Vector2d ScorePosition = new Vector2d( -37, 37);
 
-        Vector2d CollectAlignPos = new Vector2d(-35, 25);
+        Vector2d CollectAlignPos = new Vector2d(-37, 27);
 
         Vector2d PPGAlignPos = new Vector2d(-12,25);
         Vector2d PPGGrabPos = new Vector2d(-12,50);
@@ -79,6 +80,8 @@ public class RedCornerAuto extends LinearOpMode {
         sleep(littlePause);
 
         ScoringSystem.intake(0,0.5);
+
+        sleep(scorePause);
 
         while(opModeIsActive()) {
             telemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());
