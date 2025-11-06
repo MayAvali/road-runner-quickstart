@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
-@TeleOp(name = "TeleOpDrivetrain", group = "Linear OpMode")
+@TeleOp(name = "TeleOpCompetition", group = "Linear OpMode")
 public class TeleOpCompetition extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
