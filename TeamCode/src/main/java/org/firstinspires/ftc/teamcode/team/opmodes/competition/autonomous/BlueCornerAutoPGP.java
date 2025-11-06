@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
-@Autonomous(name = "BlueCornerAuto", group = "Autonomous OpMode")
+@Autonomous(name = "BlueCornerAutoPGP", group = "Autonomous OpMode")
 public class BlueCornerAutoPGP extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
