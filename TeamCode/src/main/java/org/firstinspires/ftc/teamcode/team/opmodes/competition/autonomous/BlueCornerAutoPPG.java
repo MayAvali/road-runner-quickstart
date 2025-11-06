@@ -40,20 +40,20 @@ public class BlueCornerAutoPPG extends LinearOpMode {
         Vector2d PPGAlignPos = new Vector2d(-12,-25);
         Pose2d PPGAlignPose = new Pose2d(-12,-25, Math.toRadians(-90));
 
-        Vector2d PPGGrabPos = new Vector2d(-12,-50);
-        Pose2d PPGGrabPose = new Pose2d(-12,-50, Math.toRadians(-90));
+        Vector2d PPGGrabPos = new Vector2d(-12,-57);
+        Pose2d PPGGrabPose = new Pose2d(-12,-57, Math.toRadians(-90));
 
         Vector2d PGPAlignPos = new Vector2d(11.5,-25);
         Pose2d PGPAlignPose = new Pose2d(11.5,-25, Math.toRadians(-90));
 
-        Vector2d PGPGrabPos = new Vector2d(11.5,-50);
-        Pose2d PGPGrabPose = new Pose2d(11.5,-50, Math.toRadians(-90));
+        Vector2d PGPGrabPos = new Vector2d(11.5,-67);
+        Pose2d PGPGrabPose = new Pose2d(11.5,-67, Math.toRadians(-90));
 
         Vector2d GPPAlignPos = new Vector2d(35, -25);
         Pose2d GPPAlignPose = new Pose2d(35,-25, Math.toRadians(-90));
 
-        Vector2d GPPGrabPos = new Vector2d(35,-50);
-        Pose2d GPPGrabPose = new Pose2d(35,-50, Math.toRadians(-90));
+        Vector2d GPPGrabPos = new Vector2d(35,-67);
+        Pose2d GPPGrabPose = new Pose2d(35,-67, Math.toRadians(-90));
 
         Vector2d ParkPos = new Vector2d(-30, -52);
         Pose2d ParkPose = new Pose2d(-30, -52, Math.toRadians(-90));
@@ -160,6 +160,8 @@ public class BlueCornerAutoPPG extends LinearOpMode {
         ServoGate.closeGate();
 
         Actions.runBlocking(new SequentialAction(moveToPark.build()));
+
+        ScoringSystem.launcherOff();
 
         while(opModeIsActive()) {
             telemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());
