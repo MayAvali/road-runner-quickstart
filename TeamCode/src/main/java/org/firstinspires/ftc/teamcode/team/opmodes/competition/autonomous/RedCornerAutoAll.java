@@ -31,28 +31,28 @@ public class RedCornerAutoAll extends LinearOpMode {
 
         Pose2d InitPosition = new Pose2d(-62.9, 31.2, 0);
 
-        Pose2d ScorePositionPose = new Pose2d(-37, 37, Math.toRadians(-135));
+        Pose2d ScorePositionPose = new Pose2d(-37, 37, Math.toRadians(135));
         Vector2d ScorePosition = new Vector2d( -37, 37);
 
         Vector2d CollectAlignPos = new Vector2d(-37, 25);
 
         Vector2d PPGAlignPos = new Vector2d(-12,25);
-        Pose2d PPGAlignPose = new Pose2d(-12,25, Math.toRadians(-92));
+        Pose2d PPGAlignPose = new Pose2d(-12,25, Math.toRadians(88));
 
         Vector2d PPGGrabPos = new Vector2d(-12,56);
-        Pose2d PPGGrabPose = new Pose2d(-12,56, Math.toRadians(-92));
+        Pose2d PPGGrabPose = new Pose2d(-12,56, Math.toRadians(88));
 
         Vector2d PGPAlignPos = new Vector2d(11.5,25);
-        Pose2d PGPAlignPose = new Pose2d(11.5,25, Math.toRadians(-98));
+        Pose2d PGPAlignPose = new Pose2d(11.5,25, Math.toRadians(82));
 
         Vector2d PGPGrabPos = new Vector2d(11.5,66);
-        Pose2d PGPGrabPose = new Pose2d(11.5,66, Math.toRadians(-98));
+        Pose2d PGPGrabPose = new Pose2d(11.5,66, Math.toRadians(82));
 
         Vector2d GPPAlignPos = new Vector2d(35, 25);
-        Pose2d GPPAlignPose = new Pose2d(35,25, Math.toRadians(-110));
+        Pose2d GPPAlignPose = new Pose2d(35,25, Math.toRadians(70));
 
         Vector2d GPPGrabPos = new Vector2d(34,67);
-        Pose2d GPPGrabPose = new Pose2d(34,67, Math.toRadians(-110));
+        Pose2d GPPGrabPose = new Pose2d(34,67, Math.toRadians(70));
 
         Vector2d ParkPos = new Vector2d(0, 48);
         Pose2d ParkPose = new Pose2d(0, 48, Math.toRadians(0));
@@ -61,39 +61,39 @@ public class RedCornerAutoAll extends LinearOpMode {
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
         TrajectoryActionBuilder initScore = drivetrain.actionBuilder(InitPosition)
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
 
         TrajectoryActionBuilder moveToIntakePPG = drivetrain.actionBuilder(ScorePositionPose)
-                .strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
-                .strafeToLinearHeading(PPGAlignPos, Math.toRadians(-90));
+                .strafeToLinearHeading(CollectAlignPos, Math.toRadians(90))
+                .strafeToLinearHeading(PPGAlignPos, Math.toRadians(90));
 
         TrajectoryActionBuilder IntakePPG = drivetrain.actionBuilder(PPGAlignPose)
-                .strafeToLinearHeading(PPGGrabPos, Math.toRadians(-90));
+                .strafeToLinearHeading(PPGGrabPos, Math.toRadians(90));
 
         TrajectoryActionBuilder PPGToLauncher = drivetrain.actionBuilder(PPGGrabPose)
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
 
         TrajectoryActionBuilder moveToIntakePGP = drivetrain.actionBuilder(ScorePositionPose)
                 //.strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
-                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(-90));
+                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(90));
 
         TrajectoryActionBuilder IntakePGP = drivetrain.actionBuilder(PGPAlignPose)
-                .strafeToLinearHeading(PGPGrabPos, Math.toRadians(-90));
+                .strafeToLinearHeading(PGPGrabPos, Math.toRadians(90));
 
         TrajectoryActionBuilder PGPToLauncher = drivetrain.actionBuilder(PGPGrabPose)
-                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(-90))
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
+                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(90))
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
 
         TrajectoryActionBuilder moveToIntakeGPP = drivetrain.actionBuilder(ScorePositionPose)
                 //.strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
-                .strafeToLinearHeading(GPPAlignPos, Math.toRadians(-90));
+                .strafeToLinearHeading(GPPAlignPos, Math.toRadians(90));
 
         TrajectoryActionBuilder IntakeGPP = drivetrain.actionBuilder(GPPAlignPose)
-                .strafeToLinearHeading(GPPGrabPos, Math.toRadians(-90));
+                .strafeToLinearHeading(GPPGrabPos, Math.toRadians(90));
 
         TrajectoryActionBuilder GPPToLauncher = drivetrain.actionBuilder(GPPGrabPose)
-                .strafeToLinearHeading(GPPAlignPos, Math.toRadians(-90))
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
+                .strafeToLinearHeading(GPPAlignPos, Math.toRadians(90))
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
 
         TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(GPPGrabPose)
                 .strafeToLinearHeading(ParkPos, Math.toRadians(0));
