@@ -1,30 +1,29 @@
 package org.firstinspires.ftc.teamcode.team.opmodes.competition.autonomous;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
-@Autonomous(name = "BlueCornerAutoPPG", group = "Autonomous OpMode")
-public class BlueCornerAutoPPG extends LinearOpMode {
+@Autonomous(name = "BlueCornerAutoAll", group = "Autonomous OpMode")
+public class BlueCornerAutoAll extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
         int tinyPause = 200;
         int littlePause = 250;
         int bigPause = 500;
-        int scorePause = 2000;
+        int scorePause = 1250;
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
@@ -38,25 +37,25 @@ public class BlueCornerAutoPPG extends LinearOpMode {
         Vector2d CollectAlignPos = new Vector2d(-37, -25);
 
         Vector2d PPGAlignPos = new Vector2d(-12,-25);
-        Pose2d PPGAlignPose = new Pose2d(-12,-25, Math.toRadians(-90));
+        Pose2d PPGAlignPose = new Pose2d(-12,-25, Math.toRadians(-92));
 
-        Vector2d PPGGrabPos = new Vector2d(-12,-57);
-        Pose2d PPGGrabPose = new Pose2d(-12,-57, Math.toRadians(-90));
+        Vector2d PPGGrabPos = new Vector2d(-12,-56);
+        Pose2d PPGGrabPose = new Pose2d(-12,-56, Math.toRadians(-92));
 
         Vector2d PGPAlignPos = new Vector2d(11.5,-25);
-        Pose2d PGPAlignPose = new Pose2d(11.5,-25, Math.toRadians(-90));
+        Pose2d PGPAlignPose = new Pose2d(11.5,-25, Math.toRadians(-98));
 
-        Vector2d PGPGrabPos = new Vector2d(11.5,-67);
-        Pose2d PGPGrabPose = new Pose2d(11.5,-67, Math.toRadians(-90));
+        Vector2d PGPGrabPos = new Vector2d(11.5,-66);
+        Pose2d PGPGrabPose = new Pose2d(11.5,-66, Math.toRadians(-98));
 
         Vector2d GPPAlignPos = new Vector2d(35, -25);
-        Pose2d GPPAlignPose = new Pose2d(35,-25, Math.toRadians(-90));
+        Pose2d GPPAlignPose = new Pose2d(35,-25, Math.toRadians(-110));
 
-        Vector2d GPPGrabPos = new Vector2d(35,-67);
-        Pose2d GPPGrabPose = new Pose2d(35,-67, Math.toRadians(-90));
+        Vector2d GPPGrabPos = new Vector2d(34,-67);
+        Pose2d GPPGrabPose = new Pose2d(34,-67, Math.toRadians(-110));
 
-        Vector2d ParkPos = new Vector2d(-30, -52);
-        Pose2d ParkPose = new Pose2d(-30, -52, Math.toRadians(-90));
+        Vector2d ParkPos = new Vector2d(0, -48);
+        Pose2d ParkPose = new Pose2d(0, -48, Math.toRadians(0));
 
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
@@ -75,7 +74,7 @@ public class BlueCornerAutoPPG extends LinearOpMode {
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
 
         TrajectoryActionBuilder moveToIntakePGP = drivetrain.actionBuilder(ScorePositionPose)
-                .strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
+                //.strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
                 .strafeToLinearHeading(PGPAlignPos, Math.toRadians(-90));
 
         TrajectoryActionBuilder IntakePGP = drivetrain.actionBuilder(PGPAlignPose)
@@ -86,7 +85,7 @@ public class BlueCornerAutoPPG extends LinearOpMode {
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
 
         TrajectoryActionBuilder moveToIntakeGPP = drivetrain.actionBuilder(ScorePositionPose)
-                .strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
+                //.strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
                 .strafeToLinearHeading(GPPAlignPos, Math.toRadians(-90));
 
         TrajectoryActionBuilder IntakeGPP = drivetrain.actionBuilder(GPPAlignPose)
@@ -96,8 +95,8 @@ public class BlueCornerAutoPPG extends LinearOpMode {
                 .strafeToLinearHeading(GPPAlignPos, Math.toRadians(-90))
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
 
-        TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(ScorePositionPose)
-                .strafeToLinearHeading(ParkPos, Math.toRadians(-90));
+        TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(GPPGrabPose)
+                .strafeToLinearHeading(ParkPos, Math.toRadians(0));
 
 
 
@@ -123,8 +122,6 @@ public class BlueCornerAutoPPG extends LinearOpMode {
 
         ScoringSystem.intake(0,0);
 
-        sleep(littlePause);
-
         ServoGate.openGate();
 
         ScoringSystem.intake(0,0.5);
@@ -133,7 +130,7 @@ public class BlueCornerAutoPPG extends LinearOpMode {
 
         ScoringSystem.intake(0,0);
         ServoGate.closeGate();
-        ScoringSystem.launcherOff();
+        //ScoringSystem.launcherOff();
 
         Actions.runBlocking(new SequentialAction(moveToIntakePPG.build()));
 
@@ -156,11 +153,40 @@ public class BlueCornerAutoPPG extends LinearOpMode {
 
         sleep(scorePause);
 
-        ScoringSystem.intake(0,0);
+        ScoringSystem.intake(0,0.8);
         ServoGate.closeGate();
 
-        Actions.runBlocking(new SequentialAction(moveToPark.build()));
+        Actions.runBlocking(new SequentialAction(moveToIntakePGP.build()));
 
+        ScoringSystem.intake(0,1);
+
+        Actions.runBlocking(new SequentialAction(IntakePGP.build()));
+
+        ScoringSystem.intake(0,0.8);
+        ScoringSystem.launcherUpdate();
+
+        Actions.runBlocking(new SequentialAction(PGPToLauncher.build()));
+
+        ScoringSystem.intake(0,0);
+
+        sleep(littlePause);
+
+        ServoGate.openGate();
+
+        ScoringSystem.intake(0,0.5);
+
+        sleep(scorePause);
+
+        ScoringSystem.intake(0,0.8);
+        ServoGate.closeGate();
+
+        Actions.runBlocking(new SequentialAction(moveToIntakeGPP.build()));
+
+        ScoringSystem.intake(0,1);
+
+        Actions.runBlocking(new SequentialAction(IntakeGPP.build()));
+
+        ScoringSystem.intake(0,0);
         ScoringSystem.launcherOff();
 
         while(opModeIsActive()) {
