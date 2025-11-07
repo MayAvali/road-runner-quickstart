@@ -37,22 +37,22 @@ public class RedCornerAutoAll extends LinearOpMode {
         Vector2d CollectAlignPos = new Vector2d(-37, 25);
 
         Vector2d PPGAlignPos = new Vector2d(-12,25);
-        Pose2d PPGAlignPose = new Pose2d(-12,25, Math.toRadians(88));
+        Pose2d PPGAlignPose = new Pose2d(-12,25, Math.toRadians(92));
 
         Vector2d PPGGrabPos = new Vector2d(-12,56);
-        Pose2d PPGGrabPose = new Pose2d(-12,56, Math.toRadians(88));
+        Pose2d PPGGrabPose = new Pose2d(-12,56, Math.toRadians(92));
 
         Vector2d PGPAlignPos = new Vector2d(11.5,25);
-        Pose2d PGPAlignPose = new Pose2d(11.5,25, Math.toRadians(82));
+        Pose2d PGPAlignPose = new Pose2d(11.5,25, Math.toRadians(95));
 
         Vector2d PGPGrabPos = new Vector2d(11.5,66);
-        Pose2d PGPGrabPose = new Pose2d(11.5,66, Math.toRadians(82));
+        Pose2d PGPGrabPose = new Pose2d(11.5,66, Math.toRadians(95));
 
         Vector2d GPPAlignPos = new Vector2d(35, 25);
-        Pose2d GPPAlignPose = new Pose2d(35,25, Math.toRadians(70));
+        Pose2d GPPAlignPose = new Pose2d(35,25, Math.toRadians(100));
 
         Vector2d GPPGrabPos = new Vector2d(34,67);
-        Pose2d GPPGrabPose = new Pose2d(34,67, Math.toRadians(70));
+        Pose2d GPPGrabPose = new Pose2d(34,67, Math.toRadians(100));
 
         Vector2d ParkPos = new Vector2d(0, 48);
         Pose2d ParkPose = new Pose2d(0, 48, Math.toRadians(0));
