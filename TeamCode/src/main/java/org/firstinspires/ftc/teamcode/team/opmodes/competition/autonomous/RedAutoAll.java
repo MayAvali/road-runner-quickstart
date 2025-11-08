@@ -45,14 +45,14 @@ public class RedAutoAll extends LinearOpMode {
         Vector2d PGPAlignPos = new Vector2d(11.5,10);
         Pose2d PGPAlignPose = new Pose2d(11.5,10, Math.toRadians(90));
 
-        Vector2d PGPGrabPos = new Vector2d(11.5,50);
-        Pose2d PGPGrabPose = new Pose2d(11.5,50, Math.toRadians(90));
+        Vector2d PGPGrabPos = new Vector2d(11.5,55);
+        Pose2d PGPGrabPose = new Pose2d(11.5,55, Math.toRadians(90));
 
         Vector2d GPPAlignPos = new Vector2d(37, 5);
         Pose2d GPPAlignPose = new Pose2d(37,5, Math.toRadians(90));
 
-        Vector2d GPPGrabPos = new Vector2d(37,50);
-        Pose2d GPPGrabPose = new Pose2d(37,50, Math.toRadians(90));
+        Vector2d GPPGrabPos = new Vector2d(37,60);
+        Pose2d GPPGrabPose = new Pose2d(37,60, Math.toRadians(90));
 
         Vector2d ParkPos = new Vector2d(0, 48);
         Pose2d ParkPose = new Pose2d(0, 48, Math.toRadians(0));
