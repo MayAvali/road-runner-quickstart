@@ -105,9 +105,7 @@ public class RedAutoAll extends LinearOpMode {
 
         ScoringSystem ScoringSystem = new ScoringSystem(
                 (DcMotorEx) hardwareMap.dcMotor.get("intake"),
-                (DcMotorEx) hardwareMap.dcMotor.get("intake2"),
-                (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
-                hardwareMap.voltageSensor.iterator().next()
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher")
         );
         ServoGate ServoGate = new ServoGate(
                 hardwareMap.servo.get("leftGate"),
@@ -124,7 +122,7 @@ public class RedAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.5);
+        ScoringSystem.intake(0,0.6);
 
         sleep(scorePause);
 
@@ -138,7 +136,7 @@ public class RedAutoAll extends LinearOpMode {
 
         Actions.runBlocking(new SequentialAction(IntakePPG.build()));
 
-        ScoringSystem.intake(0,0.8);
+        ScoringSystem.intake(0,1);
         ScoringSystem.launcherUpdate();
 
         Actions.runBlocking(new SequentialAction(PPGToLauncher.build()));
@@ -149,11 +147,11 @@ public class RedAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.5);
+        ScoringSystem.intake(0,0.6);
 
         sleep(scorePause);
 
-        ScoringSystem.intake(0,0.8);
+        ScoringSystem.intake(0,1);
         ServoGate.closeGate();
 
         Actions.runBlocking(new SequentialAction(moveToIntakePGP.build()));
@@ -162,7 +160,7 @@ public class RedAutoAll extends LinearOpMode {
 
         Actions.runBlocking(new SequentialAction(IntakePGP.build()));
 
-        ScoringSystem.intake(0,0.8);
+        ScoringSystem.intake(0,1);
         ScoringSystem.launcherUpdate();
 
         Actions.runBlocking(new SequentialAction(PGPToLauncher.build()));
@@ -173,11 +171,11 @@ public class RedAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.5);
+        ScoringSystem.intake(0,0.6);
 
         sleep(scorePause);
 
-        ScoringSystem.intake(0,0.8);
+        ScoringSystem.intake(0,1);
         ServoGate.closeGate();
 
         Actions.runBlocking(new SequentialAction(moveToIntakeGPP.build()));

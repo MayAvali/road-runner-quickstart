@@ -8,9 +8,9 @@ import com.acmerobotics.dashboard.config.Config;
 
 public class ScoringSystem {
     private final DcMotorEx intake;
-    private final DcMotorEx intake2;
+    //private final DcMotorEx intake2;
     private final DcMotorEx launcher;
-    private final VoltageSensor voltageSensor;
+    //private final VoltageSensor voltageSensor;
 
 
     //REPLACE INTAKE PIDF SOON.
@@ -37,19 +37,19 @@ public class ScoringSystem {
     public double LaunchVel = 1800;
     public double LaunchMult = 0.88;
 
-    public ScoringSystem(DcMotorEx intake, DcMotorEx intake2, DcMotorEx launcher, VoltageSensor voltageSensor) {
+    public ScoringSystem(DcMotorEx intake, DcMotorEx launcher) {
         this.intake = intake;
         intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
 
-        this.intake2 = intake2;
-        intake2.setDirection(DcMotorSimple.Direction.REVERSE);
-        intake2.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+//        this.intake2 = intake2;
+//        intake2.setDirection(DcMotorSimple.Direction.REVERSE);
+//        intake2.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
         this.launcher = launcher;
         launcher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         launcher.setVelocityPIDFCoefficients(launcherPIDF.P, launcherPIDF.I, launcherPIDF.D, launcherPIDF.F);
-        this.voltageSensor = voltageSensor;
+        //this.voltageSensor = voltageSensor;
     }
     public void launcherToggle(){
         if(launcher.getPower() != 0)
@@ -87,9 +87,9 @@ public class ScoringSystem {
     }
     public void intake(double out, double in){
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
-        intake2.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
-        intake.setVelocity((1200*out)-(1600*in));
-        intake2.setVelocity((1200*out)-(1600*in));
+        //intake2.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
+        intake.setVelocity((2000*out)-(2800*in));
+        //intake2.setVelocity((1200*out)-(1600*in));
     }
 
     public void intakeShiftStrong() {

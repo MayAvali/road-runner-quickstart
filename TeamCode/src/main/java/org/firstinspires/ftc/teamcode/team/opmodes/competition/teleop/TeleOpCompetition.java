@@ -45,9 +45,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
         ScoringSystem ScoringSystem = new ScoringSystem(
                 (DcMotorEx) hardwareMap.dcMotor.get("intake"),
-                (DcMotorEx) hardwareMap.dcMotor.get("intake2"),
-                (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
-                hardwareMap.voltageSensor.iterator().next()
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher")
         );
 
         ServoGate ServoGate = new ServoGate(
