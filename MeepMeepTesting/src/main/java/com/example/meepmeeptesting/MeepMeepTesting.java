@@ -16,7 +16,7 @@ public class MeepMeepTesting {
                 .setDimensions(15.375, 14.4)
                 .build();
 
-        Pose2d InitPosition = new Pose2d(-62.9, -31.2, 0);
+        Pose2d InitPosition = new Pose2d(-62.9, -31.2, 45);
 
         Vector2d PreloadScorePosition = new Vector2d( -35, 35);
 
@@ -35,7 +35,7 @@ public class MeepMeepTesting {
                 .strafeToLinearHeading(PreloadScorePosition, Math.toRadians(135))
                 .strafeToLinearHeading(CollectAlignPos, Math.toRadians(100))
                 .strafeToLinearHeading(PPGAlignPos, Math.toRadians(90))
-                .strafeToLinearHeading(PPGGrabPos, Math.toRadians(90))
+                .strafeToLinearHeading(PPGGrabPos, Math.toRadians(110))
 
                 .build());
 

@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
 @Autonomous(name = "BlueCornerAutoAll", group = "Autonomous OpMode")
-public class BlueCornerAutoAll extends LinearOpMode {
+public class BlueAutoAll extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -29,30 +29,30 @@ public class BlueCornerAutoAll extends LinearOpMode {
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
 
-        Pose2d InitPosition = new Pose2d(-62.9, -31.2, 0);
+        Pose2d InitPosition = new Pose2d(-48, -48, 45);
 
-        Pose2d ScorePositionPose = new Pose2d(-37, -37, Math.toRadians(-135));
+        Pose2d ScorePositionPose = new Pose2d(-37, -24, Math.toRadians(-135));
         Vector2d ScorePosition = new Vector2d( -37, -37);
 
-        Vector2d CollectAlignPos = new Vector2d(-37, -25);
+        Vector2d CollectAlignPos = new Vector2d(-37, -15);
 
-        Vector2d PPGAlignPos = new Vector2d(-12,-25);
-        Pose2d PPGAlignPose = new Pose2d(-12,-25, Math.toRadians(-92));
+        Vector2d PPGAlignPos = new Vector2d(-12,-15);
+        Pose2d PPGAlignPose = new Pose2d(-12,-15, Math.toRadians(-90));
 
-        Vector2d PPGGrabPos = new Vector2d(-12,-56);
-        Pose2d PPGGrabPose = new Pose2d(-12,-56, Math.toRadians(-92));
+        Vector2d PPGGrabPos = new Vector2d(-12,-50);
+        Pose2d PPGGrabPose = new Pose2d(-12,-50, Math.toRadians(-90));
 
-        Vector2d PGPAlignPos = new Vector2d(11.5,-25);
-        Pose2d PGPAlignPose = new Pose2d(11.5,-25, Math.toRadians(-98));
+        Vector2d PGPAlignPos = new Vector2d(11.5,-10);
+        Pose2d PGPAlignPose = new Pose2d(11.5,-10, Math.toRadians(-90));
 
-        Vector2d PGPGrabPos = new Vector2d(11.5,-66);
-        Pose2d PGPGrabPose = new Pose2d(11.5,-66, Math.toRadians(-98));
+        Vector2d PGPGrabPos = new Vector2d(11.5,-55);
+        Pose2d PGPGrabPose = new Pose2d(11.5,-55, Math.toRadians(-90));
 
-        Vector2d GPPAlignPos = new Vector2d(35, -25);
-        Pose2d GPPAlignPose = new Pose2d(35,-25, Math.toRadians(-110));
+        Vector2d GPPAlignPos = new Vector2d(35, -5);
+        Pose2d GPPAlignPose = new Pose2d(35,-5, Math.toRadians(-90));
 
-        Vector2d GPPGrabPos = new Vector2d(34,-67);
-        Pose2d GPPGrabPose = new Pose2d(34,-67, Math.toRadians(-110));
+        Vector2d GPPGrabPos = new Vector2d(34,-55);
+        Pose2d GPPGrabPose = new Pose2d(34,-55, Math.toRadians(-90));
 
         Vector2d ParkPos = new Vector2d(0, -48);
         Pose2d ParkPose = new Pose2d(0, -48, Math.toRadians(0));
