@@ -106,7 +106,7 @@ public class BlueAutoHotSync extends LinearOpMode {
 
         TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(ScorePositionPose)
                 .strafeToLinearHeading(GateAlignPos, Math.toRadians(0));
-
+//
 
 
         waitForStart();
