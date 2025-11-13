@@ -57,8 +57,8 @@ public class RedAutoHotSync extends LinearOpMode {
         Vector2d GateAlignPos = new Vector2d(0, 15);
         Pose2d GateAlignPose = new Pose2d(0, 15,Math.toRadians(0));
 
-        Vector2d GateParkPos = new Vector2d(0, 53.5);
-        Pose2d GateParkPose = new Pose2d(0, 53.5, Math.toRadians(0));
+        Vector2d GateParkPos = new Vector2d(0, 54.5);
+        Pose2d GateParkPose = new Pose2d(0, 54.5, Math.toRadians(0));
 
         Vector2d ParkPos = new Vector2d(0, 48);
         Pose2d ParkPose = new Pose2d(0, 48, Math.toRadians(0));
@@ -102,7 +102,7 @@ public class RedAutoHotSync extends LinearOpMode {
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
 
         TrajectoryActionBuilder moveToGate = drivetrain.actionBuilder(PPGGrabPose)
-                .splineTo(GateParkPos, Math.toRadians(0));
+                .strafeToLinearHeading(GateParkPos, Math.toRadians(0));
 
         TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(ScorePositionPose)
                 .strafeToLinearHeading(GateAlignPos, Math.toRadians(0));
