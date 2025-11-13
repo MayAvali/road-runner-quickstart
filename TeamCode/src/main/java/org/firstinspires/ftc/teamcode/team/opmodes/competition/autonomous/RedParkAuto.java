@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
-@Autonomous(name = "BlueParkAuto", group = "Autonomous OpMode")
+@Autonomous(name = "RedParkAuto", group = "Autonomous OpMode")
 public class RedParkAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {

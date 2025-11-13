@@ -21,38 +21,38 @@ public class RedAutoAll extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         int tinyPause = 200;
-        int littlePause = 250;
+        int littlePause = 400;
         int bigPause = 500;
-        int scorePause = 1250;
+        int scorePause = 1500;
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
 
-        Pose2d InitPosition = new Pose2d(-48, 48, -45);
+        Pose2d InitPosition = new Pose2d(-52.24, 51.375, Math.toRadians(-51.4));
 
-        Pose2d ScorePositionPose = new Pose2d(-37, 37, Math.toRadians(135));
+        Pose2d ScorePositionPose = new Pose2d(-35, 25, Math.toRadians(135));
         Vector2d ScorePosition = new Vector2d( -37, 37);
 
-        Vector2d CollectAlignPos = new Vector2d(-37, 20);
+        Vector2d CollectAlignPos = new Vector2d(-37, 15);
 
         Vector2d PPGAlignPos = new Vector2d(-12,15);
         Pose2d PPGAlignPose = new Pose2d(-12,15, Math.toRadians(90));
 
-        Vector2d PPGGrabPos = new Vector2d(-12,50);
-        Pose2d PPGGrabPose = new Pose2d(-12,50, Math.toRadians(90));
+        Vector2d PPGGrabPos = new Vector2d(-12,51);
+        Pose2d PPGGrabPose = new Pose2d(-12,51, Math.toRadians(90));
 
         Vector2d PGPAlignPos = new Vector2d(11.5,10);
         Pose2d PGPAlignPose = new Pose2d(11.5,10, Math.toRadians(90));
 
-        Vector2d PGPGrabPos = new Vector2d(11.5,55);
-        Pose2d PGPGrabPose = new Pose2d(11.5,55, Math.toRadians(90));
+        Vector2d PGPGrabPos = new Vector2d(11.5,57.5);
+        Pose2d PGPGrabPose = new Pose2d(11.5,57.5, Math.toRadians(90));
 
-        Vector2d GPPAlignPos = new Vector2d(37, 5);
-        Pose2d GPPAlignPose = new Pose2d(37,5, Math.toRadians(90));
+        Vector2d GPPAlignPos = new Vector2d(37, 15);
+        Pose2d GPPAlignPose = new Pose2d(37,15, Math.toRadians(90));
 
-        Vector2d GPPGrabPos = new Vector2d(37,60);
-        Pose2d GPPGrabPose = new Pose2d(37,60, Math.toRadians(90));
+        Vector2d GPPGrabPos = new Vector2d(37,57.5);
+        Pose2d GPPGrabPose = new Pose2d(37,57.5, Math.toRadians(90));
 
         Vector2d ParkPos = new Vector2d(0, 48);
         Pose2d ParkPose = new Pose2d(0, 48, Math.toRadians(0));
@@ -120,9 +120,11 @@ public class RedAutoAll extends LinearOpMode {
 
         ScoringSystem.intake(0,0);
 
+        sleep(littlePause);
+
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.6);
+        ScoringSystem.intake(0,0.45);
 
         sleep(scorePause);
 
@@ -147,7 +149,7 @@ public class RedAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.6);
+        ScoringSystem.intake(0,0.45);
 
         sleep(scorePause);
 
@@ -171,7 +173,7 @@ public class RedAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.6);
+        ScoringSystem.intake(0,0.45);
 
         sleep(scorePause);
 

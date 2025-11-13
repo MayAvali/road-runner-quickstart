@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
-@Autonomous(name = "BlueCornerAutoAll", group = "Autonomous OpMode")
-public class BlueAutoAll extends LinearOpMode {
+@Autonomous(name = "BlueAutoHotSync", group = "Autonomous OpMode")
+public class BlueAutoHotSync extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -54,6 +54,12 @@ public class BlueAutoAll extends LinearOpMode {
         Vector2d GPPGrabPos = new Vector2d(35,-57.5);
         Pose2d GPPGrabPose = new Pose2d(35,-57.5, Math.toRadians(-90));
 
+        Vector2d GateAlignPos = new Vector2d(0, -15);
+        Pose2d GateAlignPose = new Pose2d(0, -15,Math.toRadians(0));
+
+        Vector2d GateParkPos = new Vector2d(0, -53.5);
+        Pose2d GateParkPose = new Pose2d(0, -53.5, Math.toRadians(0));
+
         Vector2d ParkPos = new Vector2d(0, -48);
         Pose2d ParkPose = new Pose2d(0, -48, Math.toRadians(0));
 
@@ -80,8 +86,8 @@ public class BlueAutoAll extends LinearOpMode {
         TrajectoryActionBuilder IntakePGP = drivetrain.actionBuilder(PGPAlignPose)
                 .strafeToLinearHeading(PGPGrabPos, Math.toRadians(-90));
 
-        TrajectoryActionBuilder PGPToLauncher = drivetrain.actionBuilder(PGPGrabPose)
-                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(-90))
+        TrajectoryActionBuilder PGPToLauncher = drivetrain.actionBuilder(GateParkPose)
+                .strafeToLinearHeading(GateAlignPos, Math.toRadians(0))
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
 
         TrajectoryActionBuilder moveToIntakeGPP = drivetrain.actionBuilder(ScorePositionPose)
@@ -95,8 +101,11 @@ public class BlueAutoAll extends LinearOpMode {
                 .strafeToLinearHeading(GPPAlignPos, Math.toRadians(-90))
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
 
-        TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(GPPGrabPose)
-                .strafeToLinearHeading(ParkPos, Math.toRadians(0));
+        TrajectoryActionBuilder moveToGate = drivetrain.actionBuilder(PPGGrabPose)
+                .splineTo(GateParkPos, Math.toRadians(0));
+
+        TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(ScorePositionPose)
+                .strafeToLinearHeading(GateAlignPos, Math.toRadians(0));
 
 
 
@@ -114,6 +123,9 @@ public class BlueAutoAll extends LinearOpMode {
 
         ServoGate.closeGate();
         ScoringSystem.launcherUpdate();
+
+        sleep(2000);
+
         ScoringSystem.intake(0,1);
 
         Actions.runBlocking(new SequentialAction(initScore.build()));
@@ -141,29 +153,9 @@ public class BlueAutoAll extends LinearOpMode {
         ScoringSystem.intake(0,1);
         ScoringSystem.launcherUpdate();
 
-        Actions.runBlocking(new SequentialAction(PPGToLauncher.build()));
+        Actions.runBlocking(new SequentialAction(moveToGate.build()));
 
-        ScoringSystem.intake(0,0);
-
-        sleep(littlePause);
-
-        ServoGate.openGate();
-
-        ScoringSystem.intake(0,0.45);
-
-        sleep(scorePause);
-
-        ScoringSystem.intake(0,1);
-        ServoGate.closeGate();
-
-        Actions.runBlocking(new SequentialAction(moveToIntakePGP.build()));
-
-        ScoringSystem.intake(0,1);
-
-        Actions.runBlocking(new SequentialAction(IntakePGP.build()));
-
-        ScoringSystem.intake(0,1);
-        ScoringSystem.launcherUpdate();
+        sleep(2000);
 
         Actions.runBlocking(new SequentialAction(PGPToLauncher.build()));
 
@@ -177,17 +169,7 @@ public class BlueAutoAll extends LinearOpMode {
 
         sleep(scorePause);
 
-        ScoringSystem.intake(0,1);
-        ServoGate.closeGate();
-
-        Actions.runBlocking(new SequentialAction(moveToIntakeGPP.build()));
-
-        ScoringSystem.intake(0,1);
-
-        Actions.runBlocking(new SequentialAction(IntakeGPP.build()));
-
-        ScoringSystem.intake(0,0);
-        ScoringSystem.launcherOff();
+        Actions.runBlocking(new SequentialAction(moveToPark.build()));
 
         while(opModeIsActive()) {
             telemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());
