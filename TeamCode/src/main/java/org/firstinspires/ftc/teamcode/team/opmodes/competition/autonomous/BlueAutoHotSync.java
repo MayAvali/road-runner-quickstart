@@ -102,7 +102,7 @@ public class BlueAutoHotSync extends LinearOpMode {
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
 
         TrajectoryActionBuilder moveToGate = drivetrain.actionBuilder(PPGGrabPose)
-                .strafeToLinearHeading(GateParkPos, Math.toRadians(0));
+                .strafeToLinearHeading(GateParkPos, Math.toRadians(-180));
 
         TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(ScorePositionPose)
                 .strafeToLinearHeading(GateAlignPos, Math.toRadians(0));
