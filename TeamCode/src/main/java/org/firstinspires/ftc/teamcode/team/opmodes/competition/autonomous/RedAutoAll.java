@@ -124,7 +124,7 @@ public class RedAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.45);
+        ScoringSystem.intake(0,0.4);
 
         sleep(scorePause);
 
@@ -149,7 +149,7 @@ public class RedAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.45);
+        ScoringSystem.intake(0,0.4);
 
         sleep(scorePause);
 
@@ -173,7 +173,7 @@ public class RedAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.45);
+        ScoringSystem.intake(0,0.4);
 
         sleep(scorePause);
 

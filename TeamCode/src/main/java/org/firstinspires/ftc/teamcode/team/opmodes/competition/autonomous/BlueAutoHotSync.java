@@ -57,11 +57,11 @@ public class BlueAutoHotSync extends LinearOpMode {
         Vector2d GateAlignPos = new Vector2d(0, -15);
         Pose2d GateAlignPose = new Pose2d(0, -15,Math.toRadians(0));
 
-        Vector2d GateParkPos = new Vector2d(0, -53.5);
-        Pose2d GateParkPose = new Pose2d(0, -53.5, Math.toRadians(0));
+        Vector2d GateParkPos = new Vector2d(0, -55.5);
+        Pose2d GateParkPose = new Pose2d(0, -55.5, Math.toRadians(-180));
 
-        Vector2d ParkPos = new Vector2d(0, -48);
-        Pose2d ParkPose = new Pose2d(0, -48, Math.toRadians(0));
+        Vector2d ParkPos = new Vector2d(5, -48);
+        Pose2d ParkPose = new Pose2d(5, -48, Math.toRadians(0));
 
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
@@ -76,8 +76,9 @@ public class BlueAutoHotSync extends LinearOpMode {
         TrajectoryActionBuilder IntakePPG = drivetrain.actionBuilder(PPGAlignPose)
                 .strafeToLinearHeading(PPGGrabPos, Math.toRadians(-90));
 
-        TrajectoryActionBuilder PPGToLauncher = drivetrain.actionBuilder(PPGGrabPose)
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
+        TrajectoryActionBuilder PPGToLauncher = drivetrain.actionBuilder(GateParkPose)
+                .strafeTo(ScorePosition)
+                .turnTo(Math.toRadians(-135));
 
         TrajectoryActionBuilder moveToIntakePGP = drivetrain.actionBuilder(ScorePositionPose)
                 //.strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
@@ -87,7 +88,7 @@ public class BlueAutoHotSync extends LinearOpMode {
                 .strafeToLinearHeading(PGPGrabPos, Math.toRadians(-90));
 
         TrajectoryActionBuilder PGPToLauncher = drivetrain.actionBuilder(GateParkPose)
-                .strafeToLinearHeading(GateAlignPos, Math.toRadians(0))
+                //.strafeToLinearHeading(GateAlignPos, Math.toRadians(0))
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
 
         TrajectoryActionBuilder moveToIntakeGPP = drivetrain.actionBuilder(ScorePositionPose)
@@ -136,7 +137,7 @@ public class BlueAutoHotSync extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.45);
+        ScoringSystem.intake(0,0.4);
 
         sleep(scorePause);
 
@@ -165,9 +166,13 @@ public class BlueAutoHotSync extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.45);
+        ScoringSystem.intake(0,0.4);
 
         sleep(scorePause);
+
+        sleep(scorePause);
+
+        ScoringSystem.intake(0,0);
 
         Actions.runBlocking(new SequentialAction(moveToPark.build()));
 

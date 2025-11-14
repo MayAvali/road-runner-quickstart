@@ -58,6 +58,8 @@ public class MeepMeepTesting {
                         .strafeToLinearHeading(PPGAlignPos, Math.toRadians(-90))
                         .strafeToLinearHeading(PPGGrabPos, Math.toRadians(-90))
                         .strafeToLinearHeading(GateParkPos, Math.toRadians(-180))
+                        .strafeTo(ScorePosition)
+                        .turnTo(Math.toRadians(-135))
 
                 .build());
 
