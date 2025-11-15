@@ -76,8 +76,9 @@ public class RedAutoHotSync extends LinearOpMode {
         TrajectoryActionBuilder IntakePPG = drivetrain.actionBuilder(PPGAlignPose)
                 .strafeToLinearHeading(PPGGrabPos, Math.toRadians(90));
 
-        TrajectoryActionBuilder PPGToLauncher = drivetrain.actionBuilder(PPGGrabPose)
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
+        TrajectoryActionBuilder PPGToLauncher = drivetrain.actionBuilder(GateParkPose)
+                .strafeTo(ScorePosition)
+                .turnTo(Math.toRadians(135));
 
         TrajectoryActionBuilder moveToIntakePGP = drivetrain.actionBuilder(ScorePositionPose)
                 //.strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
