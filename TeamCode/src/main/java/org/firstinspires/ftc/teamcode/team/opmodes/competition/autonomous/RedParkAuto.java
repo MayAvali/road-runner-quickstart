@@ -46,14 +46,12 @@ public class RedParkAuto extends LinearOpMode {
         if (isStopRequested()) return;
 
         ScoringSystem ScoringSystem = new ScoringSystem(
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
                 (DcMotorEx) hardwareMap.dcMotor.get("intake"),
-                //(DcMotorEx) hardwareMap.dcMotor.get("intake2"),
-                (DcMotorEx) hardwareMap.dcMotor.get("launcher")
-                //hardwareMap.voltageSensor.iterator().next()
+                (DcMotorEx) hardwareMap.dcMotor.get("turret")
         );
         ServoGate ServoGate = new ServoGate(
-                hardwareMap.servo.get("leftGate"),
-                hardwareMap.servo.get("rightGate")
+                hardwareMap.servo.get("gate")
         );
 
         ServoGate.closeGate();

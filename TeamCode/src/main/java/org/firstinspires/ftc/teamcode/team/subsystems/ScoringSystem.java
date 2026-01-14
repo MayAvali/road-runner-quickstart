@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.team.subsystems;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
@@ -7,15 +8,17 @@ import com.acmerobotics.dashboard.config.Config;
 
 
 public class ScoringSystem {
-    private final DcMotorEx intake;
-    //private final DcMotorEx intake2;
     private final DcMotorEx launcher;
+    //private final DcMotorEx intake2;
+    private final DcMotorEx intake;
     //private final VoltageSensor voltageSensor;
+    private final DcMotorEx turret;
+
+    private double TurretTargetPos = 0;
 
 
     //REPLACE INTAKE PIDF SOON.
 
-    //it is currently designed around the encoder NOT being plugged in which defeats the purpose. Once that is fixed it needs to be re-adjusted ASAP.
     @Config
     public static class intakePIDF {
         public static double P = 0;
@@ -25,32 +28,55 @@ public class ScoringSystem {
     }
     @Config
     public static class launcherPIDF {
-        public static double P = 150;
+        public static double P = 75;
         public static double I = 8;
         public static double D = 12;
         public static double F = 0;
     }
-    public static intakePIDF IntakePIDF = new intakePIDF();
+    public static class turretPIDF {
+        public static double P = 12;
+
+        public static double I = 5;
+        public static double D = 1;
+        public static double F = 0;
+    }
     public static launcherPIDF LauncherPIDF = new launcherPIDF();
+    public static intakePIDF IntakePIDF = new intakePIDF();
+
+    public static turretPIDF TurretPIDF = new turretPIDF();
 
 
     public double LaunchVel = 1800;
     public double LaunchMult = 0.88;
 
-    public ScoringSystem(DcMotorEx intake, DcMotorEx launcher) {
+    public ScoringSystem(DcMotorEx launcher, DcMotorEx intake, DcMotorEx turret) {
+        this.launcher = launcher;
+        launcher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        launcher.setVelocityPIDFCoefficients(launcherPIDF.P, launcherPIDF.I, launcherPIDF.D, launcherPIDF.F);
+        //this.voltageSensor = voltageSensor;
+
         this.intake = intake;
+
         intake.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        intake.setDirection(DcMotorSimple.Direction.REVERSE);
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
 
 //        this.intake2 = intake2;
 //        intake2.setDirection(DcMotorSimple.Direction.REVERSE);
 //        intake2.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-        this.launcher = launcher;
-        launcher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        launcher.setVelocityPIDFCoefficients(launcherPIDF.P, launcherPIDF.I, launcherPIDF.D, launcherPIDF.F);
-        //this.voltageSensor = voltageSensor;
+        this.turret = turret;
+        turret.setDirection(DcMotorSimple.Direction.REVERSE);
+        turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        turret.setTargetPosition(0);
+        turret.setTargetPositionTolerance(1);
+        turret.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        turret.setPower(1);
+        turret.setPositionPIDFCoefficients(10);
+        turret.setVelocityPIDFCoefficients(turretPIDF.P,turretPIDF.I,turretPIDF.D,turretPIDF.F);
     }
+
+
     public void launcherToggle(){
         if(launcher.getPower() != 0)
             launcher.setVelocity(0);
@@ -100,6 +126,22 @@ public class ScoringSystem {
     }
 
 
+    public void setTurretTarget(double input, double compensation, double totalrange) {
+            double targetPos = (turret.getCurrentPosition() + input * (2000 / 360));
+            targetPos = Math.max((-0.25 * totalrange), Math.min(targetPos, (0.25 * totalrange)));
+            turret.setTargetPosition((int) targetPos);
+    }
+
+
+    public double getTurretPos() {
+        return turret.getCurrentPosition();
+    }
+    public double getTurretTargetPos(){
+        return turret.getTargetPosition();
+    }
+    public double getTurretPower(){
+        return turret.getPower();
+    }
     public double getIntakeVel() {
         return intake.getVelocity();
     }
