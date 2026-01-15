@@ -94,7 +94,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
                     scoringsystem.launcherOff();
 
-                    drivetrain.botOrientedDrive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
+                    drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
                     scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
@@ -113,7 +113,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
                     scoringsystem.launcherUpdate();
 
-                    drivetrain.botOrientedDrive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
+                    drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
                     scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
@@ -143,7 +143,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
                     scoringsystem.launcherUpdate();
 
-                    drivetrain.botOrientedDrive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
+                    drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
                     if(precision){
                         scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.4);

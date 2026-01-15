@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.team.subsystems;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
 public class MecanumDrive {
@@ -23,6 +24,8 @@ public class MecanumDrive {
         // Without this, the REV Hub's orientation is assumed to be logo up / USB
         // forward
         imu.initialize(parameters);
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void resetIMU() {
