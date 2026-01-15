@@ -126,9 +126,14 @@ public class ScoringSystem {
     }
 
 
-    public void setTurretTarget(double input, double compensation, double totalrange) {
-            double targetPos = (turret.getCurrentPosition() + input * (2000 / 360));
-            targetPos = Math.max((-0.25 * totalrange), Math.min(targetPos, (0.25 * totalrange)));
+    public void setTurretTarget(double input, double totalrange) {
+            double targetPos =  input * (2000 / 360);
+            if(targetPos >= 0) {
+                targetPos = ((targetPos + (0.5*totalrange)) % totalrange) - (0.5*totalrange);
+            }else{
+                targetPos = ((-1*targetPos + (0.5*totalrange)) % totalrange)*-1 + (0.5*totalrange);
+            }
+        targetPos = Math.max((-0.25 * totalrange), Math.min(targetPos, (0.25 * totalrange)));
             turret.setTargetPosition((int) targetPos);
     }
 

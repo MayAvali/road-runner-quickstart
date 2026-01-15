@@ -17,23 +17,48 @@ import com.qualcomm.hardware.limelightvision.LLStatus;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
+import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
+import org.firstinspires.ftc.teamcode.team.subsystems.TurretLocalizationSystem;
+
+import java.util.Locale;
 
 @TeleOp(name = "TeleOpCompetition", group = "Linear OpMode")
 public class TeleOpCompetition extends LinearOpMode {
 
     private Limelight3A limelight;
+    public GoBildaPinpointDriver pinpoint;
+    Pose2D TargetPose = new Pose2D(DistanceUnit.CM,-20, 5, AngleUnit.DEGREES, 0);
     @Override
     public void runOpMode() throws InterruptedException {
 
-        waitForStart();
-        if (isStopRequested()) return;
+        pinpoint = hardwareMap.get(GoBildaPinpointDriver.class,"pinpoint");
+        pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+        pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
+
+        pinpoint.resetPosAndIMU();
+
+        double oldTime = 0;
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.addData("X offset", pinpoint.getXOffset(DistanceUnit.MM));
+        telemetry.addData("Y offset", pinpoint.getYOffset(DistanceUnit.MM));
+        telemetry.addData("Device Version Number:", pinpoint.getDeviceVersion());
+        telemetry.addData("Heading Scalar", pinpoint.getYawScalar());
+        telemetry.update();
 
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
+
+        waitForStart();
+        if (isStopRequested()) return;
 
         telemetry.setMsTransmissionInterval(11);
 
@@ -87,6 +112,14 @@ public class TeleOpCompetition extends LinearOpMode {
         GamepadButton modeSwitcher = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);
 
         while (opModeIsActive()) {
+
+            pinpoint.update();
+
+            double newTime = getRuntime();
+            double loopTime = newTime-oldTime;
+            double frequency = 1/loopTime;
+            oldTime = newTime;
+
             switch (robotState) {
                 case INTAKE:
                     ServoGate.closeGate();
@@ -98,11 +131,11 @@ public class TeleOpCompetition extends LinearOpMode {
 
                     scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
+                    scoringsystem.setTurretTarget(0,2000);
+
                     if (stateForward.isPressed()) {
                         robotState = PRESCORE;
                     }
-
-
                     break;
 
                 case PRESCORE:
@@ -116,6 +149,10 @@ public class TeleOpCompetition extends LinearOpMode {
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
                     scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
+
+
+
+                    scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
 
                     if (launcherAccel.isPressed()) {
                         scoringsystem.launchAccel();
@@ -145,11 +182,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
-                    if(precision){
-                        scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.4);
-                    } else {
-                        scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger*0.6);
-                    }
+                    scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
 
                     if (launcherAccel.isPressed()) {
                         scoringsystem.launchAccel();
@@ -169,45 +202,33 @@ public class TeleOpCompetition extends LinearOpMode {
                     throw new IllegalStateException("Unexpected value: " + robotState);
             }
 
-
-
-            if (modeSwitcher.isPressed()) {
-                precision = !precision;
-            }
-
-
             LLResult result = limelight.getLatestResult();
-            if (result != null) {
-                Pose3D botpose = result.getBotpose();
-                telemetry.addData("tx", result.getTx());
-                telemetry.addData("ty", result.getTy());
-                telemetry.addData("Botpose", botpose.toString());
-            }
-            double tx_value = result.getTx();
-            double target = 0;
-            if (!result.isValid() && ((last_detection - detection_start) > 0.25)) {
-                //
-               target = ((getRuntime() - last_detection) <= 0.25) ? last_tx_value : 0;
-               last_was_valid = false;
-                rotCompensation = 0;
-            } else if (result.isValid()) {
-                target = tx_value;
-
-                if (!last_was_valid) {
-                    detection_start = getRuntime();
-                }
-                last_detection = getRuntime();
-                last_was_valid = true;
-                last_tx_value = tx_value;
-            } else {
-                target = 0;
-            }
-            scoringsystem.setTurretTarget(target, rotCompensation, 2000);
-
-
-
-
-
+//            if (result != null) {
+//                Pose3D botpose = result.getBotpose();
+//                telemetry.addData("tx", result.getTx());
+//                telemetry.addData("ty", result.getTy());
+//                telemetry.addData("Botpose", botpose.toString());
+//            }
+//            double tx_value = result.getTx();
+//            double target = 0;
+//            if (!result.isValid() && ((last_detection - detection_start) > 0.25)) {
+//                //
+//               target = ((getRuntime() - last_detection) <= 0.25) ? last_tx_value : 0;
+//               last_was_valid = false;
+//            } else if (result.isValid()) {
+//                target = tx_value;
+//
+//                if (!last_was_valid) {
+//                    detection_start = getRuntime();
+//                }
+//                last_detection = getRuntime();
+//                last_was_valid = true;
+//                last_tx_value = tx_value;
+//            } else {
+//                target = 0;
+//            }
+//
+//            scoringsystem.setTurretTarget(target, 0, 2000);
 
             telemetry.addData("LimelightResultState", result == null ? "null" : (result.isValid() ? "Valid" : "Invalid"));
 
@@ -234,7 +255,9 @@ public class TeleOpCompetition extends LinearOpMode {
 
             telemetry.addData("Turret Positon: ", scoringsystem.getTurretPos());
             telemetry.addData("Turret Target Position", scoringsystem.getTurretTargetPos());
-            telemetry.addData("Turret Power",  scoringsystem.getTurretTargetPos());
+            telemetry.addData("Robot Angle to Target",TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose));
+            telemetry.addData("Robot Heading", Math.toDegrees(pinpoint.getHeading(AngleUnit.RADIANS)));
+
             telemetry.update();
 
             dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());
@@ -254,6 +277,22 @@ public class TeleOpCompetition extends LinearOpMode {
             dashboardTelemetry.addData("Right Stick X: ", gamepad1.right_stick_x);
             dashboardTelemetry.addData("Left Trigger: ", gamepad1.left_trigger);
             dashboardTelemetry.addData("Right Trigger: ", gamepad1.right_trigger);
+
+            Pose2D pos = pinpoint.getPosition();
+            String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));
+            dashboardTelemetry.addData("Position", data);
+            telemetry.addData("Position", data);
+
+
+            String velocity = String.format(Locale.US,"{XVel: %.3f, YVel: %.3f, HVel: %.3f}", pinpoint.getVelX(DistanceUnit.MM), pinpoint.getVelY(DistanceUnit.MM), pinpoint.getHeadingVelocity(UnnormalizedAngleUnit.DEGREES));
+            dashboardTelemetry.addData("Velocity", velocity);
+            telemetry.addData("Velocity", velocity);
+
+            telemetry.addData("Status", pinpoint.getDeviceStatus());
+
+            telemetry.addData("Pinpoint Frequency", pinpoint.getFrequency()); //prints/gets the current refresh rate of the Pinpoint
+
+            telemetry.addData("REV Hub Frequency: ", frequency); //prints the control system refresh rate
 
             dashboardTelemetry.update();
         }
