@@ -114,7 +114,7 @@ public class ScoringSystem {
     public void intake(double out, double in){
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
         //intake2.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
-        intake.setVelocity((2000*out)-(2800*in));
+        intake.setVelocity((2800*out)-(3600*in));
         //intake2.setVelocity((1200*out)-(1600*in));
     }
 
