@@ -33,18 +33,20 @@ import java.util.Locale;
 
 @TeleOp(name = "TeleOpCompetition", group = "Linear OpMode")
 public class TeleOpCompetition extends LinearOpMode {
-
+    private String infoIMU = "";
     private Limelight3A limelight;
     public GoBildaPinpointDriver pinpoint;
-    Pose2D TargetPose = new Pose2D(DistanceUnit.CM,-20, 5, AngleUnit.DEGREES, 0);
+    Pose2D TargetPose = new Pose2D(DistanceUnit.CM,-20, 0, AngleUnit.DEGREES, 0);
     @Override
     public void runOpMode() throws InterruptedException {
 
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class,"pinpoint");
         pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        pinpoint.setOffsets(55,70, DistanceUnit.MM);
 
         pinpoint.resetPosAndIMU();
+
 
         double oldTime = 0;
 
@@ -94,8 +96,6 @@ public class TeleOpCompetition extends LinearOpMode {
                 (DcMotorEx) hardwareMap.dcMotor.get("turret")
         );
 
-        scoringsystem.setLaunchVel(1800);
-
         double last_tx_value = 0;
         boolean last_was_valid = false;
         double last_detection = getRuntime();
@@ -112,6 +112,11 @@ public class TeleOpCompetition extends LinearOpMode {
         GamepadButton launcherAccel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_UP);
         GamepadButton launcherDecel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_DOWN);
         GamepadButton modeSwitcher = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);
+
+        infoIMU += "IMU - " + pinpoint.getDeviceName();
+        infoIMU += " | ID: " + pinpoint.getDeviceID();
+        infoIMU += " | ver" + pinpoint.getDeviceVersion();
+        infoIMU += " | yawS: " + pinpoint.getYawScalar();
 
         while (opModeIsActive()) {
 
@@ -144,6 +149,7 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.closeGate();
                     drivetrain.zeroPowerFloat();
 
+                    scoringsystem.setLaunchVel(1800);
 
                     scoringsystem.launcherUpdate();
 
@@ -153,9 +159,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
 
 
-                    //scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
-
-                    scoringsystem.setTurretTarget(0,2000);
+                    scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
 
                     if (launcherAccel.isPressed()) {
                         scoringsystem.launchAccel();
@@ -179,15 +183,15 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.openGate();
                     drivetrain.zeroPowerBrake();
 
+                    scoringsystem.setLaunchVel(1800);
+
                     scoringsystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
-                    scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
-                    //scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
+                    scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
 
-                    scoringsystem.setTurretTarget(0,2000);
 
                     if (launcherAccel.isPressed()) {
                         scoringsystem.launchAccel();
@@ -259,11 +263,12 @@ public class TeleOpCompetition extends LinearOpMode {
             telemetry.addData("Right Trigger: ", gamepad1.right_trigger);
 
             telemetry.addData("Turret Positon: ", scoringsystem.getTurretPos());
-            telemetry.addData("RobotDistanceToTarget", TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose));
             telemetry.addData("Turret Target Position", scoringsystem.getTurretTargetPos());
             telemetry.addData("Robot Angle to Target",TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose));
             telemetry.addData("Robot Heading", Math.toDegrees(pinpoint.getHeading(AngleUnit.RADIANS)));
 
+            telemetry.addData("IMU Status", pinpoint.getDeviceStatus());
+            telemetry.addData(" IMU Info", infoIMU);
             telemetry.update();
 
             dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());

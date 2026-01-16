@@ -71,6 +71,7 @@ public class ScoringSystem {
         turret.setTargetPosition(0);
         turret.setTargetPositionTolerance(1);
         turret.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        turret.setDirection(DcMotorSimple.Direction.REVERSE);
         turret.setPower(1);
         turret.setPositionPIDFCoefficients(10);
         turret.setVelocityPIDFCoefficients(turretPIDF.P,turretPIDF.I,turretPIDF.D,turretPIDF.F);
@@ -126,15 +127,12 @@ public class ScoringSystem {
     }
 
 
-    public void setTurretTarget(double input, double totalrange) {
-            double targetPos =  input * (2000 / 360);
-            if(targetPos >= 0) {
-                targetPos = ((targetPos + (0.5*totalrange)) % totalrange) - (0.5*totalrange);
-            }else{
-                targetPos = ((-1*targetPos + (0.5*totalrange)) % totalrange)*-1 + (0.5*totalrange);
-            }
-        targetPos = Math.max((-0.25 * totalrange), Math.min(targetPos, (0.25 * totalrange)));
-            turret.setTargetPosition((int) targetPos);
+    public void setTurretTarget(double inputDegrees, double totalTicks) {
+        double ticksPerDegree = totalTicks / 360.0;
+        double targetTicks = inputDegrees * ticksPerDegree;
+        double limit = 0.25 * totalTicks;
+        double clampedPosition = Math.max(-limit, Math.min(targetTicks, limit));
+        turret.setTargetPosition((int) clampedPosition);
     }
 
 
