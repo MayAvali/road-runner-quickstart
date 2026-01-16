@@ -33,10 +33,10 @@ import java.util.Locale;
 
 @TeleOp(name = "TeleOpCompetition", group = "Linear OpMode")
 public class TeleOpCompetition extends LinearOpMode {
-
+    private String infoIMU = "";
     private Limelight3A limelight;
     public GoBildaPinpointDriver pinpoint;
-    Pose2D TargetPose = new Pose2D(DistanceUnit.CM,-20, 5, AngleUnit.DEGREES, 0);
+    Pose2D TargetPose = new Pose2D(DistanceUnit.CM,-20, 0, AngleUnit.DEGREES, 0);
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -112,6 +112,11 @@ public class TeleOpCompetition extends LinearOpMode {
         GamepadButton launcherAccel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_UP);
         GamepadButton launcherDecel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_DOWN);
         GamepadButton modeSwitcher = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);
+
+        infoIMU += "IMU - " + pinpoint.getDeviceName();
+        infoIMU += " | ID: " + pinpoint.getDeviceID();
+        infoIMU += " | ver" + pinpoint.getDeviceVersion();
+        infoIMU += " | yawS: " + pinpoint.getYawScalar();
 
         while (opModeIsActive()) {
 
@@ -262,6 +267,8 @@ public class TeleOpCompetition extends LinearOpMode {
             telemetry.addData("Robot Angle to Target",TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose));
             telemetry.addData("Robot Heading", Math.toDegrees(pinpoint.getHeading(AngleUnit.RADIANS)));
 
+            telemetry.addData("IMU Status", pinpoint.getDeviceStatus());
+            telemetry.addData(" IMU Info", infoIMU);
             telemetry.update();
 
             dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());
