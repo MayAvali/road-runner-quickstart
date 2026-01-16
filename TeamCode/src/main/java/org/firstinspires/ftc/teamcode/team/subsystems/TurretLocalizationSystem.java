@@ -29,7 +29,13 @@ public class TurretLocalizationSystem {
 
         double BotAngle = Math.toDegrees(Math.atan2((TargetY - RobotY), (TargetX - RobotX)));
 
-        return BotAngle - RobotHeading;
+        return modulo(BotAngle - RobotHeading,180);
     }
-
+    public static double modulo(double dividend, double divisor) {
+        double remainder = dividend % divisor;
+        if ((remainder < 0 && divisor > 0) || (remainder > 0 && divisor < 0)) {
+            remainder += divisor;
+        }
+        return remainder;
+    }
 }

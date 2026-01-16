@@ -94,6 +94,8 @@ public class TeleOpCompetition extends LinearOpMode {
                 (DcMotorEx) hardwareMap.dcMotor.get("turret")
         );
 
+        scoringsystem.setLaunchVel(1800);
+
         double last_tx_value = 0;
         boolean last_was_valid = false;
         double last_detection = getRuntime();
@@ -142,7 +144,6 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.closeGate();
                     drivetrain.zeroPowerFloat();
 
-                    scoringsystem.setLaunchVel(1800);
 
                     scoringsystem.launcherUpdate();
 
@@ -152,7 +153,9 @@ public class TeleOpCompetition extends LinearOpMode {
 
 
 
-                    scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
+                    //scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
+
+                    scoringsystem.setTurretTarget(0,2000);
 
                     if (launcherAccel.isPressed()) {
                         scoringsystem.launchAccel();
@@ -176,13 +179,15 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.openGate();
                     drivetrain.zeroPowerBrake();
 
-                    scoringsystem.setLaunchVel(1800);
-
                     scoringsystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
-                    scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
+                    scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
+
+                    //scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
+
+                    scoringsystem.setTurretTarget(0,2000);
 
                     if (launcherAccel.isPressed()) {
                         scoringsystem.launchAccel();
@@ -254,6 +259,7 @@ public class TeleOpCompetition extends LinearOpMode {
             telemetry.addData("Right Trigger: ", gamepad1.right_trigger);
 
             telemetry.addData("Turret Positon: ", scoringsystem.getTurretPos());
+            telemetry.addData("RobotDistanceToTarget", TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose));
             telemetry.addData("Turret Target Position", scoringsystem.getTurretTargetPos());
             telemetry.addData("Robot Angle to Target",TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose));
             telemetry.addData("Robot Heading", Math.toDegrees(pinpoint.getHeading(AngleUnit.RADIANS)));
