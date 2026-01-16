@@ -29,7 +29,12 @@ public class TurretLocalizationSystem {
 
         double BotAngle = Math.toDegrees(Math.atan2((TargetY - RobotY), (TargetX - RobotX)));
 
-        return BotAngle - RobotHeading;
+        double difference = BotAngle - RobotHeading;
+
+        while (difference > 180) difference -= 360;
+        while (difference <= -180) difference += 360;
+
+        return difference;
     }
 
 }

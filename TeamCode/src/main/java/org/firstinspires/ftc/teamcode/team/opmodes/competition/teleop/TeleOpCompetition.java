@@ -43,8 +43,10 @@ public class TeleOpCompetition extends LinearOpMode {
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class,"pinpoint");
         pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        pinpoint.setOffsets(55,70, DistanceUnit.MM);
 
         pinpoint.resetPosAndIMU();
+
 
         double oldTime = 0;
 
@@ -182,7 +184,9 @@ public class TeleOpCompetition extends LinearOpMode {
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
+
                     scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
+
 
                     if (launcherAccel.isPressed()) {
                         scoringsystem.launchAccel();
