@@ -36,7 +36,6 @@ public class TeleOpCompetition extends LinearOpMode {
     private String infoIMU = "";
     private Limelight3A limelight;
     public GoBildaPinpointDriver pinpoint;
-    Pose2D TargetPose = new Pose2D(DistanceUnit.CM,-20, 0, AngleUnit.DEGREES, 0);
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -159,7 +158,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
 
 
-                    scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
+                    scoringsystem.setTurretTarget(0,2000);
 
                     if (launcherAccel.isPressed()) {
                         scoringsystem.launchAccel();
@@ -190,7 +189,7 @@ public class TeleOpCompetition extends LinearOpMode {
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
 
-                    scoringsystem.setTurretTarget(TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose),2000);
+                    scoringsystem.setTurretTarget(0,2000);
 
 
                     if (launcherAccel.isPressed()) {
@@ -264,7 +263,6 @@ public class TeleOpCompetition extends LinearOpMode {
 
             telemetry.addData("Turret Positon: ", scoringsystem.getTurretPos());
             telemetry.addData("Turret Target Position", scoringsystem.getTurretTargetPos());
-            telemetry.addData("Robot Angle to Target",TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose));
             telemetry.addData("Robot Heading", Math.toDegrees(pinpoint.getHeading(AngleUnit.RADIANS)));
 
             telemetry.addData("IMU Status", pinpoint.getDeviceStatus());

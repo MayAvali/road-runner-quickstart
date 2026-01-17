@@ -46,7 +46,7 @@ public class ScoringSystem {
     public static turretPIDF TurretPIDF = new turretPIDF();
 
 
-    public double LaunchVel = 1800;
+    public double LaunchVel = 1300;
     public double LaunchMult = 0.88;
 
     public ScoringSystem(DcMotorEx launcher, DcMotorEx intake, DcMotorEx turret) {
@@ -99,6 +99,10 @@ public class ScoringSystem {
         launcher.setVelocityPIDFCoefficients(launcherPIDF.P, launcherPIDF.I, launcherPIDF.D, launcherPIDF.F);
         //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
     }
+    public static double TurretDistToFlywheelVelocity (double distance) {
+        return -0.000053592*Math.pow(distance, 2) + 0.569318*distance + 623.58077;
+    }
+
     public void launchAccel(){
         LaunchVel += 25;
         //LaunchMult += 0.01;

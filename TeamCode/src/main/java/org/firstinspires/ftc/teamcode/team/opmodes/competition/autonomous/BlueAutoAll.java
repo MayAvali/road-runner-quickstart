@@ -23,30 +23,30 @@ public class BlueAutoAll extends LinearOpMode {
         int tinyPause = 200;
         int littlePause = 400;
         int bigPause = 500;
-        int scorePause = 1500;
+        int scorePause = 2250;
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
 
-        Pose2d InitPosition = new Pose2d(-52.24, -51.375, Math.toRadians(51.4));
+        Pose2d InitPosition = new Pose2d(-52.6, -52.8, Math.toRadians(-127.6));
 
-        Pose2d ScorePositionPose = new Pose2d(-35, -25, Math.toRadians(-135));
-        Vector2d ScorePosition = new Vector2d( -37, -37);
+        Pose2d ScorePositionPose = new Pose2d(-23, -27, Math.toRadians(-120));
+        Vector2d ScorePosition = new Vector2d( -34, -24);
 
         Vector2d CollectAlignPos = new Vector2d(-37, -15);
 
         Vector2d PPGAlignPos = new Vector2d(-12,-15);
         Pose2d PPGAlignPose = new Pose2d(-12,-15, Math.toRadians(-90));
 
-        Vector2d PPGGrabPos = new Vector2d(-12,-51);
-        Pose2d PPGGrabPose = new Pose2d(-12,-51, Math.toRadians(-90));
+        Vector2d PPGGrabPos = new Vector2d(-12,-52);
+        Pose2d PPGGrabPose = new Pose2d(-12,-52, Math.toRadians(-90));
 
-        Vector2d PGPAlignPos = new Vector2d(11.5,-15);
-        Pose2d PGPAlignPose = new Pose2d(11.5,-15, Math.toRadians(-90));
+        Vector2d PGPAlignPos = new Vector2d(13.5,-15);
+        Pose2d PGPAlignPose = new Pose2d(12.5,-15, Math.toRadians(-90));
 
-        Vector2d PGPGrabPos = new Vector2d(11.5,-57.5);
-        Pose2d PGPGrabPose = new Pose2d(11.5,-57.5, Math.toRadians(-90));
+        Vector2d PGPGrabPos = new Vector2d(13.5,-57.5);
+        Pose2d PGPGrabPose = new Pose2d(12.5,-57.5, Math.toRadians(-90));
 
         Vector2d GPPAlignPos = new Vector2d(35, -15);
         Pose2d GPPAlignPose = new Pose2d(35,-15, Math.toRadians(-90));
@@ -124,7 +124,7 @@ public class BlueAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.4);
+        ScoringSystem.intake(0,1);
 
         sleep(scorePause);
 
@@ -138,22 +138,21 @@ public class BlueAutoAll extends LinearOpMode {
 
         Actions.runBlocking(new SequentialAction(IntakePPG.build()));
 
-        ScoringSystem.intake(0,1);
         ScoringSystem.launcherUpdate();
 
-        Actions.runBlocking(new SequentialAction(PPGToLauncher.build()));
-
         ScoringSystem.intake(0,0);
+
+        Actions.runBlocking(new SequentialAction(PPGToLauncher.build()));
 
         sleep(littlePause);
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.4);
+        ScoringSystem.intake(0,1);
 
         sleep(scorePause);
 
-        ScoringSystem.intake(0,1);
+        ScoringSystem.intake(0,0);
         ServoGate.closeGate();
 
         Actions.runBlocking(new SequentialAction(moveToIntakePGP.build()));
@@ -173,7 +172,7 @@ public class BlueAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,0.4);
+        ScoringSystem.intake(0,1);
 
         sleep(scorePause);
 
