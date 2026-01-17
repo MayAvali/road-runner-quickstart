@@ -37,4 +37,14 @@ public class TurretLocalizationSystem {
         return difference;
     }
 
+    public static double getDistancefromAngle(double ty, double knownHeightMM){
+        double LimelightAngle = 62.6761086987;
+
+        double limelightLensHeightMM = 332.74;
+
+
+        double angleToGoalRadians = (LimelightAngle + ty) * (3.14159 / 180.0);
+
+        return  (knownHeightMM - (limelightLensHeightMM ) / Math.tan(angleToGoalRadians));
+    }
 }

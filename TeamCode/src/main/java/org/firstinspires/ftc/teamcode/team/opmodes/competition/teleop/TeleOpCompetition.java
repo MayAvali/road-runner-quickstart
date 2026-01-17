@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop;
 
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.INTAKE;
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.PRESCORE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.PRIME;
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.SCORE;
 
 import com.acmerobotics.dashboard.FtcDashboard;
@@ -12,8 +11,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import com.qualcomm.hardware.limelightvision.LLResult;
-import com.qualcomm.hardware.limelightvision.LLResultTypes;
-import com.qualcomm.hardware.limelightvision.LLStatus;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -111,6 +108,11 @@ public class TeleOpCompetition extends LinearOpMode {
         GamepadButton launcherAccel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_UP);
         GamepadButton launcherDecel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_DOWN);
         GamepadButton modeSwitcher = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);
+        GamepadButton ManualSpeedToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.triangle);
+        GamepadButton ManualTurretToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.circle);
+
+        boolean ManualSpeedOn = false;
+        boolean ManualTurretOn = false;
 
         infoIMU += "IMU - " + pinpoint.getDeviceName();
         infoIMU += " | ID: " + pinpoint.getDeviceID();
@@ -125,6 +127,33 @@ public class TeleOpCompetition extends LinearOpMode {
             double loopTime = newTime-oldTime;
             double frequency = 1/loopTime;
             oldTime = newTime;
+
+            LLResult result = limelight.getLatestResult();
+
+            if (result != null) {
+                Pose3D botpose = result.getBotpose();
+                telemetry.addData("tx", result.getTx());
+                telemetry.addData("ty", result.getTy());
+                telemetry.addData("Botpose", botpose.toString());
+            }
+            double tx_value = result.getTx();
+            double target = 0;
+            if (!result.isValid() && ((last_detection - detection_start) > 0)) {
+                //
+                target = ((getRuntime() - last_detection) <= 0.25) ? last_tx_value : 0;
+                last_was_valid = false;
+            } else if (result.isValid()) {
+                target = tx_value;
+
+                if (!last_was_valid) {
+                    detection_start = getRuntime();
+                }
+                last_detection = getRuntime();
+                last_was_valid = true;
+                last_tx_value = tx_value;
+            } else {
+                target = 0;
+            }
 
             switch (robotState) {
                 case INTAKE:
@@ -148,7 +177,11 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.closeGate();
                     drivetrain.zeroPowerFloat();
 
-                    scoringsystem.setLaunchVel(1800);
+                    if(ManualSpeedOn){
+                        scoringsystem.setLaunchVel(1300);
+                    }else{
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750)));
+                    }
 
                     scoringsystem.launcherUpdate();
 
@@ -156,9 +189,11 @@ public class TeleOpCompetition extends LinearOpMode {
 
                     scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
-
-
-                    scoringsystem.setTurretTarget(0,2000);
+                    if(ManualTurretOn){
+                        scoringsystem.setTurretTarget(0,2000);
+                    }else{
+                        scoringsystem.setTurretTarget(target,2000);
+                    }
 
                     if (launcherAccel.isPressed()) {
                         scoringsystem.launchAccel();
@@ -182,15 +217,23 @@ public class TeleOpCompetition extends LinearOpMode {
                     ServoGate.openGate();
                     drivetrain.zeroPowerBrake();
 
-                    scoringsystem.setLaunchVel(1800);
 
+                    if(ManualSpeedOn){
+                        scoringsystem.setLaunchVel(1300);
+                    }else{
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750)));
+                    }
                     scoringsystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
+                    scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
-                    scoringsystem.setTurretTarget(0,2000);
-
+                    if(ManualTurretOn){
+                        scoringsystem.setTurretTarget(0,2000);
+                    }else{
+                        scoringsystem.setTurretTarget(target,2000);
+                    }
 
                     if (launcherAccel.isPressed()) {
                         scoringsystem.launchAccel();
@@ -210,34 +253,12 @@ public class TeleOpCompetition extends LinearOpMode {
                     throw new IllegalStateException("Unexpected value: " + robotState);
             }
 
-            LLResult result = limelight.getLatestResult();
-//            if (result != null) {
-//                Pose3D botpose = result.getBotpose();
-//                telemetry.addData("tx", result.getTx());
-//                telemetry.addData("ty", result.getTy());
-//                telemetry.addData("Botpose", botpose.toString());
-//            }
-//            double tx_value = result.getTx();
-//            double target = 0;
-//            if (!result.isValid() && ((last_detection - detection_start) > 0.25)) {
-//                //
-//               target = ((getRuntime() - last_detection) <= 0.25) ? last_tx_value : 0;
-//               last_was_valid = false;
-//            } else if (result.isValid()) {
-//                target = tx_value;
-//
-//                if (!last_was_valid) {
-//                    detection_start = getRuntime();
-//                }
-//                last_detection = getRuntime();
-//                last_was_valid = true;
-//                last_tx_value = tx_value;
-//            } else {
-//                target = 0;
-//            }
-//
-//            scoringsystem.setTurretTarget(target, 0, 2000);
-
+            if(ManualSpeedToggle.isPressed()){
+                ManualSpeedOn = !ManualSpeedOn;
+            }
+            if(ManualTurretToggle.isPressed()){
+                ManualTurretOn = !ManualTurretOn;
+            }
             telemetry.addData("LimelightResultState", result == null ? "null" : (result.isValid() ? "Valid" : "Invalid"));
 
             telemetry.addData("RobotState", robotState);
@@ -267,6 +288,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
             telemetry.addData("IMU Status", pinpoint.getDeviceStatus());
             telemetry.addData(" IMU Info", infoIMU);
+            telemetry.addData("Camera Calculated Distance", TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750));
             telemetry.update();
 
             dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());
