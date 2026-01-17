@@ -1,17 +1,16 @@
 package org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop;
 
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.INTAKE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.PRESCORE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetition.RobotState.SCORE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.INTAKE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.PRESCORE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.SCORE;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
-
-import com.qualcomm.hardware.limelightvision.LLResult;
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -28,8 +27,8 @@ import org.firstinspires.ftc.teamcode.team.subsystems.TurretLocalizationSystem;
 
 import java.util.Locale;
 
-@TeleOp(name = "TeleOpCompetition", group = "Linear OpMode")
-public class TeleOpCompetition extends LinearOpMode {
+@TeleOp(name = "TeleOpCompetitionBlue", group = "Linear OpMode")
+public class TeleOpCompetitionBlue extends LinearOpMode {
     private String infoIMU = "";
     private Limelight3A limelight;
     public GoBildaPinpointDriver pinpoint;
@@ -43,6 +42,7 @@ public class TeleOpCompetition extends LinearOpMode {
 
         pinpoint.resetPosAndIMU();
 
+        limelight.pipelineSwitch(1); // Switch to pipeline number 0
 
         double oldTime = 0;
 
