@@ -14,6 +14,8 @@ public class ScoringSystem {
     //private final VoltageSensor voltageSensor;
     private final DcMotorEx turret;
 
+    private final DcMotorEx launcher2;
+
     private double TurretTargetPos = 0;
 
 
@@ -21,17 +23,17 @@ public class ScoringSystem {
 
     @Config
     public static class intakePIDF {
-        public static double P = 0;
+        public static double P = 4;
         public static double I = 0;
-        public static double D = 4;
+        public static double D = 0;
         public static double F = 12;
     }
     @Config
     public static class launcherPIDF {
-        public static double P = 75;
+        public static double P = 85;
         public static double I = 8;
-        public static double D = 12;
-        public static double F = 0;
+        public static double D = 0;
+        public static double F = 18;
     }
     public static class turretPIDF {
         public static double P = 12;
@@ -49,9 +51,11 @@ public class ScoringSystem {
     public double LaunchVel = 1300;
     public double LaunchMult = 0.88;
 
-    public ScoringSystem(DcMotorEx launcher, DcMotorEx intake, DcMotorEx turret) {
+    public ScoringSystem(DcMotorEx launcher, DcMotorEx intake, DcMotorEx turret, DcMotorEx launcher2) {
         this.launcher = launcher;
+        this.launcher2 = launcher2;
         launcher.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        launcher2.setDirection(DcMotorSimple.Direction.REVERSE);
         launcher.setVelocityPIDFCoefficients(launcherPIDF.P, launcherPIDF.I, launcherPIDF.D, launcherPIDF.F);
         //this.voltageSensor = voltageSensor;
 
@@ -79,24 +83,29 @@ public class ScoringSystem {
 
 
     public void launcherToggle(){
-        if(launcher.getPower() != 0)
+        if(launcher.getPower() != 0) {
             launcher.setVelocity(0);
+            launcher2.setPower(launcher.getPower());
             //launcher.setPower(0);
-        else{
+        }else{
             launcher.setVelocity(LaunchVel);
+            launcher2.setPower(launcher.getPower());
             //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
         }
     }
     public void launcherOn(){
         launcher.setVelocity(LaunchVel);
-        //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
+        launcher2.setPower(launcher.getPower());
+        //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())))
     }
     public void launcherOff(){
         launcher.setVelocity(0);
+        launcher2.setPower(launcher.getPower());
     }
     public void launcherUpdate(){
         launcher.setVelocity(LaunchVel);
         launcher.setVelocityPIDFCoefficients(launcherPIDF.P, launcherPIDF.I, launcherPIDF.D, launcherPIDF.F);
+        launcher2.setPower(launcher.getPower());
         //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
     }
     public static double TurretDistToFlywheelVelocity (double distance) {
@@ -122,14 +131,6 @@ public class ScoringSystem {
         intake.setVelocity((2800*out)-(3600*in));
         //intake2.setVelocity((1200*out)-(1600*in));
     }
-
-    public void intakeShiftStrong() {
-        intakePIDF.I = 8;
-    }
-    public void intakeShiftWeak() {
-        intakePIDF.I = 2;
-    }
-
 
     public void setTurretTarget(double inputDegrees, double totalTicks) {
         double ticksPerDegree = totalTicks / 360.0;

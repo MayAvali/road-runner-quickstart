@@ -5,13 +5,12 @@ import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.Tel
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionRed.RobotState.SCORE;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.IMU;
-
-import com.qualcomm.hardware.limelightvision.LLResult;
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -42,8 +41,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         pinpoint.setOffsets(55,70, DistanceUnit.MM);
 
         pinpoint.resetPosAndIMU();
-
-        limelight.pipelineSwitch(0); // Switch to pipeline number 0
 
         double oldTime = 0;
 
@@ -90,7 +87,8 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         ScoringSystem scoringsystem = new ScoringSystem(
                 (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
                 (DcMotorEx) hardwareMap.dcMotor.get("intake"),
-                (DcMotorEx) hardwareMap.dcMotor.get("turret")
+                (DcMotorEx) hardwareMap.dcMotor.get("turret"),
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher2")
         );
 
         double last_tx_value = 0;

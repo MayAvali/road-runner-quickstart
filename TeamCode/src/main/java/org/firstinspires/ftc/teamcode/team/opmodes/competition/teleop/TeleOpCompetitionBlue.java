@@ -42,8 +42,6 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         pinpoint.resetPosAndIMU();
 
-        limelight.pipelineSwitch(1); // Switch to pipeline number 0
-
         double oldTime = 0;
 
         telemetry.addData("Status", "Initialized");
@@ -89,7 +87,8 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         ScoringSystem scoringsystem = new ScoringSystem(
                 (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
                 (DcMotorEx) hardwareMap.dcMotor.get("intake"),
-                (DcMotorEx) hardwareMap.dcMotor.get("turret")
+                (DcMotorEx) hardwareMap.dcMotor.get("turret"),
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher2")
         );
 
         double last_tx_value = 0;
