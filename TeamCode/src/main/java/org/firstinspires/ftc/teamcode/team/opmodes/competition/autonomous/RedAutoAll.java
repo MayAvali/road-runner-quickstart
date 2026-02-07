@@ -106,7 +106,8 @@ public class RedAutoAll extends LinearOpMode {
         ScoringSystem ScoringSystem = new ScoringSystem(
                 (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
                 (DcMotorEx) hardwareMap.dcMotor.get("intake"),
-                (DcMotorEx) hardwareMap.dcMotor.get("turret")
+                (DcMotorEx) hardwareMap.dcMotor.get("turret"),
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher2")
         );
         ServoGate ServoGate = new ServoGate(
                 hardwareMap.servo.get("gate")

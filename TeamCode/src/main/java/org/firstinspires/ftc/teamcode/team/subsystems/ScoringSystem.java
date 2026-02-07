@@ -23,14 +23,14 @@ public class ScoringSystem {
 
     @Config
     public static class intakePIDF {
-        public static double P = 4;
+        public static double P = 16;
         public static double I = 0;
         public static double D = 0;
         public static double F = 12;
     }
     @Config
     public static class launcherPIDF {
-        public static double P = 85;
+        public static double P = 135;
         public static double I = 8;
         public static double D = 0;
         public static double F = 18;
