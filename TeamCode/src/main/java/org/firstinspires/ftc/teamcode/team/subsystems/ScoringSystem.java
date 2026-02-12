@@ -80,23 +80,6 @@ public class ScoringSystem {
         turret.setVelocityPIDFCoefficients(turretPIDF.P,turretPIDF.I,turretPIDF.D,turretPIDF.F);
     }
 
-
-    public void launcherToggle(){
-        if(launcher.getPower() != 0) {
-            launcher.setVelocity(0);
-            launcher2.setPower(launcher.getPower());
-            //launcher.setPower(0);
-        }else{
-            launcher.setVelocity(LaunchVel);
-            launcher2.setPower(launcher.getPower());
-            //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
-        }
-    }
-    public void launcherOn(){
-        launcher.setVelocity(LaunchVel);
-        launcher2.setPower(launcher.getPower());
-        //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())))
-    }
     public void launcherOff(){
         launcher.setVelocity(0);
         launcher2.setPower(launcher.getPower());
@@ -111,19 +94,14 @@ public class ScoringSystem {
         return -0.000053592*Math.pow(distance, 2) + 0.569318*distance + 623.58077;
     }
 
-    public void launchAdjust(int input){
+    public void launchVelAdjust(int input){
         LaunchVel += input;
     }
-
-    public void launchAccelSmol(){}
 
     public void setLaunchVel(int velocity){
         LaunchVel = velocity;
     }
-    public void launchDecel(){
-        LaunchVel -= 25;
-        //LaunchMult -= 0.01;
-    }
+
     public void intake(double out, double in){
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
         //intake2.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);

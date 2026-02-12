@@ -100,7 +100,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         boolean last_was_valid = false;
         double last_detection = getRuntime();
         double detection_start = getRuntime();
-        double rotCompensation = 0;
         ServoGate ServoGate = new ServoGate(
                 hardwareMap.servo.get("gate")
         );
@@ -188,16 +187,16 @@ public class TeleOpCompetitionRed extends LinearOpMode {
                     }
 
                     if (launcherAccel.isPressed()) {
-                        scoringsystem.launchAdjust(ManualSpeedAdjustment);
+                        scoringsystem.launchVelAdjust(ManualSpeedAdjustment);
                     }
                     if (launcherAccelSmol.isPressed()){
-                        scoringsystem.launchAdjust(SmallManualSpeedAdjustment);
+                        scoringsystem.launchVelAdjust(SmallManualSpeedAdjustment);
                     }
                     if (launcherDecel.isPressed()) {
-                        scoringsystem.launchAdjust(-ManualSpeedAdjustment);
+                        scoringsystem.launchVelAdjust(-ManualSpeedAdjustment);
                     }
                     if (launcherDecelSmol.isPressed()){
-                        scoringsystem.launchAdjust(-SmallManualSpeedAdjustment);
+                        scoringsystem.launchVelAdjust(-SmallManualSpeedAdjustment);
                     }
 
                     scoringsystem.launcherUpdate();
@@ -231,16 +230,16 @@ public class TeleOpCompetitionRed extends LinearOpMode {
                     }
 
                     if (launcherAccel.isPressed()) {
-                        scoringsystem.launchAdjust(ManualSpeedAdjustment);
+                        scoringsystem.launchVelAdjust(ManualSpeedAdjustment);
                     }
                     if (launcherAccelSmol.isPressed()){
-                        scoringsystem.launchAdjust(SmallManualSpeedAdjustment);
+                        scoringsystem.launchVelAdjust(SmallManualSpeedAdjustment);
                     }
                     if (launcherDecel.isPressed()) {
-                        scoringsystem.launchAdjust(-ManualSpeedAdjustment);
+                        scoringsystem.launchVelAdjust(-ManualSpeedAdjustment);
                     }
                     if (launcherDecelSmol.isPressed()){
-                        scoringsystem.launchAdjust(-SmallManualSpeedAdjustment);
+                        scoringsystem.launchVelAdjust(-SmallManualSpeedAdjustment);
                     }
 
                     scoringsystem.launcherUpdate();
