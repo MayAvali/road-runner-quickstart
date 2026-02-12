@@ -4,6 +4,8 @@ import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.Tel
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.PRESCORE;
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.SCORE;
 
+//adb connect 192.168.43.1:5555
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
