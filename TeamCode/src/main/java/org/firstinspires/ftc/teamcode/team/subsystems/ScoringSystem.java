@@ -31,9 +31,9 @@ public class ScoringSystem {
     @Config
     public static class launcherPIDF {
         public static double P = 135;
-        public static double I = 8;
+        public static double I = 0;
         public static double D = 0;
-        public static double F = 18;
+        public static double F = 16;
     }
     public static class turretPIDF {
         public static double P = 12;
