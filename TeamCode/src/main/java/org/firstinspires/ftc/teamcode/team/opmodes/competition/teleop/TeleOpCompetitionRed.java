@@ -114,6 +114,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         GamepadButton launcherDecelSmol = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);;
         GamepadButton ManualSpeedToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.triangle);
         GamepadButton ManualTurretToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.circle);
+        GamepadButton PinpointReset = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.START);
 
 
         boolean ManualSpeedOn = false;
@@ -322,6 +323,12 @@ public class TeleOpCompetitionRed extends LinearOpMode {
             dashboardTelemetry.addData("Right Trigger: ", gamepad1.right_trigger);
 
             Pose2D pos = pinpoint.getPosition();
+
+            if (PinpointReset.isPressed()) {
+                pinpoint.resetPosAndIMU();
+                pinpoint.setPosition(new Pose2D(DistanceUnit.MM,0,0,AngleUnit.DEGREES,0));
+            }
+
             String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));
             dashboardTelemetry.addData("Position", data);
             telemetry.addData("Position", data);

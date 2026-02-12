@@ -11,21 +11,21 @@ import org.firstinspires.ftc.teamcode.R;
 
 public class TurretLocalizationSystem {
     public static double getDistance(Pose2D Robot, Pose2D Target) {
-        double RobotX = Robot.getX(DistanceUnit.CM);
-        double RobotY = Robot.getY(DistanceUnit.CM);
-        double TargetX = Target.getX(DistanceUnit.CM);
-        double TargetY = Target.getY(DistanceUnit.CM);
+        double RobotX = Robot.getX(DistanceUnit.MM);
+        double RobotY = Robot.getY(DistanceUnit.MM);
+        double TargetX = Target.getX(DistanceUnit.MM);
+        double TargetY = Target.getY(DistanceUnit.MM);
 
         return Math.sqrt((TargetX - RobotX) * (TargetX - RobotX) + (TargetY - RobotY) * (TargetY - RobotY));
     }
 
     public static double getAngle(Pose2D Robot, Pose2D Target) {
-        double RobotX = Robot.getX(DistanceUnit.CM);
-        double RobotY = Robot.getY(DistanceUnit.CM);
-        double TargetX = Target.getX(DistanceUnit.CM);
-        double TargetY = Target.getY(DistanceUnit.CM);
+        double RobotX = Robot.getX(DistanceUnit.MM);
+        double RobotY = Robot.getY(DistanceUnit.MM);
+        double TargetX = Target.getX(DistanceUnit.MM);
+        double TargetY = Target.getY(DistanceUnit.MM);
 
-        double RobotHeading = (Math.toDegrees(Robot.getHeading(AngleUnit.RADIANS)));
+        double RobotHeading = Robot.getHeading(AngleUnit.DEGREES);
 
         double BotAngle = Math.toDegrees(Math.atan2((TargetY - RobotY), (TargetX - RobotX)));
 
@@ -38,12 +38,11 @@ public class TurretLocalizationSystem {
     }
 
     public static double getDistancefromAngle(double ty, double knownHeightMM){
-        double LimelightAngle = 62.6761086987;
+        double LimelightAngle = 40;
 
-        double limelightLensHeightMM = 332.74;
+        double limelightLensHeightMM = 355.6;
 
-
-        double angleToGoalRadians = (LimelightAngle + ty) * (3.14159 / 180.0);
+        double angleToGoalRadians = Math.toRadians(LimelightAngle + ty);
 
         return  (knownHeightMM - (limelightLensHeightMM ) / Math.tan(angleToGoalRadians));
     }
