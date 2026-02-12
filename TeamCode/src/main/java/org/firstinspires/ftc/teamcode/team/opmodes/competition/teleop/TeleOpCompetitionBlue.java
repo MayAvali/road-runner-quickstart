@@ -44,6 +44,9 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         pinpoint.resetPosAndIMU();
 
+        int SmallManualSpeedAdjustment = 5;
+        int ManualSpeedAdjustment = 25;
+
         double oldTime = 0;
 
         telemetry.addData("Status", "Initialized");
@@ -107,8 +110,9 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         GamepadButton stateBack = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.LEFT_BUMPER);
         GamepadButton stateForward = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.RIGHT_BUMPER);
         GamepadButton launcherAccel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_UP);
+        GamepadButton launcherAccelSmol = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_RIGHT);
         GamepadButton launcherDecel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_DOWN);
-        GamepadButton modeSwitcher = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);
+        GamepadButton launcherDecelSmol = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);;
         GamepadButton ManualSpeedToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.triangle);
         GamepadButton ManualTurretToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.circle);
 
@@ -178,10 +182,21 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
                     ServoGate.closeGate();
                     drivetrain.zeroPowerFloat();
 
-                    if(ManualSpeedOn){
-                        scoringsystem.setLaunchVel(1300);
-                    }else{
+                    if(!ManualSpeedOn){
                         scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750)));
+                    }
+
+                    if (launcherAccel.isPressed()) {
+                        scoringsystem.launchAdjust(ManualSpeedAdjustment);
+                    }
+                    if (launcherAccelSmol.isPressed()){
+                        scoringsystem.launchAdjust(SmallManualSpeedAdjustment);
+                    }
+                    if (launcherDecel.isPressed()) {
+                        scoringsystem.launchAdjust(-ManualSpeedAdjustment);
+                    }
+                    if (launcherDecelSmol.isPressed()){
+                        scoringsystem.launchAdjust(-SmallManualSpeedAdjustment);
                     }
 
                     scoringsystem.launcherUpdate();
@@ -194,15 +209,6 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
                         scoringsystem.setTurretTarget(0,2000);
                     }else{
                         scoringsystem.setTurretTarget(target,2000);
-                    }
-
-                    if (launcherAccel.isPressed()) {
-                        scoringsystem.launchAccel();
-                        scoringsystem.launcherUpdate();
-                    }
-                    if (launcherDecel.isPressed()) {
-                        scoringsystem.launchDecel();
-                        scoringsystem.launcherUpdate();
                     }
 
                     if (stateForward.isPressed()) {
@@ -219,11 +225,23 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
                     drivetrain.zeroPowerBrake();
 
 
-                    if(ManualSpeedOn){
-                        scoringsystem.setLaunchVel(1300);
-                    }else{
+                    if(!ManualSpeedOn){
                         scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750)));
                     }
+
+                    if (launcherAccel.isPressed()) {
+                        scoringsystem.launchAdjust(ManualSpeedAdjustment);
+                    }
+                    if (launcherAccelSmol.isPressed()){
+                        scoringsystem.launchAdjust(SmallManualSpeedAdjustment);
+                    }
+                    if (launcherDecel.isPressed()) {
+                        scoringsystem.launchAdjust(-ManualSpeedAdjustment);
+                    }
+                    if (launcherDecelSmol.isPressed()){
+                        scoringsystem.launchAdjust(-SmallManualSpeedAdjustment);
+                    }
+
                     scoringsystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
@@ -236,14 +254,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
                         scoringsystem.setTurretTarget(target,2000);
                     }
 
-                    if (launcherAccel.isPressed()) {
-                        scoringsystem.launchAccel();
-                        scoringsystem.launcherUpdate();
-                    }
-                    if (launcherDecel.isPressed()) {
-                        scoringsystem.launchDecel();
-                        scoringsystem.launcherUpdate();
-                    }
+
 
                     if (stateForward.isPressed()) {
                         robotState = INTAKE;

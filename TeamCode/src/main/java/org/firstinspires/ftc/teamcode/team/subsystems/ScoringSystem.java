@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.team.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.acmerobotics.dashboard.config.Config;
 
 
@@ -48,7 +47,7 @@ public class ScoringSystem {
     public static turretPIDF TurretPIDF = new turretPIDF();
 
 
-    public double LaunchVel = 1300;
+    public double LaunchVel = 1000;
     public double LaunchMult = 0.88;
 
     public ScoringSystem(DcMotorEx launcher, DcMotorEx intake, DcMotorEx turret, DcMotorEx launcher2) {
@@ -112,11 +111,11 @@ public class ScoringSystem {
         return -0.000053592*Math.pow(distance, 2) + 0.569318*distance + 623.58077;
     }
 
-    public void launchAccel(){
-        LaunchVel += 25;
-        //LaunchMult += 0.01;
-
+    public void launchAdjust(int input){
+        LaunchVel += input;
     }
+
+    public void launchAccelSmol(){}
 
     public void setLaunchVel(int velocity){
         LaunchVel = velocity;
