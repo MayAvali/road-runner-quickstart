@@ -10,7 +10,6 @@ public class MecanumDrive {
     public final DcMotor leftBack;
     public final DcMotor rightFront;
     public final DcMotor rightBack;
-    //DcMotor.ZeroPowerBehavior zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE;
     public final IMU imu;
     public MecanumDrive(DcMotor leftFront, DcMotor leftBack, DcMotor rightFront, DcMotor rightBack, IMU imu) {
         this.leftFront = leftFront;
@@ -31,11 +30,12 @@ public class MecanumDrive {
     public void resetIMU() {
         imu.resetYaw();
     }
+    // This button choice was made so that it is hard to hit on accident,
+    // it can be freely changed based on preference.
+    // The equivalent button is start on Xbox-style controllers.
 
     public void botOrientedDrive(double x, double y, double rx, double sp) {
-        // This button choice was made so that it is hard to hit on accident,
-        // it can be freely changed based on preference.
-        // The equivalent button is start on Xbox-style controllers.
+
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,

@@ -64,10 +64,6 @@ public class ScoringSystem {
         intake.setDirection(DcMotorSimple.Direction.REVERSE);
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
 
-//        this.intake2 = intake2;
-//        intake2.setDirection(DcMotorSimple.Direction.REVERSE);
-//        intake2.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-
         this.turret = turret;
         turret.setDirection(DcMotorSimple.Direction.REVERSE);
         turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -106,7 +102,6 @@ public class ScoringSystem {
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
         //intake2.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
         intake.setVelocity((2800*out)-(3600*in));
-        //intake2.setVelocity((1200*out)-(1600*in));
     }
 
     public void setTurretTarget(double inputDegrees, double totalTicks) {
