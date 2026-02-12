@@ -87,8 +87,9 @@ public class ScoringSystem {
         //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
     }
     public static double TurretDistToFlywheelVelocity (double distance) {
-        return -0.000053592*Math.pow(distance, 2) + 0.569318*distance + 623.58077;
+        return -0.0000634618*Math.pow(distance, 2) + 0.134929*distance + 941.60357;
     }
+    //Used Odometry Distance
 
     public void launchVelAdjust(int input){
         LaunchVel += input;
