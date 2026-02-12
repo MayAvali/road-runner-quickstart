@@ -44,6 +44,8 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
         pinpoint.resetPosAndIMU();
 
+        Pose2D Target = new Pose2D(DistanceUnit.MM,-220.0,0.0,AngleUnit.DEGREES,0.0);
+
         int SmallManualSpeedAdjustment = 5;
         int ManualSpeedAdjustment = 25;
 
@@ -184,7 +186,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
                     drivetrain.zeroPowerFloat();
 
                     if(!ManualSpeedOn){
-                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750)));
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), Target)));
                     }
 
                     if (launcherAccel.isPressed()) {
@@ -227,7 +229,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
 
                     if(!ManualSpeedOn){
-                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750)));
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), Target)));
                     }
 
                     if (launcherAccel.isPressed()) {
