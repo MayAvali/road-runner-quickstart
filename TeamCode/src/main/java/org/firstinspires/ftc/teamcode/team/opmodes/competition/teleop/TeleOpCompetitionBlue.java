@@ -6,7 +6,10 @@ import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.Tel
 
 //adb connect 192.168.43.1:5555
 
+import android.icu.text.LocaleDisplayNames;
+
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -45,6 +48,11 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         pinpoint.resetPosAndIMU();
 
         Pose2D TargetPose = new Pose2D(DistanceUnit.MM,220.0,0.0,AngleUnit.DEGREES,0.0);
+        Pose2D InitPose = new Pose2D(DistanceUnit.MM,0.0,0.0,AngleUnit.DEGREES,0.0);
+
+        //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()
+
+        pinpoint.setPosition(InitPose);
 
         int SmallManualSpeedAdjustment = 5;
         int ManualSpeedAdjustment = 25;

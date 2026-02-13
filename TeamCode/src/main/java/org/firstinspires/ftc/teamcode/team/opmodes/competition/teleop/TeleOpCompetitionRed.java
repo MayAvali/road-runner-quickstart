@@ -45,6 +45,11 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         pinpoint.resetPosAndIMU();
 
         Pose2D TargetPose = new Pose2D(DistanceUnit.MM,220.0,0.0,AngleUnit.DEGREES,0.0);
+        Pose2D InitPose = new Pose2D(DistanceUnit.MM,0.0,0.0,AngleUnit.DEGREES,0.0);
+
+        //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()
+
+        pinpoint.setPosition(InitPose);
 
         int SmallManualSpeedAdjustment = 5;
         int ManualSpeedAdjustment = 25;
