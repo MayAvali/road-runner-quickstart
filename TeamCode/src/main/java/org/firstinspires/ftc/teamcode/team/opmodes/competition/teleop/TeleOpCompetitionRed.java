@@ -44,8 +44,8 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
         pinpoint.resetPosAndIMU();
 
-        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,220.0,0.0,AngleUnit.DEGREES,0.0);
-        Pose2D InitPose = new Pose2D(DistanceUnit.MM,0.0,0.0,AngleUnit.DEGREES,0.0);
+        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,1520.77046,1689.67987,AngleUnit.DEGREES,0.0);
+        Pose2D InitPose = new Pose2D(DistanceUnit.MM,1495.46250,-897.73125,AngleUnit.DEGREES,0.0);
 
         //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()
 
@@ -118,7 +118,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         GamepadButton launcherAccel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_UP);
         GamepadButton launcherAccelSmol = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_RIGHT);
         GamepadButton launcherDecel = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_DOWN);
-        GamepadButton launcherDecelSmol = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);;
+        GamepadButton launcherDecelSmol = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);
         GamepadButton ManualSpeedToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.triangle);
         GamepadButton ManualTurretToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.circle);
         GamepadButton PinpointReset = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.START);
