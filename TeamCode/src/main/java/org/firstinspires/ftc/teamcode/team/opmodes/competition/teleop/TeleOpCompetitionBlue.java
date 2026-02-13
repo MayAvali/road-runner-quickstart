@@ -44,7 +44,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         pinpoint.resetPosAndIMU();
 
-        Pose2D Target = new Pose2D(DistanceUnit.MM,-220.0,0.0,AngleUnit.DEGREES,0.0);
+        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,-220.0,0.0,AngleUnit.DEGREES,0.0);
 
         int SmallManualSpeedAdjustment = 5;
         int ManualSpeedAdjustment = 25;
@@ -145,22 +145,27 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             }
             double tx_value = result.getTx();
             double target = 0;
-            if (!result.isValid() && ((last_detection - detection_start) > 0)) {
-                //
-                target = ((getRuntime() - last_detection) <= 0.25) ? last_tx_value : 0;
-                last_was_valid = false;
-            } else if (result.isValid()) {
-                target = tx_value;
 
-                if (!last_was_valid) {
-                    detection_start = getRuntime();
-                }
-                last_detection = getRuntime();
-                last_was_valid = true;
-                last_tx_value = tx_value;
-            } else {
-                target = 0;
-            }
+            //vision based targeting
+
+
+//            if (!result.isValid() && ((last_detection - detection_start) > 0)) {
+//                //
+//                target = ((getRuntime() - last_detection) <= 0.25) ? last_tx_value : 0;
+//                last_was_valid = false;
+//            } else if (result.isValid()) {
+//                target = tx_value;
+//
+//                if (!last_was_valid) {
+//                    detection_start = getRuntime();
+//                }
+//                last_detection = getRuntime();
+//                last_was_valid = true;
+//                last_tx_value = tx_value;
+//            } else {
+//                target = 0;
+//            }
+            target = TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose);
 
             switch (robotState) {
                 case INTAKE:
@@ -185,7 +190,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
                     drivetrain.zeroPowerFloat();
 
                     if(!ManualSpeedOn){
-                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), Target)));
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
                     }
 
                     if (launcherAccel.isPressed()) {
@@ -228,7 +233,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
 
                     if(!ManualSpeedOn){
-                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), Target)));
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
                     }
 
                     if (launcherAccel.isPressed()) {
@@ -286,7 +291,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             telemetry.addData("Intake Motor Velocity: ", scoringsystem.getIntakeVel());
             telemetry.addData("Launcher Motor Velocity ", scoringsystem.getLauncherVel());
 
-            telemetry.addData("Launcher Motor Target Vel: ", scoringsystem.LaunchVel);
+            telemetry.addData("Launcher Motor TargetPose Vel: ", scoringsystem.LaunchVel);
 
             //telemetry.addData("Launcher Motor Multiplier: ", ScoringSystem.LaunchMult);
 
@@ -297,13 +302,13 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             telemetry.addData("Right Trigger: ", gamepad1.right_trigger);
 
             telemetry.addData("Turret Positon: ", scoringsystem.getTurretPos());
-            telemetry.addData("Turret Target Position", scoringsystem.getTurretTargetPos());
+            telemetry.addData("Turret TargetPose Position", scoringsystem.getTurretTargetPos());
             telemetry.addData("Robot Heading", Math.toDegrees(pinpoint.getHeading(AngleUnit.RADIANS)));
 
             telemetry.addData("IMU Status", pinpoint.getDeviceStatus());
             telemetry.addData(" IMU Info", infoIMU);
             telemetry.addData("Camera Calculated Distance", TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750));
-            telemetry.addData("OdoCalculatedDistance", TurretLocalizationSystem.getDistance(pinpoint.getPosition(), Target));
+            telemetry.addData("OdoCalculatedDistance", TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose));
             telemetry.update();
 
             dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());
@@ -314,7 +319,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             dashboardTelemetry.addData("Intake Motor Velocity: ", scoringsystem.getIntakeVel());
             dashboardTelemetry.addData("Launcher Motor Velocity ", scoringsystem.getLauncherVel());
 
-            dashboardTelemetry.addData("Launcher Motor Target Vel: ", scoringsystem.LaunchVel);
+            dashboardTelemetry.addData("Launcher Motor TargetPose Vel: ", scoringsystem.LaunchVel);
 
             dashboardTelemetry.addData("Turret Position: ", scoringsystem.getTurretPos());
 
