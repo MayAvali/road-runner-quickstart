@@ -16,7 +16,7 @@ public class TurretLocalizationSystem {
         double TargetX = Target.getX(DistanceUnit.MM);
         double TargetY = Target.getY(DistanceUnit.MM);
 
-        return Math.abs(Math.sqrt((TargetX - RobotX) * (TargetX - RobotX) + (TargetY - RobotY) * (TargetY - RobotY)));
+        return Math.abs(Math.sqrt(Math.pow(TargetX - RobotX, 2) + Math.pow(TargetY - RobotY, 2)));
     }
 
     public static double getAngle(Pose2D Robot, Pose2D Target) {

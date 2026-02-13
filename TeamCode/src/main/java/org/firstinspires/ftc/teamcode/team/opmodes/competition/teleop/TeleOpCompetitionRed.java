@@ -39,7 +39,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class,"pinpoint");
         pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
         pinpoint.setOffsets(55,70, DistanceUnit.MM);
 
         pinpoint.resetPosAndIMU();
@@ -304,6 +304,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
             telemetry.addData("IMU Status", pinpoint.getDeviceStatus());
             telemetry.addData(" IMU Info", infoIMU);
             telemetry.addData("Camera Calculated Distance", TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750));
+            telemetry.addData("OdoCalculatedDistance", TurretLocalizationSystem.getDistance(pinpoint.getPosition(), Target));
             telemetry.update();
 
             dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());
