@@ -44,7 +44,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         pinpoint.resetPosAndIMU();
 
-        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,-220.0,0.0,AngleUnit.DEGREES,0.0);
+        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,220.0,0.0,AngleUnit.DEGREES,0.0);
 
         int SmallManualSpeedAdjustment = 5;
         int ManualSpeedAdjustment = 25;
