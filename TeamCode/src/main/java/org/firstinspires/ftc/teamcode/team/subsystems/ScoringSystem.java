@@ -15,11 +15,6 @@ public class ScoringSystem {
 
     private final DcMotorEx launcher2;
 
-    private double TurretTargetPos = 0;
-
-
-    //REPLACE INTAKE PIDF SOON.
-
     @Config
     public static class intakePIDF {
         public static double P = 16;
@@ -34,12 +29,13 @@ public class ScoringSystem {
         public static double D = 0;
         public static double F = 16;
     }
+    @Config
     public static class turretPIDF {
-        public static double P = 12;
+        public static double P = 16;
 
-        public static double I = 5;
+        public static double I = 1;
         public static double D = 1;
-        public static double F = 0;
+        public static double F = 24;
     }
     public static launcherPIDF LauncherPIDF = new launcherPIDF();
     public static intakePIDF IntakePIDF = new intakePIDF();
