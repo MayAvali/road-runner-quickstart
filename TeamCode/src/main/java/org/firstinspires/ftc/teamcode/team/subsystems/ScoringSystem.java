@@ -39,7 +39,6 @@ public class ScoringSystem {
     }
     public static launcherPIDF LauncherPIDF = new launcherPIDF();
     public static intakePIDF IntakePIDF = new intakePIDF();
-
     public static turretPIDF TurretPIDF = new turretPIDF();
 
 

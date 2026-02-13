@@ -27,7 +27,7 @@ public class TurretLocalizationSystem {
 
         double RobotHeading = Robot.getHeading(AngleUnit.DEGREES);
 
-        double BotAngle = Math.toDegrees(Math.atan2((TargetY - RobotY), (TargetX - RobotX)));
+        double BotAngle = Math.toDegrees(Math.atan2(-(TargetY - RobotY), (TargetX - RobotX)));
 
         double difference = -BotAngle - RobotHeading;
 
