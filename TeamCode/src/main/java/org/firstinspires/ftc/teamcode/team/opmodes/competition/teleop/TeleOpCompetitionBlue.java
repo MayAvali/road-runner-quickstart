@@ -45,10 +45,10 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
         pinpoint.setOffsets(55,70, DistanceUnit.MM);
 
-        pinpoint.resetPosAndIMU();
+        pinpoint.recalibrateIMU();
 
         Pose2D TargetPose = new Pose2D(DistanceUnit.MM,-1520.77046,1689.67987,AngleUnit.DEGREES,0.0);
-        Pose2D InitPose = new Pose2D(DistanceUnit.MM,-1495.46250,-897.73125,AngleUnit.DEGREES,-90);
+        Pose2D InitPose = new Pose2D(DistanceUnit.MM,-1495.46250,-897.73125,AngleUnit.DEGREES,180);
 
         //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()
 
