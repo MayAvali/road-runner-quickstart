@@ -78,11 +78,23 @@ public class ScoringSystem {
         launcher.setVelocity(0);
         launcher2.setPower(launcher.getPower());
     }
+
+    public Action launcherOffAction(){
+        return new InstantAction(
+                this::launcherOff
+        );
+    }
     public void launcherUpdate(){
         launcher.setVelocity(LaunchVel);
         launcher.setVelocityPIDFCoefficients(launcherPIDF.P, launcherPIDF.I, launcherPIDF.D, launcherPIDF.F);
         launcher2.setPower(launcher.getPower());
         //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
+    }
+
+    public Action launcherUpdateAction(){
+        return new InstantAction(
+                this::launcherUpdate
+        );
     }
     public static double TurretDistToFlywheelVelocity (double distance) {
         return 0.0000000319224*Math.pow((distance), 3) - 0.000215881*Math.pow((distance), 2)+ 0.722153*(distance) + 458.05005;
@@ -92,8 +104,6 @@ public class ScoringSystem {
     public void launchVelAdjust(int input){
         LaunchVel += input;
     }
-
-
 
     public void setLaunchVel(int velocity){
         LaunchVel = velocity;
@@ -106,14 +116,9 @@ public class ScoringSystem {
     }
 
     public Action intakeAction(double out, double in) {
-        ScoringSystem _this = this;
         return new InstantAction(
-                new InstantFunction() {
-                    @Override
-                    public void run() {
-                        _this.intake(out, in);
-                    }
-                });
+                () -> this.intake(out, in)
+        );
     }
 
     public void setTurretTarget(double inputDegrees, double totalTicks) {
