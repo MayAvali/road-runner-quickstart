@@ -154,7 +154,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             double tx_value = result.getTx();
             double target = 0;
 
-            //vision based targeting yes
+            //vision based targeting
 
 
 //            if (!result.isValid() && ((last_detection - detection_start) > 0)) {
