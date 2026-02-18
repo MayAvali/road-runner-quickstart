@@ -47,8 +47,8 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         pinpoint.recalibrateIMU();
 
-        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,-1520.77046,1689.67987,AngleUnit.DEGREES,0.0);
-        Pose2D InitPose = new Pose2D(DistanceUnit.MM,-1495.46250,-897.73125,AngleUnit.DEGREES,180);
+        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,1636.321,1785.111,AngleUnit.DEGREES,0.0);
+        Pose2D InitPose = new Pose2D(DistanceUnit.MM,-752.313,1360.717,AngleUnit.DEGREES,90);
 
         //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()
 
@@ -341,7 +341,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
             if (PinpointReset.isPressed()) {
                 pinpoint.resetPosAndIMU();
-                pinpoint.setPosition(new Pose2D(DistanceUnit.MM,0,0,AngleUnit.DEGREES,0));
+                pinpoint.setPosition(new Pose2D(DistanceUnit.MM,-1494.382,1349.533,AngleUnit.DEGREES,90));
             }
 
             String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));

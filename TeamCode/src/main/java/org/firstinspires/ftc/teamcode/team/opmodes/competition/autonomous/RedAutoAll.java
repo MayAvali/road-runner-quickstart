@@ -31,7 +31,7 @@ public class RedAutoAll extends LinearOpMode {
 
         Pose2d InitPosition = new Pose2d(-52.6, 52.8, Math.toRadians(127.6));
 
-        Pose2d ScorePositionPose = new Pose2d(-23, 27, Math.toRadians(120));
+        Pose2d ScorePositionPose = new Pose2d(-22, 25, Math.toRadians(120));
         Vector2d ScorePosition = new Vector2d( -34, 24);
 
         Vector2d CollectAlignPos = new Vector2d(-37, 15);
