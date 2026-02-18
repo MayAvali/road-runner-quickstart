@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
-import org.firstinspires.ftc.teamcode.team.subsystems.TurretLocalizationSystem;
+import org.firstinspires.ftc.teamcode.team.internalLib.TurretLocalizationSystem;
 
 import java.util.Locale;
 

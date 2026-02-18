@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.team.subsystems;
 
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.InstantAction;
+import com.acmerobotics.roadrunner.InstantFunction;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -90,6 +93,8 @@ public class ScoringSystem {
         LaunchVel += input;
     }
 
+
+
     public void setLaunchVel(int velocity){
         LaunchVel = velocity;
     }
@@ -98,6 +103,17 @@ public class ScoringSystem {
         intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
         //intake2.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
         intake.setVelocity((2800*out)-(3600*in));
+    }
+
+    public Action intakeAction(double out, double in) {
+        ScoringSystem _this = this;
+        return new InstantAction(
+                new InstantFunction() {
+                    @Override
+                    public void run() {
+                        _this.intake(out, in);
+                    }
+                });
     }
 
     public void setTurretTarget(double inputDegrees, double totalTicks) {

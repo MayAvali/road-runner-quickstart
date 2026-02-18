@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.team.opmodes.competition.autonomous;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.InstantAction;
+import com.acmerobotics.roadrunner.InstantFunction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -28,6 +31,12 @@ public class BlueAutoAll extends LinearOpMode {
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
+        ScoringSystem scoringSystem = new ScoringSystem(
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
+                (DcMotorEx) hardwareMap.dcMotor.get("intake"),
+                (DcMotorEx) hardwareMap.dcMotor.get("turret"),
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher2")
+        );
 
         Pose2d InitPosition = new Pose2d(-52.6, -52.8, Math.toRadians(-127.6));
 
@@ -61,7 +70,8 @@ public class BlueAutoAll extends LinearOpMode {
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
         TrajectoryActionBuilder initScore = drivetrain.actionBuilder(InitPosition)
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-135));
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(-135))
+                .afterTime(0, scoringSystem.intakeAction(0, 1));
 
         TrajectoryActionBuilder moveToIntakePPG = drivetrain.actionBuilder(ScorePositionPose)
                 .strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
@@ -97,51 +107,52 @@ public class BlueAutoAll extends LinearOpMode {
 
         TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(GPPGrabPose)
                 .strafeToLinearHeading(ParkPos, Math.toRadians(0));
+        TrajectoryActionBuilder blueAuto = drivetrain.actionBuilder(InitPosition);
+
 
 
 
         waitForStart();
         if (isStopRequested()) return;
 
-        ScoringSystem ScoringSystem = new ScoringSystem(
-                (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
-                (DcMotorEx) hardwareMap.dcMotor.get("intake"),
-                (DcMotorEx) hardwareMap.dcMotor.get("turret"),
-                (DcMotorEx) hardwareMap.dcMotor.get("launcher2")
-        );
+
         ServoGate ServoGate = new ServoGate(
                 hardwareMap.servo.get("gate")
         );
 
         ServoGate.closeGate();
-        ScoringSystem.launcherUpdate();
-        ScoringSystem.intake(0,1);
+        scoringSystem.launcherUpdate();
+        scoringSystem.intake(0,1);
 
-        Actions.runBlocking(new SequentialAction(initScore.build()));
+        Actions.runBlocking(
+                new SequentialAction(
+                        initScore.build()
+                )
+        );
 
-        ScoringSystem.intake(0,0);
+        scoringSystem.intake(0,0);
 
         sleep(littlePause);
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,1);
+        scoringSystem.intake(0,1);
 
         sleep(scorePause);
 
-        ScoringSystem.intake(0,0);
+        scoringSystem.intake(0,0);
         ServoGate.closeGate();
         //ScoringSystem.launcherOff();
 
         Actions.runBlocking(new SequentialAction(moveToIntakePPG.build()));
 
-        ScoringSystem.intake(0,1);
+        scoringSystem.intake(0,1);
 
         Actions.runBlocking(new SequentialAction(IntakePPG.build()));
 
-        ScoringSystem.launcherUpdate();
+        scoringSystem.launcherUpdate();
 
-        ScoringSystem.intake(0,0);
+        scoringSystem.intake(0,0);
 
         Actions.runBlocking(new SequentialAction(PPGToLauncher.build()));
 
@@ -149,56 +160,64 @@ public class BlueAutoAll extends LinearOpMode {
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,1);
+        scoringSystem.intake(0,1);
 
         sleep(scorePause);
 
-        ScoringSystem.intake(0,0);
+        scoringSystem.intake(0,0);
         ServoGate.closeGate();
 
         Actions.runBlocking(new SequentialAction(moveToIntakePGP.build()));
 
-        ScoringSystem.intake(0,1);
+        scoringSystem.intake(0,1);
 
         Actions.runBlocking(new SequentialAction(IntakePGP.build()));
 
-        ScoringSystem.intake(0,1);
-        ScoringSystem.launcherUpdate();
+        scoringSystem.intake(0,1);
+        scoringSystem.launcherUpdate();
 
         Actions.runBlocking(new SequentialAction(PGPToLauncher.build()));
 
-        ScoringSystem.intake(0,0);
+        scoringSystem.intake(0,0);
 
         sleep(littlePause);
 
         ServoGate.openGate();
 
-        ScoringSystem.intake(0,1);
+        scoringSystem.intake(0,1);
 
         sleep(scorePause);
 
-        ScoringSystem.intake(0,1);
+        Action intakeAction = new InstantAction(
+                new InstantFunction() {
+                    @Override
+                    public void run() {
+                        scoringSystem.intake(0,1);
+                    }
+                }
+        );
+
         ServoGate.closeGate();
 
         Actions.runBlocking(new SequentialAction(moveToIntakeGPP.build()));
 
-        ScoringSystem.intake(0,1);
+        scoringSystem.intake(0,1);
 
         Actions.runBlocking(new SequentialAction(IntakeGPP.build()));
 
-        ScoringSystem.intake(0,0);
-        ScoringSystem.launcherOff();
+        scoringSystem.intake(0,0);
+        scoringSystem.launcherOff();
 
         while(opModeIsActive()) {
-            telemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());
-            telemetry.addData("Launcher Motor Velocity ", ScoringSystem.getLauncherVel());
+            telemetry.addData("Intake Motor Velocity: ", scoringSystem.getIntakeVel());
+            telemetry.addData("Launcher Motor Velocity ", scoringSystem.getLauncherVel());
 
-            telemetry.addData("Launcher Motor Target Vel: ", ScoringSystem.LaunchVel);
+            telemetry.addData("Launcher Motor Target Vel: ", scoringSystem.LaunchVel);
 
-            dashboardTelemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());
-            dashboardTelemetry.addData("Launcher Motor Velocity ", ScoringSystem.getLauncherVel());
+            dashboardTelemetry.addData("Intake Motor Velocity: ", scoringSystem.getIntakeVel());
+            dashboardTelemetry.addData("Launcher Motor Velocity ", scoringSystem.getLauncherVel());
 
-            dashboardTelemetry.addData("Launcher Motor Target Vel: ", ScoringSystem.LaunchVel);
+            dashboardTelemetry.addData("Launcher Motor Target Vel: ", scoringSystem.LaunchVel);
 
             dashboardTelemetry.update();
         }
