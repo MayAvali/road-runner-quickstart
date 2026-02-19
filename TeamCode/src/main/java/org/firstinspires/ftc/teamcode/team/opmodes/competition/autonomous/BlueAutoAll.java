@@ -69,12 +69,15 @@ public class BlueAutoAll extends LinearOpMode {
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
         TrajectoryActionBuilder auto = drivetrain.actionBuilder(InitPosition)
+                //Init
                 .afterTime(0, ServoGate.closeGateAction())
                 .afterTime(0, scoringSystem.launcherUpdateAction())
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
 
+                //Move to Scoring Position
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-125))
 
+                //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
                 .afterTime(0,ServoGate.openGateAction())
                 .waitSeconds((double)littlePause/1000)
@@ -83,14 +86,17 @@ public class BlueAutoAll extends LinearOpMode {
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
                 .afterTime(0, ServoGate.closeGateAction())
 
+                //Intake PPG
                 .strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
                 .strafeToLinearHeading(PPGAlignPos, Math.toRadians(-90))
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .strafeToLinearHeading(PPGGrabPos, Math.toRadians(-90))
                 .afterTime(1, scoringSystem.intakeAction(0, 1))
 
+                //Move to scoring Positon
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-125))
 
+                //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
                 .afterTime(0,ServoGate.openGateAction())
                 .waitSeconds((double)littlePause/1000)
@@ -99,14 +105,17 @@ public class BlueAutoAll extends LinearOpMode {
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
                 .afterTime(0, ServoGate.closeGateAction())
 
+                //Intake PGP
                 .strafeToLinearHeading(PGPAlignPos, Math.toRadians(-90))
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .strafeToLinearHeading(PGPGrabPos, Math.toRadians(-90))
                 .afterTime(1, scoringSystem.intakeAction(0, 1))
 
+                //Move to scoring Positon
                 .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(ScorePositionPose, Math.toRadians(-125))
 
+                //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
                 .afterTime(0,ServoGate.openGateAction())
                 .waitSeconds((double)littlePause/1000)
@@ -115,6 +124,7 @@ public class BlueAutoAll extends LinearOpMode {
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
                 .afterTime(0, ServoGate.closeGateAction())
 
+                //Intake GPP
                 .strafeToLinearHeading(GPPAlignPos, Math.toRadians(-90))
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .strafeToLinearHeading(GPPGrabPos, Math.toRadians(-90))

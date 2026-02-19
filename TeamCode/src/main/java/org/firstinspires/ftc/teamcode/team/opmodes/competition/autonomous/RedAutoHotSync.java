@@ -43,6 +43,12 @@ public class RedAutoHotSync extends LinearOpMode {
 
         Vector2d CollectAlignPos = new Vector2d(-30, 18);
 
+        Vector2d PPGAlignPos = new Vector2d(-10,18);
+        Pose2d PPGAlignPose = new Pose2d(-10,18, Math.toRadians(90));
+
+        Vector2d PPGGrabPos = new Vector2d(-10,52);
+        Pose2d PPGGrabPose = new Pose2d(-10,52, Math.toRadians(90));
+
         Vector2d PGPAlignPos = new Vector2d(15.5,18);
         Pose2d PGPAlignPose = new Pose2d(15.5,18, Math.toRadians(90));
 
@@ -52,22 +58,28 @@ public class RedAutoHotSync extends LinearOpMode {
         Vector2d PGPGatePos = new Vector2d(15.5, 52);
         Pose2d PGPGatePose = new Pose2d(15.5, 52, Math.toRadians(90));
 
-        Vector2d GateParkPos = new Vector2d(0, 55.5);
-        Pose2d GateParkPose = new Pose2d(0, 55.5, Math.toRadians(180));
+        Vector2d GateParkPos = new Vector2d(3, 55.5);
+        Pose2d GateParkPose = new Pose2d(3, 55.5, Math.toRadians(0));
 
-        Vector2d ParkPos = new Vector2d(5, 48);
-        Pose2d ParkPose = new Pose2d(5, 48, Math.toRadians(0));
+        Vector2d GateLeavePos = new Vector2d(3,25);
+        Pose2d GateLeavePose = new Pose2d(3, 25, Math.toRadians(0));
+
+        Vector2d ParkPos = new Vector2d(-24, 52);
+        Pose2d ParkPose = new Pose2d(-24, 52, Math.toRadians(0));
 
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
         TrajectoryActionBuilder auto = drivetrain.actionBuilder(InitPosition)
+                //Init
                 .afterTime(0, ServoGate.closeGateAction())
                 .afterTime(0, scoringSystem.launcherUpdateAction())
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
 
+                //Move to Scoring Position
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(125))
 
+                //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
                 .afterTime(0,ServoGate.openGateAction())
                 .waitSeconds((double)littlePause/1000)
@@ -76,28 +88,52 @@ public class RedAutoHotSync extends LinearOpMode {
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
                 .afterTime(0, ServoGate.closeGateAction())
 
-                .strafeToLinearHeading(CollectAlignPos, Math.toRadians(90))
+                //Move to intake artifacts
                 .strafeToLinearHeading(PGPAlignPos, Math.toRadians(90))
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .strafeToLinearHeading(PGPGrabPos, Math.toRadians(90))
                 .afterTime(1, scoringSystem.intakeAction(0, 1))
 
                 //Move back, then hit gate
+                .setTangent(Math.toRadians(270))
+                .splineToLinearHeading(GateParkPose, Math.toRadians(90))
+                .waitSeconds(5)
 
-                .setTangent(Math.toRadians(0))
+                //Go to Scoring position
+                .setTangent(Math.toRadians(270))
+                .lineToYSplineHeading(GateLeavePos.y, Math.toRadians(45))
                 .splineToLinearHeading(ScorePositionPose, Math.toRadians(125))
 
+                //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
                 .afterTime(0,ServoGate.openGateAction())
                 .waitSeconds((double)littlePause/1000)
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .waitSeconds((double)scorePause/1000)
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
-                .afterTime(0, ServoGate.closeGateAction());
+                .afterTime(0, ServoGate.closeGateAction())
+
+                //PPG
+                .strafeToLinearHeading(PPGAlignPos, Math.toRadians(90))
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .strafeToLinearHeading(PPGGrabPos, Math.toRadians(90))
+                .afterTime(1, scoringSystem.intakeAction(0, 1))
+
+                //Move to scoring Positon
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(125))
+
+                //Score
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .waitSeconds((double)scorePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0, ServoGate.closeGateAction())
 
                 //Park
-
-
+                .strafeToLinearHeading(ParkPos, Math.toRadians(0))
+                .afterTime(0, scoringSystem.launcherOffAction());
 
         waitForStart();
         if (isStopRequested()) return;
