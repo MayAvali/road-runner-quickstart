@@ -339,6 +339,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
             if (PinpointReset.isPressed()) {
                 pinpoint.resetPosAndIMU();
+                sleep(500);
                 pinpoint.setPosition(new Pose2D(DistanceUnit.MM,-1494.382,-1349.533,AngleUnit.DEGREES,-90));
             }
 

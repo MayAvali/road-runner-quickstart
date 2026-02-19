@@ -25,6 +25,10 @@ public class RedAutoAll extends LinearOpMode {
         int bigPause = 500;
         int scorePause = 2250;
 
+        //263124
+        //311322
+        //94.75 in
+
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
@@ -38,30 +42,30 @@ public class RedAutoAll extends LinearOpMode {
                 hardwareMap.servo.get("gate")
         );
 
-        Pose2d InitPosition = new Pose2d(-52.6, 52.8, Math.toRadians(127.6));
+        Pose2d InitPosition = new Pose2d(-49.4, 47.9, Math.toRadians(125));
 
-        Pose2d ScorePositionPose = new Pose2d(-22, 25, Math.toRadians(120));
-        Vector2d ScorePosition = new Vector2d( -34, 24);
+        Pose2d ScorePositionPose = new Pose2d(-30, 24, Math.toRadians(125));
+        Vector2d ScorePosition = new Vector2d( -30, 24);
 
-        Vector2d CollectAlignPos = new Vector2d(-34, 18);
+        Vector2d CollectAlignPos = new Vector2d(-30, 18);
 
-        Vector2d PPGAlignPos = new Vector2d(-12,18);
-        Pose2d PPGAlignPose = new Pose2d(-12,18, Math.toRadians(90));
+        Vector2d PPGAlignPos = new Vector2d(-10,18);
+        Pose2d PPGAlignPose = new Pose2d(-10,18, Math.toRadians(90));
 
-        Vector2d PPGGrabPos = new Vector2d(-12,52);
-        Pose2d PPGGrabPose = new Pose2d(-12,52, Math.toRadians(90));
+        Vector2d PPGGrabPos = new Vector2d(-10,52);
+        Pose2d PPGGrabPose = new Pose2d(-10,52, Math.toRadians(90));
 
-        Vector2d PGPAlignPos = new Vector2d(12.5,10);
-        Pose2d PGPAlignPose = new Pose2d(12.5,10, Math.toRadians(90));
+        Vector2d PGPAlignPos = new Vector2d(15.5,18);
+        Pose2d PGPAlignPose = new Pose2d(15.5,18, Math.toRadians(90));
 
-        Vector2d PGPGrabPos = new Vector2d(12.5,57.5);
-        Pose2d PGPGrabPose = new Pose2d(12.5,57.5, Math.toRadians(90));
+        Vector2d PGPGrabPos = new Vector2d(15.5,57.5);
+        Pose2d PGPGrabPose = new Pose2d(15.5,57.5, Math.toRadians(90));
 
-        Vector2d GPPAlignPos = new Vector2d(37, 18);
-        Pose2d GPPAlignPose = new Pose2d(37,18, Math.toRadians(90));
+        Vector2d GPPAlignPos = new Vector2d(40.5, 18);
+        Pose2d GPPAlignPose = new Pose2d(40.5,18, Math.toRadians(90));
 
-        Vector2d GPPGrabPos = new Vector2d(37,57.5);
-        Pose2d GPPGrabPose = new Pose2d(37,57.5, Math.toRadians(90));
+        Vector2d GPPGrabPos = new Vector2d(40.5,58.5);
+        Pose2d GPPGrabPose = new Pose2d(40.5,58.5, Math.toRadians(90));
 
         Vector2d ParkPos = new Vector2d(0, 48);
         Pose2d ParkPose = new Pose2d(0, 48, Math.toRadians(0));
@@ -112,11 +116,11 @@ public class RedAutoAll extends LinearOpMode {
                 .afterTime(0, scoringSystem.launcherUpdateAction())
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
 
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(135))
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(125))
 
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
-                .waitSeconds((double)littlePause/1000)
                 .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .waitSeconds((double)scorePause/1000)
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
@@ -128,11 +132,11 @@ public class RedAutoAll extends LinearOpMode {
                 .strafeToLinearHeading(PPGGrabPos, Math.toRadians(90))
                 .afterTime(1, scoringSystem.intakeAction(0, 1))
 
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(135))
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(125))
 
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
-                .waitSeconds((double)littlePause/1000)
                 .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .waitSeconds((double)scorePause/1000)
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
@@ -143,11 +147,12 @@ public class RedAutoAll extends LinearOpMode {
                 .strafeToLinearHeading(PGPGrabPos, Math.toRadians(90))
                 .afterTime(1, scoringSystem.intakeAction(0, 1))
 
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(135))
+                .setTangent(Math.toRadians(-90))
+                .splineToLinearHeading(ScorePositionPose, Math.toRadians(125))
 
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
-                .waitSeconds((double)littlePause/1000)
                 .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .waitSeconds((double)scorePause/1000)
                 .afterTime(0, scoringSystem.intakeAction(0, 0))

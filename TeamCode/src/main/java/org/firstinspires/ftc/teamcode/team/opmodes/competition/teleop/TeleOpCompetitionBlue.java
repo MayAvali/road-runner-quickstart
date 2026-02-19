@@ -337,8 +337,9 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             Pose2D pos = pinpoint.getPosition();
 
             if (PinpointReset.isPressed()) {
-                pinpoint.resetPosAndIMU();
-                pinpoint.setPosition(new Pose2D(DistanceUnit.MM,-1494.382,1349.533,AngleUnit.DEGREES,90));
+                pinpoint.recalibrateIMU();
+                sleep(500);
+                pinpoint.setPosition(new Pose2D(DistanceUnit.MM,-1446.0,1359.533,AngleUnit.DEGREES,90));
             }
 
             String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));

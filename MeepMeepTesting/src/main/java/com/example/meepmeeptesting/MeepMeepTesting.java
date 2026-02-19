@@ -16,36 +16,30 @@ public class MeepMeepTesting {
                 .setDimensions(15.375, 14.4)
                 .build();
 
-        Pose2d InitPosition = new Pose2d(-52.24, -51.375, Math.toRadians(51.4));
+        Pose2d InitPosition = new Pose2d(-52.6, -52.8, Math.toRadians(-127.6));
 
-        Pose2d ScorePositionPose = new Pose2d(-35, -25, Math.toRadians(-135));
-        Vector2d ScorePosition = new Vector2d( -37, -37);
+        Pose2d ScorePositionPose = new Pose2d(-30, -24, Math.toRadians(-120));
+        Vector2d ScorePosition = new Vector2d( -30, -24);
 
-        Vector2d CollectAlignPos = new Vector2d(-37, -15);
+        Vector2d CollectAlignPos = new Vector2d(-30, -18);
 
-        Vector2d PPGAlignPos = new Vector2d(-12,-15);
-        Pose2d PPGAlignPose = new Pose2d(-12,-15, Math.toRadians(-90));
+        Vector2d PPGAlignPos = new Vector2d(-12,-18);
+        Pose2d PPGAlignPose = new Pose2d(-12,-18, Math.toRadians(-90));
 
-        Vector2d PPGGrabPos = new Vector2d(-12,-51);
-        Pose2d PPGGrabPose = new Pose2d(-12,-51, Math.toRadians(-90));
+        Vector2d PPGGrabPos = new Vector2d(-12,-52);
+        Pose2d PPGGrabPose = new Pose2d(-12,-52, Math.toRadians(-90));
 
-        Vector2d PGPAlignPos = new Vector2d(11.5,-15);
-        Pose2d PGPAlignPose = new Pose2d(11.5,-15, Math.toRadians(-90));
+        Vector2d PGPAlignPos = new Vector2d(12.5,-18);
+        Pose2d PGPAlignPose = new Pose2d(12.5,-18, Math.toRadians(-90));
 
-        Vector2d PGPGrabPos = new Vector2d(11.5,-57.5);
-        Pose2d PGPGrabPose = new Pose2d(11.5,-57.5, Math.toRadians(-90));
+        Vector2d PGPGrabPos = new Vector2d(12.5,-59.5);
+        Pose2d PGPGrabPose = new Pose2d(12.5,-59.5, Math.toRadians(-90));
 
-        Vector2d GPPAlignPos = new Vector2d(35, -15);
-        Pose2d GPPAlignPose = new Pose2d(35,-15, Math.toRadians(-90));
+        Vector2d GPPAlignPos = new Vector2d(36, -18);
+        Pose2d GPPAlignPose = new Pose2d(36,-18, Math.toRadians(-90));
 
-        Vector2d GPPGrabPos = new Vector2d(35,-57.5);
-        Pose2d GPPGrabPose = new Pose2d(35,-57.5, Math.toRadians(-90));
-
-        Vector2d GateAlignPos = new Vector2d(0, -15);
-        Pose2d GateAlignPose = new Pose2d(0, -15,Math.toRadians(0));
-
-        Vector2d GateParkPos = new Vector2d(0, -53.5);
-        Pose2d GateParkPose = new Pose2d(0, -53.5, Math.toRadians(-180));
+        Vector2d GPPGrabPos = new Vector2d(36,-58.5);
+        Pose2d GPPGrabPose = new Pose2d(36,-58.5, Math.toRadians(-90));
 
         Vector2d ParkPos = new Vector2d(0, -48);
         Pose2d ParkPose = new Pose2d(0, -48, Math.toRadians(0));
@@ -53,13 +47,22 @@ public class MeepMeepTesting {
 
 
         myBot.runAction(myBot.getDrive().actionBuilder(InitPosition)
-                        .strafeToLinearHeading(ScorePosition, Math.toRadians(-135))
-                        .strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
-                        .strafeToLinearHeading(PPGAlignPos, Math.toRadians(-90))
-                        .strafeToLinearHeading(PPGGrabPos, Math.toRadians(-90))
-                        .strafeToLinearHeading(GateParkPos, Math.toRadians(-180))
-                        .strafeTo(ScorePosition)
-                        .turnTo(Math.toRadians(-135))
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(135))
+
+                .strafeToLinearHeading(CollectAlignPos, Math.toRadians(90))
+                .strafeToLinearHeading(PPGAlignPos, Math.toRadians(90))
+                .strafeToLinearHeading(PPGGrabPos, Math.toRadians(90))
+
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(135))
+
+                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(90))
+                .strafeToLinearHeading(PGPGrabPos, Math.toRadians(90))
+
+                .setTangent(Math.toRadians(90))
+                .splineTo(ScorePosition, Math.toRadians(135))
+
+                .strafeToLinearHeading(GPPAlignPos, Math.toRadians(90))
+                .strafeToLinearHeading(GPPGrabPos, Math.toRadians(90))
 
                 .build());
 
