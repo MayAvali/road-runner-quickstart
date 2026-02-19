@@ -73,44 +73,6 @@ public class RedAutoAll extends LinearOpMode {
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
-        TrajectoryActionBuilder initScore = drivetrain.actionBuilder(InitPosition)
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
-
-        TrajectoryActionBuilder moveToIntakePPG = drivetrain.actionBuilder(ScorePositionPose)
-                .strafeToLinearHeading(CollectAlignPos, Math.toRadians(90))
-                .strafeToLinearHeading(PPGAlignPos, Math.toRadians(90));
-
-        TrajectoryActionBuilder IntakePPG = drivetrain.actionBuilder(PPGAlignPose)
-                .strafeToLinearHeading(PPGGrabPos, Math.toRadians(90));
-
-        TrajectoryActionBuilder PPGToLauncher = drivetrain.actionBuilder(PPGGrabPose)
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
-
-        TrajectoryActionBuilder moveToIntakePGP = drivetrain.actionBuilder(ScorePositionPose)
-                //.strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
-                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(90));
-
-        TrajectoryActionBuilder IntakePGP = drivetrain.actionBuilder(PGPAlignPose)
-                .strafeToLinearHeading(PGPGrabPos, Math.toRadians(90));
-
-        TrajectoryActionBuilder PGPToLauncher = drivetrain.actionBuilder(PGPGrabPose)
-                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(90))
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
-
-        TrajectoryActionBuilder moveToIntakeGPP = drivetrain.actionBuilder(ScorePositionPose)
-                //.strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
-                .strafeToLinearHeading(GPPAlignPos, Math.toRadians(90));
-
-        TrajectoryActionBuilder IntakeGPP = drivetrain.actionBuilder(GPPAlignPose)
-                .strafeToLinearHeading(GPPGrabPos, Math.toRadians(90));
-
-        TrajectoryActionBuilder GPPToLauncher = drivetrain.actionBuilder(GPPGrabPose)
-                .strafeToLinearHeading(GPPAlignPos, Math.toRadians(90))
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
-
-        TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(GPPGrabPose)
-                .strafeToLinearHeading(ParkPos, Math.toRadians(0));
-
         TrajectoryActionBuilder auto = drivetrain.actionBuilder(InitPosition)
                 .afterTime(0, ServoGate.closeGateAction())
                 .afterTime(0, scoringSystem.launcherUpdateAction())
