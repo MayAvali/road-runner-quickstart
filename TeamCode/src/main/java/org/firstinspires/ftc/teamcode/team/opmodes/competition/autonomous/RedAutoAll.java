@@ -20,9 +20,7 @@ public class RedAutoAll extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        int tinyPause = 200;
         int littlePause = 400;
-        int bigPause = 500;
         int scorePause = 2250;
 
         //263124

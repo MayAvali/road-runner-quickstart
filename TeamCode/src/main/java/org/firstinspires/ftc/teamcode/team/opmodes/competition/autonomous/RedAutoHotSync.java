@@ -20,14 +20,21 @@ public class RedAutoHotSync extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        int tinyPause = 200;
         int littlePause = 400;
-        int bigPause = 500;
         int scorePause = 1500;
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
+        ScoringSystem scoringSystem = new ScoringSystem(
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
+                (DcMotorEx) hardwareMap.dcMotor.get("intake"),
+                (DcMotorEx) hardwareMap.dcMotor.get("turret"),
+                (DcMotorEx) hardwareMap.dcMotor.get("launcher2")
+        );
+        ServoGate ServoGate = new ServoGate(
+                hardwareMap.servo.get("gate")
+        );
 
         Pose2d InitPosition = new Pose2d(-49.4, 47.9, Math.toRadians(125));
 
@@ -36,26 +43,14 @@ public class RedAutoHotSync extends LinearOpMode {
 
         Vector2d CollectAlignPos = new Vector2d(-30, 18);
 
-        Vector2d PPGAlignPos = new Vector2d(-10,18);
-        Pose2d PPGAlignPose = new Pose2d(-10,18, Math.toRadians(90));
-
-        Vector2d PPGGrabPos = new Vector2d(-10,52);
-        Pose2d PPGGrabPose = new Pose2d(-10,52, Math.toRadians(90));
-
         Vector2d PGPAlignPos = new Vector2d(15.5,18);
         Pose2d PGPAlignPose = new Pose2d(15.5,18, Math.toRadians(90));
 
         Vector2d PGPGrabPos = new Vector2d(15.5,57.5);
         Pose2d PGPGrabPose = new Pose2d(15.5,57.5, Math.toRadians(90));
 
-        Vector2d GPPAlignPos = new Vector2d(40.5, 18);
-        Pose2d GPPAlignPose = new Pose2d(40.5,18, Math.toRadians(90));
-
-        Vector2d GPPGrabPos = new Vector2d(40.5,58.5);
-        Pose2d GPPGrabPose = new Pose2d(40.5,58.5, Math.toRadians(90));
-
-        Vector2d GateAlignPos = new Vector2d(0, 15);
-        Pose2d GateAlignPose = new Pose2d(0, 15,Math.toRadians(0));
+        Vector2d PGPGatePos = new Vector2d(15.5, 52);
+        Pose2d PGPGatePose = new Pose2d(15.5, 52, Math.toRadians(90));
 
         Vector2d GateParkPos = new Vector2d(0, 55.5);
         Pose2d GateParkPose = new Pose2d(0, 55.5, Math.toRadians(180));
@@ -66,123 +61,63 @@ public class RedAutoHotSync extends LinearOpMode {
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
-        TrajectoryActionBuilder initScore = drivetrain.actionBuilder(InitPosition)
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
+        TrajectoryActionBuilder auto = drivetrain.actionBuilder(InitPosition)
+                .afterTime(0, ServoGate.closeGateAction())
+                .afterTime(0, scoringSystem.launcherUpdateAction())
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
 
-        TrajectoryActionBuilder moveToIntakePPG = drivetrain.actionBuilder(ScorePositionPose)
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(125))
+
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .waitSeconds((double)scorePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0, ServoGate.closeGateAction())
+
                 .strafeToLinearHeading(CollectAlignPos, Math.toRadians(90))
-                .strafeToLinearHeading(PPGAlignPos, Math.toRadians(90));
+                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(90))
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .strafeToLinearHeading(PGPGrabPos, Math.toRadians(90))
+                .afterTime(1, scoringSystem.intakeAction(0, 1))
 
-        TrajectoryActionBuilder IntakePPG = drivetrain.actionBuilder(PPGAlignPose)
-                .strafeToLinearHeading(PPGGrabPos, Math.toRadians(90));
+                //Move back, then hit gate
 
-        TrajectoryActionBuilder PPGToLauncher = drivetrain.actionBuilder(GateParkPose)
-                .strafeTo(ScorePosition)
-                .turnTo(Math.toRadians(135));
+                .setTangent(Math.toRadians(0))
+                .splineToLinearHeading(ScorePositionPose, Math.toRadians(125))
 
-        TrajectoryActionBuilder moveToIntakePGP = drivetrain.actionBuilder(ScorePositionPose)
-                //.strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
-                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(90));
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .waitSeconds((double)scorePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0, ServoGate.closeGateAction());
 
-        TrajectoryActionBuilder IntakePGP = drivetrain.actionBuilder(PGPAlignPose)
-                .strafeToLinearHeading(PGPGrabPos, Math.toRadians(90));
-
-        TrajectoryActionBuilder PGPToLauncher = drivetrain.actionBuilder(GateParkPose)
-                .strafeTo(ScorePosition)
-                .turnTo(Math.toRadians(135));
-
-        TrajectoryActionBuilder moveToIntakeGPP = drivetrain.actionBuilder(ScorePositionPose)
-                //.strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
-                .strafeToLinearHeading(GPPAlignPos, Math.toRadians(90));
-
-        TrajectoryActionBuilder IntakeGPP = drivetrain.actionBuilder(GPPAlignPose)
-                .strafeToLinearHeading(GPPGrabPos, Math.toRadians(90));
-
-        TrajectoryActionBuilder GPPToLauncher = drivetrain.actionBuilder(GPPGrabPose)
-                .strafeToLinearHeading(GPPAlignPos, Math.toRadians(90))
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(135));
-
-        TrajectoryActionBuilder moveToGate = drivetrain.actionBuilder(PPGGrabPose)
-                .strafeToLinearHeading(GateParkPos, Math.toRadians(180));
-
-        TrajectoryActionBuilder moveToPark = drivetrain.actionBuilder(ScorePositionPose)
-                .strafeToLinearHeading(GateAlignPos, Math.toRadians(0));
+                //Park
 
 
 
         waitForStart();
         if (isStopRequested()) return;
 
-        ScoringSystem ScoringSystem = new ScoringSystem(
-                (DcMotorEx) hardwareMap.dcMotor.get("launcher"),
-                (DcMotorEx) hardwareMap.dcMotor.get("intake"),
-                (DcMotorEx) hardwareMap.dcMotor.get("turret"),
-                (DcMotorEx) hardwareMap.dcMotor.get("launcher2")
+        Actions.runBlocking(
+                new SequentialAction(
+                        auto.build()
+                )
         );
-        ServoGate ServoGate = new ServoGate(
-                hardwareMap.servo.get("gate")
-        );
-
-        ServoGate.closeGate();
-        ScoringSystem.launcherUpdate();
-
-        sleep(2000);
-
-        ScoringSystem.intake(0,1);
-
-        Actions.runBlocking(new SequentialAction(initScore.build()));
-
-        ScoringSystem.intake(0,0);
-
-        sleep(littlePause);
-
-        ServoGate.openGate();
-
-        ScoringSystem.intake(0,0.4);
-
-        sleep(scorePause);
-
-        ScoringSystem.intake(0,0);
-        ServoGate.closeGate();
-        //ScoringSystem.launcherOff();
-
-        Actions.runBlocking(new SequentialAction(moveToIntakePPG.build()));
-
-        ScoringSystem.intake(0,1);
-
-        Actions.runBlocking(new SequentialAction(IntakePPG.build()));
-
-        ScoringSystem.intake(0,1);
-        ScoringSystem.launcherUpdate();
-
-        Actions.runBlocking(new SequentialAction(moveToGate.build()));
-
-        sleep(2000);
-
-        Actions.runBlocking(new SequentialAction(PGPToLauncher.build()));
-
-        ScoringSystem.intake(0,0);
-
-        sleep(littlePause);
-
-        ServoGate.openGate();
-
-        ScoringSystem.intake(0,0.4);
-
-        sleep(scorePause);
-
-        Actions.runBlocking(new SequentialAction(moveToPark.build()));
 
         while(opModeIsActive()) {
-            telemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());
-            telemetry.addData("Launcher Motor Velocity ", ScoringSystem.getLauncherVel());
+            telemetry.addData("Intake Motor Velocity: ", scoringSystem.getIntakeVel());
+            telemetry.addData("Launcher Motor Velocity ", scoringSystem.getLauncherVel());
 
-            telemetry.addData("Launcher Motor Target Vel: ", ScoringSystem.LaunchVel);
+            telemetry.addData("Launcher Motor Target Vel: ", scoringSystem.LaunchVel);
 
-            dashboardTelemetry.addData("Intake Motor Velocity: ", ScoringSystem.getIntakeVel());
-            dashboardTelemetry.addData("Launcher Motor Velocity ", ScoringSystem.getLauncherVel());
+            dashboardTelemetry.addData("Intake Motor Velocity: ", scoringSystem.getIntakeVel());
+            dashboardTelemetry.addData("Launcher Motor Velocity ", scoringSystem.getLauncherVel());
 
-            dashboardTelemetry.addData("Launcher Motor Target Vel: ", ScoringSystem.LaunchVel);
+            dashboardTelemetry.addData("Launcher Motor Target Vel: ", scoringSystem.LaunchVel);
 
             dashboardTelemetry.update();
         }
