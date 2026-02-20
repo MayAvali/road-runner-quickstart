@@ -27,7 +27,7 @@ public class ScoringSystem {
     }
     @Config
     public static class launcherPIDF {
-        public static double P = 135;
+        public static double P = 115;
         public static double I = 0;
         public static double D = 0;
         public static double F = 16;
@@ -45,7 +45,7 @@ public class ScoringSystem {
     public static turretPIDF TurretPIDF = new turretPIDF();
 
 
-    public double LaunchVel = 1150;
+    public double LaunchVel = 1200;
     public double LaunchMult = 0.88;
 
     public ScoringSystem(DcMotorEx launcher, DcMotorEx intake, DcMotorEx turret, DcMotorEx launcher2) {

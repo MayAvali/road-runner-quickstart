@@ -58,14 +58,14 @@ public class BlueAutoHotSync extends LinearOpMode {
         Vector2d PGPGatePos = new Vector2d(15.5, -52);
         Pose2d PGPGatePose = new Pose2d(15.5, -52, Math.toRadians(-90));
 
-        Vector2d GateParkPos = new Vector2d(3, -55.5);
-        Pose2d GateParkPose = new Pose2d(3, -55.5, Math.toRadians(0));
+        Vector2d GateParkPos = new Vector2d(7, -60.5);
+        Pose2d GateParkPose = new Pose2d(7, -60.5, Math.toRadians(0));
 
-        Vector2d GateLeavePos = new Vector2d(3,-25);
-        Pose2d GateLeavePose = new Pose2d(3, -25, Math.toRadians(0));
+        Vector2d GateLeavePos = new Vector2d(7,-25);
+        Pose2d GateLeavePose = new Pose2d(7, -25, Math.toRadians(0));
 
-        Vector2d ParkPos = new Vector2d(-24, -52);
-        Pose2d ParkPose = new Pose2d(-24, -52, Math.toRadians(0));
+        Vector2d ParkPos = new Vector2d(-24, -57);
+        Pose2d ParkPose = new Pose2d(-24, -57, Math.toRadians(0));
 
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
@@ -75,6 +75,7 @@ public class BlueAutoHotSync extends LinearOpMode {
                 .afterTime(0, ServoGate.closeGateAction())
                 .afterTime(0, scoringSystem.launcherUpdateAction())
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .waitSeconds(1)
 
                 //Move to Scoring position
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-125))
@@ -97,7 +98,7 @@ public class BlueAutoHotSync extends LinearOpMode {
                 //Move back, then hit gate
                 .setTangent(Math.toRadians(-270))
                 .splineToLinearHeading(GateParkPose, Math.toRadians(-90))
-                .waitSeconds(5)
+                .waitSeconds(4.3)
 
                 //Go to Scoring position
                 .setTangent(Math.toRadians(-270))
@@ -132,7 +133,7 @@ public class BlueAutoHotSync extends LinearOpMode {
                 .afterTime(0, ServoGate.closeGateAction())
 
                 //Park
-                .strafeToLinearHeading(ParkPos, Math.toRadians(0))
+                .strafeToLinearHeading(ParkPos, Math.toRadians(-90))
                 .afterTime(0, scoringSystem.launcherOffAction());
 
 

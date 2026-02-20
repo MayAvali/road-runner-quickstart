@@ -44,8 +44,8 @@ public class MeepMeepTesting {
         Vector2d GateLeavePos = new Vector2d(3,-25);
         Pose2d GateLeavePose = new Pose2d(3, -25, Math.toRadians(0));
 
-        Vector2d ParkPos = new Vector2d(-16, -48);
-        Pose2d ParkPose = new Pose2d(-16, -48, Math.toRadians(0));
+        Vector2d ParkPos = new Vector2d(-16, -57);
+        Pose2d ParkPose = new Pose2d(-16, -57, Math.toRadians(90));
 
 
 
@@ -69,7 +69,7 @@ public class MeepMeepTesting {
 
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-125))
 
-                .strafeToLinearHeading(ParkPos, Math.toRadians(0))
+                .strafeToLinearHeading(ParkPos, Math.toRadians(-90))
 
 
 
