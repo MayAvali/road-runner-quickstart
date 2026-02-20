@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
-@Autonomous(name = "RedAutoHotSync", group = "Autonomous OpMode")
+@Autonomous(name = "6. Autonomous Hotsync RED", group = "Autonomous OpMode")
 public class RedAutoHotSync extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {

@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop;
 
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.INTAKE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.PRESCORE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.SCORE;
-
-//adb connect 192.168.43.1:5555
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlueHotSync.RobotState.INTAKE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlueHotSync.RobotState.PRESCORE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlueHotSync.RobotState.SCORE;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.limelightvision.LLResult;
@@ -21,16 +19,16 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
 import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
+import org.firstinspires.ftc.teamcode.team.internalLib.TurretLocalizationSystem;
 import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
-import org.firstinspires.ftc.teamcode.team.internalLib.TurretLocalizationSystem;
 
 import java.util.Locale;
 
-@TeleOp(name = "1. TeleOp BLUE", group = "Linear OpMode")
-public class TeleOpCompetitionBlue extends LinearOpMode {
+@TeleOp(name = "3. TeleOp HOTDAWGS BLUE", group = "Linear OpMode")
+public class TeleOpCompetitionBlueHotSync extends LinearOpMode {
     private String infoIMU = "";
     private Limelight3A limelight;
     public GoBildaPinpointDriver pinpoint;
@@ -52,7 +50,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 //        clear blackboard after teleop. that code upt here is wrong
 
         Pose2D TargetPose = new Pose2D(DistanceUnit.MM,1751.000,1800,AngleUnit.DEGREES,0.0);
-        Pose2D InitPose = new Pose2D(DistanceUnit.MM,-752.313,1360.717,AngleUnit.DEGREES,90);
+        Pose2D InitPose = new Pose2D(DistanceUnit.MM,860.471,1189,AngleUnit.DEGREES,90);
 
         //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()
 

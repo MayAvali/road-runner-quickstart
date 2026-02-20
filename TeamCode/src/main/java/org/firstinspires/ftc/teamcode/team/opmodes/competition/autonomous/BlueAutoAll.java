@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
-@Autonomous(name = "BlueAutoAll", group = "Autonomous OpMode")
+@Autonomous(name = "1. Autonomous BLUE Far", group = "Autonomous OpMode")
 public class BlueAutoAll extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -139,6 +139,7 @@ public class BlueAutoAll extends LinearOpMode {
                        auto.build()
                 )
         );
+        //blackboard.put("AutoEndCoordidnates", 2);
 
         while(opModeIsActive()) {
             telemetry.addData("Intake Motor Velocity: ", scoringSystem.getIntakeVel());

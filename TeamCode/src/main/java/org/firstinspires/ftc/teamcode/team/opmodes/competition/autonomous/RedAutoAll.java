@@ -15,17 +15,13 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
-@Autonomous(name = "RedAutoAll", group = "Autonomous OpMode")
+@Autonomous(name = "2. Autonomous RED Far", group = "Autonomous OpMode")
 public class RedAutoAll extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
         int littlePause = 400;
         int scorePause = 2250;
-
-        //263124
-        //311322
-        //94.75 in
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();

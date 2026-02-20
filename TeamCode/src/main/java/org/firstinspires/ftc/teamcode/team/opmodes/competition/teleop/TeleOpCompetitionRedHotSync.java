@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop;
 
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.INTAKE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.PRESCORE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionBlue.RobotState.SCORE;
-
-//adb connect 192.168.43.1:5555
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionRedHotSync.RobotState.INTAKE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionRedHotSync.RobotState.PRESCORE;
+import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionRedHotSync.RobotState.SCORE;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.hardware.limelightvision.LLResult;
@@ -21,16 +19,16 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
 import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
+import org.firstinspires.ftc.teamcode.team.internalLib.TurretLocalizationSystem;
 import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
-import org.firstinspires.ftc.teamcode.team.internalLib.TurretLocalizationSystem;
 
 import java.util.Locale;
 
-@TeleOp(name = "1. TeleOp BLUE", group = "Linear OpMode")
-public class TeleOpCompetitionBlue extends LinearOpMode {
+@TeleOp(name = "4. TeleOp RED HOTDAWGS", group = "Linear OpMode")
+public class TeleOpCompetitionRedHotSync extends LinearOpMode {
     private String infoIMU = "";
     private Limelight3A limelight;
     public GoBildaPinpointDriver pinpoint;
@@ -44,15 +42,8 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         pinpoint.recalibrateIMU();
 
-//        blackboard.put("position", pose);
-//        if (blackboard.containsKey("position")) {
-//            pinpoint.setPosition(blackboard.get("position"));
-//        }
-
-//        clear blackboard after teleop. that code upt here is wrong
-
-        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,1751.000,1800,AngleUnit.DEGREES,0.0);
-        Pose2D InitPose = new Pose2D(DistanceUnit.MM,-752.313,1360.717,AngleUnit.DEGREES,90);
+        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,1750,-1800,AngleUnit.DEGREES,0.0);
+        Pose2D InitPose = new Pose2D(DistanceUnit.MM,860.471,-1189,AngleUnit.DEGREES, -90);
 
         //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()
 
@@ -77,7 +68,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         telemetry.setMsTransmissionInterval(11);
 
-        limelight.pipelineSwitch(1);
+        limelight.pipelineSwitch(0);
 
         /*
          * Starts polling for data.
@@ -130,6 +121,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         GamepadButton ManualTurretToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.circle);
         GamepadButton PinpointReset = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.START);
 
+
         boolean ManualSpeedOn = false;
         boolean ManualTurretOn = false;
 
@@ -158,8 +150,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             double tx_value = result.getTx();
             double target = 0;
 
-            //vision based targeting j
-
+            //vision based targeting
 
 //            if (!result.isValid() && ((last_detection - detection_start) > 0)) {
 //                //
@@ -177,6 +168,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 //            } else {
 //                target = 0;
 //            }
+
             target = TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose);
 
             switch (robotState) {
@@ -344,9 +336,9 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             Pose2D pos = pinpoint.getPosition();
 
             if (PinpointReset.isPressed()) {
-                pinpoint.recalibrateIMU();
+                pinpoint.resetPosAndIMU();
                 sleep(500);
-                pinpoint.setPosition(new Pose2D(DistanceUnit.MM,-1446.0,1359.533,AngleUnit.DEGREES,90));
+                pinpoint.setPosition(new Pose2D(DistanceUnit.MM,-1494.382,-1349.533,AngleUnit.DEGREES,-90));
             }
 
             String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));

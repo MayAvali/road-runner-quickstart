@@ -29,7 +29,7 @@ import org.firstinspires.ftc.teamcode.team.internalLib.TurretLocalizationSystem;
 
 import java.util.Locale;
 
-@TeleOp(name = "TeleOpCompetitionRed", group = "Linear OpMode")
+@TeleOp(name = "2. TeleOp RED", group = "Linear OpMode")
 public class TeleOpCompetitionRed extends LinearOpMode {
     private String infoIMU = "";
     private Limelight3A limelight;
