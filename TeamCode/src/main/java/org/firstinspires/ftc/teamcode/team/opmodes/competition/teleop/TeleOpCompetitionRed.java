@@ -178,7 +178,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
                     ServoGate.closeGate();
                     drivetrain.zeroPowerFloat();
 
-                    scoringsystem.launcherOff();
+                    scoringsystem.launcherIdle();
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 

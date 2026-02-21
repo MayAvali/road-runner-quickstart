@@ -79,6 +79,11 @@ public class ScoringSystem {
         launcher2.setPower(launcher.getPower());
     }
 
+    public void launcherIdle(){
+        launcher.setVelocity(750);
+        launcher2.setPower(launcher.getPower());
+    }
+
     public Action launcherOffAction(){
         return new InstantAction(
                 this::launcherOff
