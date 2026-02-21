@@ -81,6 +81,7 @@ public class ScoringSystem {
 
     public void launcherIdle(){
         launcher.setVelocity(750);
+        launcher.setVelocityPIDFCoefficients(0,0,0,16);
         launcher2.setPower(launcher.getPower());
     }
 
@@ -90,8 +91,8 @@ public class ScoringSystem {
         );
     }
     public void launcherUpdate(){
-        launcher.setVelocity(LaunchVel);
         launcher.setVelocityPIDFCoefficients(launcherPIDF.P, launcherPIDF.I, launcherPIDF.D, launcherPIDF.F);
+        launcher.setVelocity(LaunchVel);
         launcher2.setPower(launcher.getPower());
         //launcher.setPower(LaunchMult*(12/(voltageSensor.getVoltage())));
     }
