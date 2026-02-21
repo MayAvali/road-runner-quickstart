@@ -66,7 +66,7 @@ public class ScoringSystem {
         turret.setDirection(DcMotorSimple.Direction.REVERSE);
         turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         turret.setTargetPosition(0);
-        turret.setTargetPositionTolerance(1);
+        turret.setTargetPositionTolerance(0);
         turret.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
         turret.setDirection(DcMotorSimple.Direction.REVERSE);
         turret.setPower(1);
@@ -130,7 +130,7 @@ public class ScoringSystem {
     public void setTurretTarget(double inputDegrees, double totalTicks) {
         double ticksPerDegree = totalTicks / 360.0;
         double targetTicks = inputDegrees * ticksPerDegree;
-        double limit = 0.25 * totalTicks;
+        double limit = 0.30 * totalTicks;
         double clampedPosition = Math.max(-limit, Math.min(targetTicks, limit));
         turret.setTargetPosition((int) clampedPosition);
     }
