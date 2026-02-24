@@ -182,8 +182,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
-                    scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
-
                     scoringsystem.setTurretTarget(0,2000);
 
                     if (stateForward.isPressed()) {
@@ -216,8 +214,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
-                    scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
-
                     if(ManualTurretOn){
                         scoringsystem.setTurretTarget(0,2000);
                     }else{
@@ -240,6 +236,8 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
                     if(!ManualSpeedOn){
                         scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
+                    } else {
+                        scoringsystem.setLaunchVel(1200);
                     }
 
                     if (launcherAccel.isPressed()) {
@@ -258,8 +256,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
                     scoringsystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
-
-                    scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
                     if(ManualTurretOn){
                         scoringsystem.setTurretTarget(0,2000);
@@ -284,6 +280,8 @@ public class TeleOpCompetitionRed extends LinearOpMode {
             if(ManualTurretToggle.isPressed()){
                 ManualTurretOn = !ManualTurretOn;
             }
+            scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
+
             telemetry.addData("LimelightResultState", result == null ? "null" : (result.isValid() ? "Valid" : "Invalid"));
 
             telemetry.addData("RobotState", robotState);
@@ -340,7 +338,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
             if (PinpointReset.isPressed()) {
                 pinpoint.resetPosAndIMU();
                 sleep(500);
-                pinpoint.setPosition(new Pose2D(DistanceUnit.MM,-1494.382,-1349.533,AngleUnit.DEGREES,-90));
+                pinpoint.setPosition(new Pose2D(DistanceUnit.MM,-1446.0,1359.533,AngleUnit.DEGREES,90));
             }
 
             String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));

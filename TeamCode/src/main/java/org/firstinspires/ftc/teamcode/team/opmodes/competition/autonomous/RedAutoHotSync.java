@@ -58,8 +58,8 @@ public class RedAutoHotSync extends LinearOpMode {
         Vector2d PGPGatePos = new Vector2d(15.5, 52);
         Pose2d PGPGatePose = new Pose2d(15.5, 52, Math.toRadians(90));
 
-        Vector2d GateParkPos = new Vector2d(7, 60.5);
-        Pose2d GateParkPose = new Pose2d(7, 60.5, Math.toRadians(0));
+        Vector2d GateParkPos = new Vector2d(7, 61.7);
+        Pose2d GateParkPose = new Pose2d(7, 63, Math.toRadians(0));
 
         Vector2d GateLeavePos = new Vector2d(7,25);
         Pose2d GateLeavePose = new Pose2d(7, 25, Math.toRadians(0));

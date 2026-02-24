@@ -88,8 +88,6 @@ public class TeleOpCompetitionBlueHotSync extends LinearOpMode {
 
         RobotState robotState = INTAKE;
 
-        boolean precision = false;
-
         //ElapsedTime timer = new ElapsedTime();
         //timer.reset();
 
@@ -130,6 +128,7 @@ public class TeleOpCompetitionBlueHotSync extends LinearOpMode {
 
         boolean ManualSpeedOn = false;
         boolean ManualTurretOn = false;
+        boolean SlowLaunchOn = false;
 
         infoIMU += "IMU - " + pinpoint.getDeviceName();
         infoIMU += " | ID: " + pinpoint.getDeviceID();
@@ -186,8 +185,6 @@ public class TeleOpCompetitionBlueHotSync extends LinearOpMode {
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
-                    scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
-
                     scoringsystem.setTurretTarget(0,2000);
 
                     if (stateForward.isPressed()) {
@@ -220,8 +217,6 @@ public class TeleOpCompetitionBlueHotSync extends LinearOpMode {
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
-                    scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
-
                     if(ManualTurretOn){
                         scoringsystem.setTurretTarget(0,2000);
                     }else{
@@ -244,6 +239,8 @@ public class TeleOpCompetitionBlueHotSync extends LinearOpMode {
 
                     if(!ManualSpeedOn){
                         scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
+                    } else {
+                        scoringsystem.setLaunchVel(1200);
                     }
 
                     if (launcherAccel.isPressed()) {
@@ -262,8 +259,6 @@ public class TeleOpCompetitionBlueHotSync extends LinearOpMode {
                     scoringsystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
-
-                    scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
                     if(ManualTurretOn){
                         scoringsystem.setTurretTarget(0,2000);
@@ -288,10 +283,11 @@ public class TeleOpCompetitionBlueHotSync extends LinearOpMode {
             if(ManualTurretToggle.isPressed()){
                 ManualTurretOn = !ManualTurretOn;
             }
+            scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
+
             telemetry.addData("LimelightResultState", result == null ? "null" : (result.isValid() ? "Valid" : "Invalid"));
 
             telemetry.addData("RobotState", robotState);
-            telemetry.addData("RobotIsInPreciseMode", precision);
 
             telemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());
             telemetry.addData("Back Left Motor Power: ", drivetrain.getBackLeftPower());
