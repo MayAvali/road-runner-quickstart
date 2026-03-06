@@ -51,7 +51,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
 //        clear blackboard after teleop. that code upt here is wrong
 
-        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,1751.000,1800,AngleUnit.DEGREES,0.0);
+        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,1800,1750,AngleUnit.DEGREES,0.0);
         Pose2D InitPose = new Pose2D(DistanceUnit.MM,-752.313,1360.717,AngleUnit.DEGREES,90);
 
         //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()

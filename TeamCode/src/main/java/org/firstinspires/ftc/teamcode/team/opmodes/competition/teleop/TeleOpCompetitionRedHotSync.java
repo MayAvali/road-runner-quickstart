@@ -42,7 +42,7 @@ public class TeleOpCompetitionRedHotSync extends LinearOpMode {
 
         pinpoint.recalibrateIMU();
 
-        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,1750,-1800,AngleUnit.DEGREES,0.0);
+        Pose2D TargetPose = new Pose2D(DistanceUnit.MM,1800,-1750,AngleUnit.DEGREES,0.0);
         Pose2D InitPose = new Pose2D(DistanceUnit.MM,860.471,-1189,AngleUnit.DEGREES, -90);
 
         //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()
