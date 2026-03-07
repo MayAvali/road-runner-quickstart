@@ -1,6 +1,10 @@
 package org.firstinspires.ftc.teamcode.team.opmodes.competition.autonomous;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.InstantAction;
+import com.acmerobotics.roadrunner.InstantFunction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -68,6 +72,8 @@ public class BlueAutoAll extends LinearOpMode {
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
+        blackboard.put("AutoDone", false);
+
         TrajectoryActionBuilder auto = drivetrain.actionBuilder(InitPosition)
                 //Init
                 .afterTime(0, ServoGate.closeGateAction())
@@ -133,15 +139,13 @@ public class BlueAutoAll extends LinearOpMode {
 
         waitForStart();
         if (isStopRequested()) return;
-
-        Actions.runBlocking(
-                new SequentialAction(
-                       auto.build()
-                )
-        );
+        Action builtAuto = auto.build();
         //blackboard.put("AutoEndCoordidnates", 2);
 
         while(opModeIsActive()) {
+            blackboard.put("BotPoseRR", drivetrain.localizer.getPose());
+            //System.out.printf("%s %s %s %s\n", blackboard, drivetrain, drivetrain.localizer, drivetrain.localizer.getPose());
+
             telemetry.addData("Intake Motor Velocity: ", scoringSystem.getIntakeVel());
             telemetry.addData("Launcher Motor Velocity ", scoringSystem.getLauncherVel());
 
@@ -153,6 +157,7 @@ public class BlueAutoAll extends LinearOpMode {
             dashboardTelemetry.addData("Launcher Motor Target Vel: ", scoringSystem.LaunchVel);
 
             dashboardTelemetry.update();
+            builtAuto.run(new TelemetryPacket());
         }
     }
 }

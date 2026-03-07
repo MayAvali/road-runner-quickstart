@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
 import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
-import org.firstinspires.ftc.teamcode.team.internalLib.TurretLocalizationSystem;
+import org.firstinspires.ftc.teamcode.team.internalLib.AuxiliaryLocalizationSystem;
 import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
@@ -169,7 +169,7 @@ public class TeleOpCompetitionRedHotSync extends LinearOpMode {
 //                target = 0;
 //            }
 
-            target = TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose);
+            target = AuxiliaryLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose);
 
             switch (robotState) {
                 case INTAKE:
@@ -192,7 +192,7 @@ public class TeleOpCompetitionRedHotSync extends LinearOpMode {
                     drivetrain.zeroPowerFloat();
 
                     if(!ManualSpeedOn){
-                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(AuxiliaryLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
                     }
 
                     if (launcherAccel.isPressed()) {
@@ -233,7 +233,7 @@ public class TeleOpCompetitionRedHotSync extends LinearOpMode {
 
 
                     if(!ManualSpeedOn){
-                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(AuxiliaryLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
                     } else {
                         scoringsystem.setLaunchVel(1200);
                     }
@@ -309,8 +309,8 @@ public class TeleOpCompetitionRedHotSync extends LinearOpMode {
 
             telemetry.addData("IMU Status", pinpoint.getDeviceStatus());
             telemetry.addData(" IMU Info", infoIMU);
-            telemetry.addData("Camera Calculated Distance", TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750));
-            telemetry.addData("OdoCalculatedDistance", TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose));
+            telemetry.addData("Camera Calculated Distance", AuxiliaryLocalizationSystem.getDistancefromAngle(result.getTy(), 750));
+            telemetry.addData("OdoCalculatedDistance", AuxiliaryLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose));
             telemetry.update();
 
             dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());

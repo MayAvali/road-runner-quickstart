@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.Tel
 //adb connect 192.168.43.1:5555
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -25,7 +26,7 @@ import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
-import org.firstinspires.ftc.teamcode.team.internalLib.TurretLocalizationSystem;
+import org.firstinspires.ftc.teamcode.team.internalLib.AuxiliaryLocalizationSystem;
 
 import java.util.Locale;
 
@@ -56,7 +57,9 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()
 
-        pinpoint.setPosition(InitPose);
+        //pinpoint.setPosition(InitPose);
+        pinpoint.setPosition(AuxiliaryLocalizationSystem.ConvertRRPoseToDriverPose((Pose2d) blackboard.get("BotPoseRR")));
+        //System.out.println(blackboard);
 
         int SmallManualSpeedAdjustment = 5;
         int ManualSpeedAdjustment = 25;
@@ -178,7 +181,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 //            } else {
 //                target = 0;
 //            }
-            target = TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose);
+            target = AuxiliaryLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose);
 
             switch (robotState) {
                 case INTAKE:
@@ -201,7 +204,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
                     drivetrain.zeroPowerFloat();
 
                     if(!ManualSpeedOn){
-                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(AuxiliaryLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
                     }
 
                     if (launcherAccel.isPressed()) {
@@ -242,7 +245,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
 
                     if(!ManualSpeedOn){
-                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(AuxiliaryLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
                     } else {
                         scoringsystem.setLaunchVel(1200);
                     }
@@ -316,8 +319,8 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
             telemetry.addData("IMU Status", pinpoint.getDeviceStatus());
             telemetry.addData(" IMU Info", infoIMU);
-            telemetry.addData("Camera Calculated Distance", TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750));
-            telemetry.addData("OdoCalculatedDistance", TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose));
+            telemetry.addData("Camera Calculated Distance", AuxiliaryLocalizationSystem.getDistancefromAngle(result.getTy(), 750));
+            telemetry.addData("OdoCalculatedDistance", AuxiliaryLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose));
             telemetry.update();
 
             dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());

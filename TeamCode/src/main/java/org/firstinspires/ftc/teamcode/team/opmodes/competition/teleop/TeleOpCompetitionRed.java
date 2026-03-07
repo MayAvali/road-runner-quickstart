@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
 import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
-import org.firstinspires.ftc.teamcode.team.internalLib.TurretLocalizationSystem;
+import org.firstinspires.ftc.teamcode.team.internalLib.AuxiliaryLocalizationSystem;
 
 import java.util.Locale;
 
@@ -171,7 +171,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 //                target = 0;
 //            }
 
-            target = TurretLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose);
+            target = AuxiliaryLocalizationSystem.getAngle(pinpoint.getPosition(), TargetPose);
 
             switch (robotState) {
                 case INTAKE:
@@ -194,7 +194,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
                     drivetrain.zeroPowerFloat();
 
                     if(!ManualSpeedOn){
-                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(AuxiliaryLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
                     }
 
                     if (launcherAccel.isPressed()) {
@@ -235,7 +235,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
 
                     if(!ManualSpeedOn){
-                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
+                        scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(AuxiliaryLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose)));
                     } else {
                         scoringsystem.setLaunchVel(1200);
                     }
@@ -311,8 +311,8 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
             telemetry.addData("IMU Status", pinpoint.getDeviceStatus());
             telemetry.addData(" IMU Info", infoIMU);
-            telemetry.addData("Camera Calculated Distance", TurretLocalizationSystem.getDistancefromAngle(result.getTy(), 750));
-            telemetry.addData("OdoCalculatedDistance", TurretLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose));
+            telemetry.addData("Camera Calculated Distance", AuxiliaryLocalizationSystem.getDistancefromAngle(result.getTy(), 750));
+            telemetry.addData("OdoCalculatedDistance", AuxiliaryLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose));
             telemetry.update();
 
             dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());

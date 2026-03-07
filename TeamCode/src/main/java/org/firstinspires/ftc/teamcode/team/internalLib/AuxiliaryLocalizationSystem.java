@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.team.internalLib;
 
+import com.acmerobotics.roadrunner.Pose2d;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
-public class TurretLocalizationSystem {
+public class AuxiliaryLocalizationSystem {
     public static double getDistance(Pose2D Robot, Pose2D Target) {
         double RobotX = Robot.getX(DistanceUnit.MM);
         double RobotY = Robot.getY(DistanceUnit.MM);
@@ -40,5 +42,13 @@ public class TurretLocalizationSystem {
         double angleToGoalRadians = Math.toRadians(LimelightAngle + ty);
 
         return  (knownHeightMM - (limelightLensHeightMM ) / Math.tan(angleToGoalRadians));
+    }
+
+    public static Pose2D ConvertRRPoseToDriverPose(Pose2d inputPose){
+        double x = inputPose.position.x * 1.04198639247 * 25.4;
+        double y = inputPose.position.y * 1.04198639247 * 25.4;
+        double head = Math.toDegrees(inputPose.heading.toDouble());
+
+        return new Pose2D(DistanceUnit.MM, x, y, AngleUnit.DEGREES, head);
     }
 }
