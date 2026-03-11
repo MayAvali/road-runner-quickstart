@@ -26,16 +26,16 @@ public class MeepMeepTesting {
         Pose2d PreScorePositionPose = new Pose2d(-30, -24, Math.toRadians(-125));
         Vector2d PreScorePosition = new Vector2d( -30, -24);
 
-        Pose2d ScorePositionPose = new Pose2d(-12, -12.5, Math.toRadians(-132.5));
-        Vector2d ScorePosition = new Vector2d(-12, -12.5);
+        Pose2d ScorePositionPose = new Pose2d(-6, -12.5, Math.toRadians(-132.5));
+        Vector2d ScorePosition = new Vector2d(-6, -12.5);
 
         Vector2d CollectAlignPos = new Vector2d(-30, -18);
 
-        Vector2d GPPAlignPos = new Vector2d(-10,-40);
-        Pose2d GPPAlignPose = new Pose2d(-10,-40, Math.toRadians(-90));
+        Vector2d PPGAlignPos = new Vector2d(-10,-40);
+        Pose2d PPGAlignPose = new Pose2d(-10,-40, Math.toRadians(-90));
 
-        Vector2d GPPGrabPos = new Vector2d(-10,-52);
-        Pose2d GPPGrabPose = new Pose2d(-10,-52, Math.toRadians(-90));
+        Vector2d PPGGrabPos = new Vector2d(-10,-52);
+        Pose2d PPGGrabPose = new Pose2d(-10,-52, Math.toRadians(-90));
 
         Vector2d PGPAlignPos = new Vector2d(15.5,-40);
         Pose2d PGPAlignPose = new Pose2d(15.5,-40, Math.toRadians(-90));
@@ -55,11 +55,11 @@ public class MeepMeepTesting {
         Vector2d GateLeavePos = new Vector2d(3,-25);
         Pose2d GateLeavePose = new Pose2d(3, -25, Math.toRadians(0));
 
-        Vector2d PPGAlignPos = new Vector2d(40, -40);
-        Pose2d PPGAlignPose = new Pose2d(40, -40, Math.toRadians(-90));
+        Vector2d GPPAlignPos = new Vector2d(40, -40);
+        Pose2d GPPAlignPose = new Pose2d(40, -40, Math.toRadians(-90));
 
-        Vector2d PPGGrabPos = new Vector2d(40, -58.5);
-        Pose2d PPGGrabPose = new Pose2d(40, -58.5, Math.toRadians(-90));
+        Vector2d GPPGrabPos = new Vector2d(40, -58.5);
+        Pose2d GPPGrabPose = new Pose2d(40, -58.5, Math.toRadians(-90));
 
         Vector2d ParkPos = new Vector2d(-0, -40);
         Pose2d ParkPose = new Pose2d(-0, -40, Math.toRadians(-90));
@@ -82,7 +82,7 @@ public class MeepMeepTesting {
                 .waitSeconds(scorePause/1000)
 
                 //open gate and intake ONE
-                .strafeToLinearHeading(GateIntakePos, Math.toRadians(-120))
+                .strafeToLinearHeading(GateIntakePos, Math.toRadians(-130))
                 .waitSeconds(gateIntakePause/1000)
 
 
@@ -98,19 +98,19 @@ public class MeepMeepTesting {
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-132.5))
                 .waitSeconds(scorePause/1000)
 
-                //get gpp artifacts
+                //get ppg artifacts
                 .setTangent(Math.toRadians(210))
-                .splineToSplineHeading(GPPAlignPose, Math.toRadians(-90))
-                .lineToYSplineHeading(GPPGrabPos.y, Math.toRadians(-90))
+                .splineToSplineHeading(PPGAlignPose, Math.toRadians(-90))
+                .lineToYSplineHeading(PPGGrabPos.y, Math.toRadians(-90))
 
                 //go score
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-132.5))
                 .waitSeconds(scorePause/1000)
 
-                //get ppg artifacts
+                //get gpp artifacts
                 .setTangent(Math.toRadians(0))
-                .splineToSplineHeading(PPGAlignPose, Math.toRadians(-90))
-                .lineToYSplineHeading(PPGGrabPos.y, Math.toRadians(-90))
+                .splineToSplineHeading(GPPAlignPose, Math.toRadians(-90))
+                .lineToYSplineHeading(GPPGrabPos.y, Math.toRadians(-90))
 
                 //go score
                 .strafeToLinearHeading(ScorePosition, Math.toRadians(-132.5))

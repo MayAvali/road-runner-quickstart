@@ -45,7 +45,7 @@ public class ScoringSystem {
     public static turretPIDF TurretPIDF = new turretPIDF();
 
 
-    public double LaunchVel = 1200;
+    public double LaunchVel = 1380;
     public double LaunchMult = 0.88;
 
     public ScoringSystem(DcMotorEx launcher, DcMotorEx intake, DcMotorEx turret, DcMotorEx launcher2) {
@@ -113,6 +113,11 @@ public class ScoringSystem {
 
     public void setLaunchVel(int velocity){
         LaunchVel = velocity;
+    }
+    public Action setLaunchVelAction(int velocity){
+        return new InstantAction(
+                () -> this.setLaunchVel(velocity)
+        );
     }
 
     public void intake(double out, double in){

@@ -26,6 +26,7 @@ public class BlueAutoAll extends LinearOpMode {
 
         int littlePause = 200;
         int scorePause = 1000;
+        int gatePause = 1500;
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
@@ -43,31 +44,46 @@ public class BlueAutoAll extends LinearOpMode {
 
         Pose2d InitPosition = new Pose2d(-49.4, -47.9, Math.toRadians(-125));
 
-        Pose2d ScorePositionPose = new Pose2d(-30, -24, Math.toRadians(-125));
-        Vector2d ScorePosition = new Vector2d( -30, -24);
+        Pose2d PreScorePositionPose = new Pose2d(-30, -24, Math.toRadians(-125));
+        Vector2d PreScorePosition = new Vector2d( -30, -24);
+
+        Pose2d ScorePositionPose = new Pose2d(-8, -10, Math.toRadians(-132.5));
+        Vector2d ScorePosition = new Vector2d(-8, -10);
 
         Vector2d CollectAlignPos = new Vector2d(-30, -18);
 
-        Vector2d PPGAlignPos = new Vector2d(-10,-18);
-        Pose2d PPGAlignPose = new Pose2d(-10,-18, Math.toRadians(-90));
+        Vector2d PPGAlignPos = new Vector2d(-10,-42);
+        Pose2d PPGAlignPose = new Pose2d(-10,-42, Math.toRadians(-90));
 
-        Vector2d PPGGrabPos = new Vector2d(-10,-52);
-        Pose2d PPGGrabPose = new Pose2d(-10,-52, Math.toRadians(-90));
+        Vector2d PPGGrabPos = new Vector2d(-10,-50);
+        Pose2d PPGGrabPose = new Pose2d(-10,-50, Math.toRadians(-90));
 
-        Vector2d PGPAlignPos = new Vector2d(15.5,-18);
-        Pose2d PGPAlignPose = new Pose2d(15.5,-18, Math.toRadians(-90));
+        Vector2d PGPAlignPos = new Vector2d(15.5,-40);
+        Pose2d PGPAlignPose = new Pose2d(15.5,-40, Math.toRadians(-90));
 
-        Vector2d PGPGrabPos = new Vector2d(15.5,-59.5);
-        Pose2d PGPGrabPose = new Pose2d(15.5,-59.5, Math.toRadians(-90));
+        Vector2d PGPGrabPos = new Vector2d(15.5,-45);
+        Pose2d PGPGrabPose = new Pose2d(15.5,-45, Math.toRadians(-90));
 
-        Vector2d GPPAlignPos = new Vector2d(40, -18);
-        Pose2d GPPAlignPose = new Pose2d(40,-18, Math.toRadians(-90));
+        Vector2d PGPGatePos = new Vector2d(15.5, -52);
+        Pose2d PGPGatePose = new Pose2d(15.5, -52, Math.toRadians(-90));
 
-        Vector2d GPPGrabPos = new Vector2d(40,-58.5);
-        Pose2d GPPGrabPose = new Pose2d(40,-58.5, Math.toRadians(-90));
+        Vector2d GateParkPos = new Vector2d(3, -55.5);
+        Pose2d GateParkPose = new Pose2d(3, -55.5, Math.toRadians(0));
 
-        Vector2d ParkPos = new Vector2d(0, -48);
-        Pose2d ParkPose = new Pose2d(0, -48, Math.toRadians(0));
+        Vector2d GateIntakePos = new Vector2d(15, -49);
+        Pose2d GateIntakePose = new Pose2d(15, -49, Math.toRadians(-110));
+
+        Vector2d GateLeavePos = new Vector2d(3,-25);
+        Pose2d GateLeavePose = new Pose2d(3, -25, Math.toRadians(0));
+
+        Vector2d GPPAlignPos = new Vector2d(40, -40);
+        Pose2d GPPAlignPose = new Pose2d(40, -40, Math.toRadians(-90));
+
+        Vector2d GPPGrabPos = new Vector2d(40, -54.5);
+        Pose2d GPPGrabPose = new Pose2d(40, -54.5, Math.toRadians(-90));
+
+        Vector2d ParkPos = new Vector2d(-0, -40);
+        Pose2d ParkPose = new Pose2d(-0, -40, Math.toRadians(-90));
 
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
@@ -76,31 +92,13 @@ public class BlueAutoAll extends LinearOpMode {
 
         TrajectoryActionBuilder auto = drivetrain.actionBuilder(InitPosition)
                 //Init
+                .afterTime(0, scoringSystem.setLaunchVelAction(1350))
                 .afterTime(0, ServoGate.closeGateAction())
                 .afterTime(0, scoringSystem.launcherUpdateAction())
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
 
                 //Move to Scoring Position
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-125))
-
-                //Score
-                .afterTime(0, scoringSystem.intakeAction(0, 0))
-                .afterTime(0,ServoGate.openGateAction())
-                .waitSeconds((double)littlePause/1000)
-                .afterTime(0, scoringSystem.intakeAction(0, 1))
-                .waitSeconds((double)scorePause/1000)
-                .afterTime(0, scoringSystem.intakeAction(0, 0))
-                .afterTime(0, ServoGate.closeGateAction())
-
-                //Intake PPG
-                .strafeToLinearHeading(CollectAlignPos, Math.toRadians(-90))
-                .strafeToLinearHeading(PPGAlignPos, Math.toRadians(-90))
-                .afterTime(0, scoringSystem.intakeAction(0, 1))
-                .strafeToLinearHeading(PPGGrabPos, Math.toRadians(-90))
-                .afterTime(1, scoringSystem.intakeAction(0, 1))
-
-                //Move to scoring Positon
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-125))
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(-132.5))
 
                 //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
@@ -112,14 +110,64 @@ public class BlueAutoAll extends LinearOpMode {
                 .afterTime(0, ServoGate.closeGateAction())
 
                 //Intake PGP
-                .strafeToLinearHeading(PGPAlignPos, Math.toRadians(-90))
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .setTangent(Math.toRadians(45))
+                .splineToSplineHeading(PGPAlignPose, Math.toRadians(-90))
                 .strafeToLinearHeading(PGPGrabPos, Math.toRadians(-90))
-                .afterTime(1, scoringSystem.intakeAction(0, 1))
+                .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
                 //Move to scoring Positon
-                .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(ScorePositionPose, Math.toRadians(-125))
+                .lineToYSplineHeading(PGPAlignPos.y, Math.toRadians(-90))
+                .splineToLinearHeading(ScorePositionPose, Math.toRadians(-132.5))
+
+                //Score
+                .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .waitSeconds((double)scorePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0, ServoGate.closeGateAction())
+
+                //MoveToGate 1
+                .afterTime(0.5, scoringSystem.intakeAction(0, 1))
+                .strafeToLinearHeading(GateIntakePos, Math.toRadians(-105))
+                .waitSeconds((double)gatePause/1000)
+                .afterTime(1, scoringSystem.intakeAction(0, 0))
+
+                //Move to scoring position
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(-132.5))
+
+                //Score
+                .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .waitSeconds((double)scorePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0, ServoGate.closeGateAction())
+
+                //MoveToGate 2
+                .afterTime(0.5, scoringSystem.intakeAction(0, 1))
+                .strafeToLinearHeading(GateIntakePos, Math.toRadians(-105))
+                .waitSeconds((double)gatePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+
+                //Move to scoring position
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(-132.5))
+
+                //Score
+                .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .waitSeconds((double)scorePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0, ServoGate.closeGateAction())
+
+                //Intake PPG
+                .afterTime(0.25, scoringSystem.intakeAction(0, 1))
+                .strafeToLinearHeading(PPGAlignPos, Math.toRadians(-90))
+
+                //Move to scoring Positon
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(-132.5))
 
                 //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
@@ -131,11 +179,27 @@ public class BlueAutoAll extends LinearOpMode {
                 .afterTime(0, ServoGate.closeGateAction())
 
                 //Intake GPP
-                .strafeToLinearHeading(GPPAlignPos, Math.toRadians(-90))
+                .setTangent(Math.toRadians(0))
+                .afterTime(1, scoringSystem.intakeAction(0, 1))
+                .splineToSplineHeading(GPPAlignPose, Math.toRadians(-90))
+                .lineToYSplineHeading(GPPGrabPos.y, Math.toRadians(-90))
+                .afterTime(0.5, scoringSystem.intakeAction(0, 0))
+
+                //Move to Scoring Position
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(-132.5))
+
+                //Score
+                .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
-                .strafeToLinearHeading(GPPGrabPos, Math.toRadians(-90))
-                .afterTime(1, scoringSystem.intakeAction(0, 0))
-                .afterTime(0, scoringSystem.launcherOffAction());
+                .waitSeconds((double)scorePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0, ServoGate.closeGateAction())
+
+                //Park
+                .afterTime(0, scoringSystem.launcherOffAction())
+                .strafeToLinearHeading(ParkPos, Math.toRadians(-180));
+
 
         waitForStart();
         if (isStopRequested()) return;
