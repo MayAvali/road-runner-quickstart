@@ -16,7 +16,7 @@ public class MeepMeepTesting {
                 .setDimensions(15.375, 14.4)
                 .build();
 
-        double scorePause = 1200.0; //used as a placeholder for scoring to help with timing
+        double scorePause = 1200.0;
         double prescorePause = 1200.0;
         double smallPause = 250.0;
         double gateIntakePause = 1500.0;
