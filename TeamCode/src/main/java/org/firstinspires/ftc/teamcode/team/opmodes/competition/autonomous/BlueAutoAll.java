@@ -24,8 +24,8 @@ public class BlueAutoAll extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        int littlePause = 400;
-        int scorePause = 2250;
+        int littlePause = 200;
+        int scorePause = 1000;
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
@@ -150,6 +150,7 @@ public class BlueAutoAll extends LinearOpMode {
             telemetry.addData("Launcher Motor Velocity ", scoringSystem.getLauncherVel());
 
             telemetry.addData("Launcher Motor Target Vel: ", scoringSystem.LaunchVel);
+            telemetry.addData("BotPoseRR", drivetrain.localizer.getPose());
 
             dashboardTelemetry.addData("Intake Motor Velocity: ", scoringSystem.getIntakeVel());
             dashboardTelemetry.addData("Launcher Motor Velocity ", scoringSystem.getLauncherVel());

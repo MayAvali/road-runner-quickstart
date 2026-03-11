@@ -290,6 +290,9 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             }
             scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
+            telemetry.addData("BotInitPoseRR",(Pose2d) blackboard.get("BotPoseRR"));
+            telemetry.addData("BotInitPoseConverted", AuxiliaryLocalizationSystem.ConvertRRPoseToDriverPose((Pose2d) blackboard.get("BotPoseRR")));
+
             telemetry.addData("LimelightResultState", result == null ? "null" : (result.isValid() ? "Valid" : "Invalid"));
 
             telemetry.addData("RobotState", robotState);

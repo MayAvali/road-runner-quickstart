@@ -27,10 +27,10 @@ public class ScoringSystem {
     }
     @Config
     public static class launcherPIDF {
-        public static double P = 115;
+        public static double P = 175;
         public static double I = 0;
         public static double D = 0;
-        public static double F = 16;
+        public static double F = 16.5;
     }
     @Config
     public static class turretPIDF {
@@ -103,7 +103,7 @@ public class ScoringSystem {
         );
     }
     public static double TurretDistToFlywheelVelocity (double distance) {
-        return 1.04*(0.0000395906*Math.pow((distance), 2)+ 0.0754783*(distance) + 976.44332);
+        return 1.025*(0.0000395906*Math.pow((distance), 2)+ 0.0754783*(distance) + 976.44332);
     }
     //Used Odometry Distance
 

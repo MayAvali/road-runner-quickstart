@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.Tel
 //adb connect 192.168.43.1:5555
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -49,7 +50,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
         //if below doesn't work and sets the bot to 0, 0 replace ResetPosAndIMU with recalibrateIMU()
 
-        pinpoint.setPosition(InitPose);
+        pinpoint.setPosition(AuxiliaryLocalizationSystem.ConvertRRPoseToDriverPose((Pose2d) blackboard.get("BotPoseRR")));
 
         int SmallManualSpeedAdjustment = 5;
         int ManualSpeedAdjustment = 25;
@@ -281,6 +282,9 @@ public class TeleOpCompetitionRed extends LinearOpMode {
                 ManualTurretOn = !ManualTurretOn;
             }
             scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
+
+            telemetry.addData("BotInitPoseRR",(Pose2d) blackboard.get("BotPoseRR"));
+            telemetry.addData("BotInitPoseConverted", AuxiliaryLocalizationSystem.ConvertRRPoseToDriverPose((Pose2d) blackboard.get("BotPoseRR")));
 
             telemetry.addData("LimelightResultState", result == null ? "null" : (result.isValid() ? "Valid" : "Invalid"));
 

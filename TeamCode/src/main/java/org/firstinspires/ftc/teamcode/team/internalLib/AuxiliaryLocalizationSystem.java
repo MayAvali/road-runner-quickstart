@@ -44,11 +44,19 @@ public class AuxiliaryLocalizationSystem {
         return  (knownHeightMM - (limelightLensHeightMM ) / Math.tan(angleToGoalRadians));
     }
 
+    double RescaleConstant = 1.04198639247;
     public static Pose2D ConvertRRPoseToDriverPose(Pose2d inputPose){
-        double x = inputPose.position.x * 1.04198639247 * 25.4;
-        double y = inputPose.position.y * 1.04198639247 * 25.4;
+        double x = inputPose.position.x * -25.4;
+        double y = inputPose.position.y * -25.4;
         double head = Math.toDegrees(inputPose.heading.toDouble());
+        head = DegreesRollover(head+180);
 
         return new Pose2D(DistanceUnit.MM, x, y, AngleUnit.DEGREES, head);
+    }
+    public static double DegreesRollover(double input){
+        while (input > 180) input -= 360;
+        while (input <= -180) input += 360;
+
+        return input;
     }
 }

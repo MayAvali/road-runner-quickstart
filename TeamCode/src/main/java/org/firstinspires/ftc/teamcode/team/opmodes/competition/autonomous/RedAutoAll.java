@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.team.opmodes.competition.autonomous;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -133,14 +135,11 @@ public class RedAutoAll extends LinearOpMode {
 
         waitForStart();
         if (isStopRequested()) return;
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        auto.build()
-                )
-        );
+        Action builtAuto = auto.build();
 
         while(opModeIsActive()) {
+            blackboard.put("BotPoseRR", drivetrain.localizer.getPose());
+
             telemetry.addData("Intake Motor Velocity: ", scoringSystem.getIntakeVel());
             telemetry.addData("Launcher Motor Velocity ", scoringSystem.getLauncherVel());
 
@@ -152,6 +151,7 @@ public class RedAutoAll extends LinearOpMode {
             dashboardTelemetry.addData("Launcher Motor Target Vel: ",scoringSystem.LaunchVel);
 
             dashboardTelemetry.update();
+            builtAuto.run(new TelemetryPacket());
         }
     }
 }
