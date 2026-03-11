@@ -70,8 +70,8 @@ public class BlueAutoAll extends LinearOpMode {
         Vector2d GateParkPos = new Vector2d(3, -55.5);
         Pose2d GateParkPose = new Pose2d(3, -55.5, Math.toRadians(0));
 
-        Vector2d GateIntakePos = new Vector2d(15, -49);
-        Pose2d GateIntakePose = new Pose2d(15, -49, Math.toRadians(-110));
+        Vector2d GateIntakePos = new Vector2d(15, -50);
+        Pose2d GateIntakePose = new Pose2d(15, -50, Math.toRadians(-110));
 
         Vector2d GateLeavePos = new Vector2d(3,-25);
         Pose2d GateLeavePose = new Pose2d(3, -25, Math.toRadians(0));
@@ -112,7 +112,9 @@ public class BlueAutoAll extends LinearOpMode {
                 //Intake PGP
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .setTangent(Math.toRadians(45))
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .splineToSplineHeading(PGPAlignPose, Math.toRadians(-90))
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .strafeToLinearHeading(PGPGrabPos, Math.toRadians(-90))
                 .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
