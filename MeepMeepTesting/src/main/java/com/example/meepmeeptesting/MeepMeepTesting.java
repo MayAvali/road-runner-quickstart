@@ -93,7 +93,7 @@ public class MeepMeepTesting {
                 .waitSeconds(scorePause/1000)
 
                 //open gate and intake TWO
-                .strafeToLinearHeading(GateIntakePos, Math.toRadians(-120))
+                .strafeToLinearHeading(GateIntakePos, Math.toRadians(-110))
                 .waitSeconds(gateIntakePause/1000)
 
                 //go score
