@@ -26,8 +26,8 @@ public class MeepMeepTesting {
         Pose2d PreScorePositionPose = new Pose2d(-30, -24, Math.toRadians(-125));
         Vector2d PreScorePosition = new Vector2d( -30, -24);
 
-        Pose2d ScorePositionPose = new Pose2d(-6, -12.5, Math.toRadians(-132.5));
-        Vector2d ScorePosition = new Vector2d(-6, -12.5);
+        Pose2d ScorePositionPose = new Pose2d(-24, -24, Math.toRadians(-132.5));
+        Vector2d ScorePosition = new Vector2d(-24, -24);
 
         Vector2d CollectAlignPos = new Vector2d(-30, -18);
 
@@ -68,7 +68,7 @@ public class MeepMeepTesting {
 
         myBot.runAction(myBot.getDrive().actionBuilder(InitPosition)
                 //score preloaded
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-132.5))
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(-137.5))
                 .waitSeconds(scorePause/1000)
 
                 //grab pgp artifacts for scoring
@@ -82,12 +82,14 @@ public class MeepMeepTesting {
                 .waitSeconds(scorePause/1000)
 
                 //open gate and intake ONE
-                .strafeToLinearHeading(GateIntakePos, Math.toRadians(-130))
+                .setTangent(Math.toRadians(0))
+                .splineToLinearHeading(GateIntakePose, Math.toRadians(-130))
                 .waitSeconds(gateIntakePause/1000)
 
 
                 //go score
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-132.5))
+                .setTangent(Math.toRadians(-270))
+                .splineToLinearHeading(ScorePositionPose, Math.toRadians(-132.5))
                 .waitSeconds(scorePause/1000)
 
                 //open gate and intake TWO
@@ -99,7 +101,7 @@ public class MeepMeepTesting {
                 .waitSeconds(scorePause/1000)
 
                 //get ppg artifacts
-                .setTangent(Math.toRadians(210))
+                .setTangent(Math.toRadians(0))
                 .splineToSplineHeading(PPGAlignPose, Math.toRadians(-90))
                 .lineToYSplineHeading(PPGGrabPos.y, Math.toRadians(-90))
 
