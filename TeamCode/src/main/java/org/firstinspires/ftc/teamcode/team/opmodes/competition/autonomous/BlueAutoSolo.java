@@ -3,13 +3,9 @@ package org.firstinspires.ftc.teamcode.team.opmodes.competition.autonomous;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.InstantAction;
-import com.acmerobotics.roadrunner.InstantFunction;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -19,8 +15,8 @@ import org.firstinspires.ftc.teamcode.roadrunner.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 
-@Autonomous(name = "1. Autonomous BLUE Far", group = "Autonomous OpMode")
-public class BlueAutoAll extends LinearOpMode {
+@Autonomous(name = "1. Autonomous BLUE Near Solo", group = "Autonomous OpMode")
+public class BlueAutoSolo extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -85,10 +81,9 @@ public class BlueAutoAll extends LinearOpMode {
         Vector2d ParkPos = new Vector2d(-0, -40);
         Pose2d ParkPose = new Pose2d(-0, -40, Math.toRadians(-90));
 
-
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
-        blackboard.put("AutoDone", false);
+        int scoreAngle = -130;
 
         TrajectoryActionBuilder auto = drivetrain.actionBuilder(InitPosition)
                 //Init
@@ -97,7 +92,7 @@ public class BlueAutoAll extends LinearOpMode {
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
 
                 //Move to Scoring Position
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-137))
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(scoreAngle))
 
                 //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
@@ -116,7 +111,7 @@ public class BlueAutoAll extends LinearOpMode {
 
                 //Move to scoring Positon
                 .lineToYSplineHeading(PGPAlignPos.y, Math.toRadians(-90))
-                .splineToLinearHeading(ScorePositionPose, Math.toRadians(-137))
+                .splineToLinearHeading(ScorePositionPose, Math.toRadians(scoreAngle))
 
                 //Score
                 .afterTime(0,ServoGate.openGateAction())
@@ -135,7 +130,7 @@ public class BlueAutoAll extends LinearOpMode {
 
                 //Move to scoring position
                 .setTangent(Math.toRadians(-270))
-                .splineToLinearHeading(ScorePositionPose, Math.toRadians(-137))
+                .splineToLinearHeading(ScorePositionPose, Math.toRadians(scoreAngle))
                 .waitSeconds(scorePause/1000)
 
                 //Score
@@ -154,7 +149,7 @@ public class BlueAutoAll extends LinearOpMode {
                 .afterTime(0.25, scoringSystem.intakeAction(0, 0))
 
                 //Move to scoring Positon
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-137))
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(scoreAngle))
 
                 //Score
                 .afterTime(0,ServoGate.openGateAction())
@@ -172,7 +167,7 @@ public class BlueAutoAll extends LinearOpMode {
                 .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
                 //Move to Scoring Position
-                .strafeToLinearHeading(ScorePosition, Math.toRadians(-137))
+                .strafeToLinearHeading(ScorePosition, Math.toRadians(scoreAngle))
 
                 //Score
                 .afterTime(0,ServoGate.openGateAction())
@@ -184,7 +179,7 @@ public class BlueAutoAll extends LinearOpMode {
 
                 //Park
                 .afterTime(0, scoringSystem.launcherOffAction())
-                .strafeToLinearHeading(ParkPos, Math.toRadians(-180));
+                .strafeToLinearHeading(PPGGrabPos, Math.toRadians(-180));
 
         waitForStart();
         if (isStopRequested()) return;

@@ -76,8 +76,11 @@ public class MeepMeepTesting {
                 .splineToSplineHeading(PGPAlignPose, Math.toRadians(-90))
                 .lineToYSplineHeading(PGPGrabPos.y, Math.toRadians(-90))
 
+                .setTangent(Math.toRadians(-270))
+                .splineToLinearHeading(GateParkPose, Math.toRadians(-90))
+
                 //go score
-                .lineToYSplineHeading(PGPAlignPos.y, Math.toRadians(-90))
+                .lineToYSplineHeading(PGPAlignPos.y, Math.toRadians(0))
                 .splineToLinearHeading(ScorePositionPose, Math.toRadians(-132.5))
                 .waitSeconds(scorePause/1000)
 
