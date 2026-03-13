@@ -131,7 +131,6 @@ public class RedAutoSolo extends LinearOpMode {
                 //Move to scoring position
                 .setTangent(Math.toRadians(270))
                 .splineToLinearHeading(ScorePositionPose, Math.toRadians(scoreAngle))
-                .waitSeconds(scorePause/1000)
 
                 //Score
                 .afterTime(0,ServoGate.openGateAction())

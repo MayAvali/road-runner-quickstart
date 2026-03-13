@@ -22,7 +22,7 @@ public class RedAutoTeam extends LinearOpMode {
 
         int littlePause = 200;
         int scorePause = 1000;
-        int gatePause = 2500;
+        int gatePause = 1800;
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
@@ -136,7 +136,25 @@ public class RedAutoTeam extends LinearOpMode {
                 //Move to scoring position
                 .setTangent(Math.toRadians(270))
                 .splineToLinearHeading(ScorePositionPose, Math.toRadians(scoreAngle))
-                .waitSeconds(scorePause/1000)
+
+                //Score
+                .afterTime(0,ServoGate.openGateAction())
+                .waitSeconds((double)littlePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 1))
+                .waitSeconds((double)scorePause/1000)
+                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0, ServoGate.closeGateAction())
+
+                //MoveToGate 2
+                .afterTime(0.5, scoringSystem.intakeAction(0, 1))
+                .setTangent(Math.toRadians(0))
+                .splineToLinearHeading(GateIntakePose, Math.toRadians(120))
+                .waitSeconds((double)gatePause/1000)
+                .afterTime(0.25, scoringSystem.intakeAction(0, 0))
+
+                //Move to scoring position
+                .setTangent(Math.toRadians(270))
+                .splineToLinearHeading(ScorePositionPose, Math.toRadians(scoreAngle))
 
                 //Score
                 .afterTime(0,ServoGate.openGateAction())
