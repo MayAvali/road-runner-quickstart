@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.team.subsystems;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.team.libraries.PIDController;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.InstantAction;
@@ -145,8 +146,6 @@ public class ScoringSystem {
         double clampedPosition = Math.max(-limit, Math.min(targetTicks, limit));
         turret.setTargetPosition((int) clampedPosition);
     }
-
-
     public double getTurretPos() {
         return turret.getCurrentPosition();
     }
@@ -161,5 +160,8 @@ public class ScoringSystem {
     }
     public double getLauncherVel() {
         return launcher.getVelocity();
+    }
+    public double getIntakeCurrent(){
+        return intake.getCurrent(CurrentUnit.AMPS);
     }
 }

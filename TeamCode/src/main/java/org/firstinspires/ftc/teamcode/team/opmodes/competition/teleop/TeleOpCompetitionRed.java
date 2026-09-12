@@ -172,7 +172,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
             frequency = time-oldTime;
 
-            if (dist.getState()){
+            if (dist.getState() & scoringsystem.getIntakeCurrent() > 6){
                 IndicatorLED.setPosition(1);
             } else {
                 IndicatorLED.setPosition(0);
