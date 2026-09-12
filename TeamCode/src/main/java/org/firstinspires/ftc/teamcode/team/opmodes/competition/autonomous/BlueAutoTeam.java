@@ -96,12 +96,13 @@ public class BlueAutoTeam extends LinearOpMode {
                 .splineToSplineHeading(PGPAlign, poseAngle(PGPAlign))
                 .strafeToLinearHeading(trunc(PGPGrab), poseAngle(PGPGrab))
                 .afterTime(0.5, scoringSystem.intakeAction(0, 0))
+                .afterTime(0, scoringSystem.setLaunchVelAction(1220))
 
-                //Move back, then hit gate
-                .setTangent(Math.toRadians(-270))
-                .splineToLinearHeading(GatePark, poseAngle(GatePark))
-
-                //Move to scoring Positon
+//                //Move back, then hit gate
+//                .setTangent(Math.toRadians(-270))
+//                .splineToLinearHeading(GatePark, poseAngle(GatePark))
+//
+//                //Move to scoring Positon
                 .setTangent(Math.toRadians(-270))
                 .lineToYSplineHeading(trunc(PGPAlign).y, poseAngle(PGPAlign))  //angle may be better as 0?
                 .splineToLinearHeading(ScorePosition, poseAngle(ScorePosition))

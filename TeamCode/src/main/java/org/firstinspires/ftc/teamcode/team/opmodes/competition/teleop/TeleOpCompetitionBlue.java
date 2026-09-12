@@ -8,6 +8,7 @@ import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.Tel
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.lynx.LynxModule;
@@ -16,12 +17,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
 import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
@@ -29,8 +30,6 @@ import org.firstinspires.ftc.teamcode.team.subsystems.MecanumDrive;
 import org.firstinspires.ftc.teamcode.team.subsystems.ScoringSystem;
 import org.firstinspires.ftc.teamcode.team.subsystems.ServoGate;
 import org.firstinspires.ftc.teamcode.team.internalLib.AuxiliaryLocalizationSystem;
-
-import org.firstinspires.ftc.teamcode.roadrunner.PinpointLocalizer;
 
 import java.util.List;
 import java.util.Locale;
@@ -41,11 +40,15 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
     private Limelight3A limelight;
     public GoBildaPinpointDriver pinpoint;
 
-
     @Override
     public void runOpMode() throws InterruptedException {
 
         List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
+
+        DigitalChannel dist;
+
+        dist = hardwareMap.get(DigitalChannel.class, "dist");
+        dist.setMode(DigitalChannel.Mode.INPUT);
 
         for (LynxModule hub : allHubs) {
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
@@ -91,7 +94,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         telemetry.setMsTransmissionInterval(11);
 
-        limelight.pipelineSwitch(1);
+        //limelight.pipelineSwitch(1);
 
         /*
          * Starts polling for data.
@@ -130,6 +133,8 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
                 hardwareMap.servo.get("gate")
         );
 
+        Servo IndicatorLED = hardwareMap.get(Servo.class, "IndicatorLED");
+
         ServoGate.closeGate();
 
         GamepadButton stateBack = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.LEFT_BUMPER);
@@ -142,10 +147,11 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         GamepadButton ManualTurretToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.circle);
         GamepadButton PinpointReset = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.START);
         GamepadButton TargetReset = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.SHARE);
-        GamepadButton SlowLaunchOnButton = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.X);
 
         boolean ManualSpeedOn = false;
         boolean ManualTurretOn = false;
+
+        boolean ArtifactPresent = false;
 
         infoIMU += "IMU - " + pinpoint.getDeviceName();
         infoIMU += " | ID: " + pinpoint.getDeviceID();
@@ -157,11 +163,20 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         long time = 0;
         long oldTime = 0;
 
+        boolean targetResetIdle = false;
+
         drivetrain.zeroPowerBrake();
 
         while (opModeIsActive()) {
 
             frequency = time-oldTime;
+
+            if (dist.getState()){
+                IndicatorLED.setPosition(1);
+            } else {
+                IndicatorLED.setPosition(0);
+            }
+
 
             for (LynxModule hub : allHubs) {
                 hub.clearBulkCache();
@@ -169,7 +184,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
             pinpoint.update();
 
-            LLResult result = limelight.getLatestResult();
+//            LLResult result = limelight.getLatestResult();
 //
 //            if (result != null) {
 //                Pose3D botpose = result.getBotpose();
@@ -205,7 +220,6 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             switch (robotState) {
                 case INTAKE:
                     ServoGate.closeGate();
-                    scoringsystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
@@ -266,13 +280,22 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             }
 
             if (PinpointReset.isPressed()) {
-                pinpoint.recalibrateIMU();
-                sleep(500);
-                pinpoint.setPosition(ResetPose);
+                if (!targetResetIdle) {
+                    targetResetIdle = true;
+                } else {
+                    targetResetIdle = false;
+                    pinpoint.recalibrateIMU();
+                    sleep(500);
+                    pinpoint.setPosition(ResetPose);
+                }
             }
 
             if(!ManualSpeedOn){
-                scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(AuxiliaryLocalizationSystem.getDistance(pinpointPose, TargetPose)));
+                if(!targetResetIdle) {
+                    scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(AuxiliaryLocalizationSystem.getDistance(pinpointPose, TargetPose)));
+                } else {
+                    scoringsystem.setLaunchVel(0);
+                }
 
                 //up = increase y
                 //down = decrease y
@@ -282,13 +305,13 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
                     TargetPose = new Pose2D(DistanceUnit.MM, TargetPose.getX(DistanceUnit.MM),TargetPose.getY(DistanceUnit.MM)+50,AngleUnit.DEGREES, TargetPose.getHeading(AngleUnit.DEGREES));
                 }
                 if (RightAccelSmol.isPressed()){
-                    TargetPose = new Pose2D(DistanceUnit.MM, TargetPose.getX(DistanceUnit.MM)-50,TargetPose.getY(DistanceUnit.MM),AngleUnit.DEGREES, TargetPose.getHeading(AngleUnit.DEGREES));
+                    TargetPose = new Pose2D(DistanceUnit.MM, TargetPose.getX(DistanceUnit.MM)+50,TargetPose.getY(DistanceUnit.MM),AngleUnit.DEGREES, TargetPose.getHeading(AngleUnit.DEGREES));
                 }
                 if (DownDecel.isPressed()) {
                     TargetPose = new Pose2D(DistanceUnit.MM, TargetPose.getX(DistanceUnit.MM),TargetPose.getY(DistanceUnit.MM)-50,AngleUnit.DEGREES, TargetPose.getHeading(AngleUnit.DEGREES));
                 }
                 if (LeftDecelSmol.isPressed()){
-                    TargetPose = new Pose2D(DistanceUnit.MM, TargetPose.getX(DistanceUnit.MM)+50,TargetPose.getY(DistanceUnit.MM),AngleUnit.DEGREES, TargetPose.getHeading(AngleUnit.DEGREES));
+                    TargetPose = new Pose2D(DistanceUnit.MM, TargetPose.getX(DistanceUnit.MM)-50,TargetPose.getY(DistanceUnit.MM),AngleUnit.DEGREES, TargetPose.getHeading(AngleUnit.DEGREES));
                 }
 
             } else {
@@ -314,21 +337,21 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             oldTime = time;
             time = System.currentTimeMillis();
 
-            doTelemetry(
-                    telemetry,
-                    dashboardTelemetry,
-                    drivetrain,
-                    scoringsystem,
-                    TargetPose,
-                    result,
-                    robotState,
-                    gamepad1,
-                    frequency
-            );
+//            doTelemetry(
+//                    telemetry,
+//                    dashboardTelemetry,
+//                    drivetrain,
+//                    scoringsystem,
+//                    TargetPose,
+//                    result,
+//                    robotState,
+//                    gamepad1,
+//                    frequency
+//            );
 
-            dashboardTelemetry.addData("Refresh Rate Hz", frequency);
-            dashboardTelemetry.addData("Angle To Target", AuxiliaryLocalizationSystem.getAngle(pinpointPose, (TargetPose)));
-            dashboardTelemetry.update();
+            telemetry.addData("Refresh Rate Hz", frequency);
+            telemetry.addData("Angle To Target", AuxiliaryLocalizationSystem.getAngle(pinpointPose, (TargetPose)));
+            telemetry.update();
 
         }
     }

@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop;
 
 import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionRed.RobotState.INTAKE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionRed.RobotState.PRESCORE;
-import static org.firstinspires.ftc.teamcode.team.opmodes.competition.teleop.TeleOpCompetitionRed.RobotState.SCORE;
+// hehe line
+//hehe line 2
 
 //adb connect 192.168.43.1:5555
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.lynx.LynxModule;
@@ -16,12 +17,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
 import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.team.libraries.GamepadButton;
@@ -38,25 +39,37 @@ public class TeleOpCompetitionRed extends LinearOpMode {
     private String infoIMU = "";
     private Limelight3A limelight;
     public GoBildaPinpointDriver pinpoint;
+
     @Override
     public void runOpMode() throws InterruptedException {
+
+        List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
+
+        DigitalChannel dist;
+
+        dist = hardwareMap.get(DigitalChannel.class, "dist");
+        dist.setMode(DigitalChannel.Mode.INPUT);
+
+        for (LynxModule hub : allHubs) {
+            hub.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
+        }
 
         pinpoint = hardwareMap.get(GoBildaPinpointDriver.class,"pinpoint");
         pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
-        List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
-
-        for (LynxModule hub : allHubs) {
-            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
-        }
+//        List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
+//
+//        for (LynxModule hub : allHubs) {
+//            hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+//        }
 
         pinpoint.setOffsets(53,-101, DistanceUnit.MM);
 
         pinpoint.recalibrateIMU();
 
         sleep(750);
-
+//
         pinpoint.setPosition(AuxiliaryLocalizationSystem.ConvertRRPoseToDriverPose((Pose2d) blackboard.get("BotPoseRR")));
 
         Pose2D TargetPose = new Pose2D(DistanceUnit.MM,1650,-1450,AngleUnit.DEGREES,0.0);
@@ -66,8 +79,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
         int SmallManualSpeedAdjustment = 5;
         int ManualSpeedAdjustment = 25;
-
-        double oldTime = 0;
 
         telemetry.addData("Status", "Initialized");
         telemetry.addData("X offset", pinpoint.getXOffset(DistanceUnit.MM));
@@ -83,7 +94,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
         telemetry.setMsTransmissionInterval(11);
 
-        limelight.pipelineSwitch(0);
+        //limelight.pipelineSwitch(0);
 
         /*
          * Starts polling for data.
@@ -95,8 +106,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
 
         RobotState robotState = INTAKE;
-
-        boolean precision = false;
 
         //ElapsedTime timer = new ElapsedTime();
         //timer.reset();
@@ -124,6 +133,8 @@ public class TeleOpCompetitionRed extends LinearOpMode {
                 hardwareMap.servo.get("gate")
         );
 
+        Servo IndicatorLED = hardwareMap.get(Servo.class, "IndicatorLED");
+
         ServoGate.closeGate();
 
         GamepadButton stateBack = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.LEFT_BUMPER);
@@ -141,16 +152,35 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         boolean ManualSpeedOn = false;
         boolean ManualTurretOn = false;
 
+        boolean ArtifactPresent = false;
+
         infoIMU += "IMU - " + pinpoint.getDeviceName();
         infoIMU += " | ID: " + pinpoint.getDeviceID();
         infoIMU += " | ver" + pinpoint.getDeviceVersion();
         infoIMU += " | yawS: " + pinpoint.getYawScalar();
 
         double target = 0;
+        double frequency = 0;
+        long time = 0;
+        long oldTime = 0;
+
+        boolean targetResetIdle = false;
 
         drivetrain.zeroPowerBrake();
 
         while (opModeIsActive()) {
+
+            frequency = time-oldTime;
+
+            if (dist.getState()){
+                IndicatorLED.setPosition(1);
+            } else {
+                IndicatorLED.setPosition(0);
+            }
+
+            for (LynxModule hub : allHubs) {
+                hub.clearBulkCache();
+            }
 
             pinpoint.update();
 
@@ -190,7 +220,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
             switch (robotState) {
                 case INTAKE:
                     ServoGate.closeGate();
-                    scoringsystem.launcherUpdate();
 
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
@@ -203,7 +232,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
                 case PRESCORE:
                     ServoGate.closeGate();
-                    drivetrain.zeroPowerFloat();
                     drivetrain.botOrientedDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, 0);
 
                     if(ManualTurretOn){
@@ -252,13 +280,22 @@ public class TeleOpCompetitionRed extends LinearOpMode {
             }
 
             if (PinpointReset.isPressed()) {
-                pinpoint.recalibrateIMU();
-                sleep(500);
-                pinpoint.setPosition(ResetPose);
+                if (!targetResetIdle) {
+                    targetResetIdle = true;
+                } else {
+                    targetResetIdle = false;
+                    pinpoint.recalibrateIMU();
+                    sleep(500);
+                    pinpoint.setPosition(ResetPose);
+                }
             }
 
             if(!ManualSpeedOn){
-                scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(AuxiliaryLocalizationSystem.getDistance(pinpointPose, TargetPose)));
+                if(!targetResetIdle) {
+                    scoringsystem.setLaunchVel( (int)  ScoringSystem.TurretDistToFlywheelVelocity(AuxiliaryLocalizationSystem.getDistance(pinpointPose, TargetPose)));
+                } else {
+                    scoringsystem.setLaunchVel(0);
+                }
 
                 //up = increase y
                 //down = decrease y
@@ -297,8 +334,10 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
             scoringsystem.intake(gamepad1.left_trigger, gamepad1.right_trigger);
 
+            oldTime = time;
+            time = System.currentTimeMillis();
 
-//            doTelementry(
+//            doTelemetry(
 //                    telemetry,
 //                    dashboardTelemetry,
 //                    drivetrain,
@@ -307,11 +346,16 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 //                    result,
 //                    robotState,
 //                    gamepad1,
-//                    precision,
 //                    frequency
 //            );
+
+            telemetry.addData("Refresh Rate Hz", frequency);
+            telemetry.addData("Angle To Target", AuxiliaryLocalizationSystem.getAngle(pinpointPose, (TargetPose)));
+            telemetry.update();
         }
     }
+
+
 
     private void doTelemetry(
             Telemetry telemetry,
@@ -322,7 +366,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
             LLResult result,
             TeleOpCompetitionRed.RobotState state,
             Gamepad gamepad1,
-            boolean precision,
             double frequency
     ){
         Pose2D pos = pinpoint.getPosition();

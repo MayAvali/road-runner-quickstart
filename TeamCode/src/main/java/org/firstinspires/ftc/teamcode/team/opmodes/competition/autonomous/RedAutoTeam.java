@@ -98,8 +98,8 @@ public class RedAutoTeam extends LinearOpMode {
                 .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
                 //Move back, then hit gate
-                .setTangent(Math.toRadians(270))
-                .splineToLinearHeading(GatePark, poseAngle(GatePark))
+//                .setTangent(Math.toRadians(270))
+//                .splineToLinearHeading(GatePark, poseAngle(GatePark))
 
                 //Move to scoring Positon
                 .setTangent(Math.toRadians(270))

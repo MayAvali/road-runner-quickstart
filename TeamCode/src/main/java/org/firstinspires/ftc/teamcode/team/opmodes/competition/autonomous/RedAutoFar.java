@@ -60,7 +60,7 @@ public class RedAutoFar extends LinearOpMode {
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
-        scoringSystem.setLaunchVel(2100);
+        scoringSystem.setLaunchVel(1800);
 
         int scoreAngle = 155;
 
@@ -72,6 +72,9 @@ public class RedAutoFar extends LinearOpMode {
 
                 //Move to Scoring Position
                 .strafeToLinearHeading(trunc(ScorePosition), poseAngle(ScorePosition))
+                .waitSeconds(littlePause)
+                .waitSeconds(littlePause)
+                .waitSeconds(littlePause)
                 .waitSeconds(littlePause)
 
                 //Score
@@ -102,8 +105,8 @@ public class RedAutoFar extends LinearOpMode {
                 .afterTime(0.5, scoringSystem.intakeAction(0, 1))
 
                 //Intake Human
-                .strafeToLinearHeading(trunc(HumanAlign), poseAngle(HumanAlign),drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint)
-                .lineToYSplineHeading(trunc(HumanGrab).y, poseAngle(HumanAlign), drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint)
+                .strafeToLinearHeading(trunc(HumanAlign), poseAngle(HumanAlign)/*drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint*/)
+                .lineToYSplineHeading(trunc(HumanGrab).y, poseAngle(HumanGrab) /*drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint*/)
                 .waitSeconds(intakePause)
                 .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
@@ -119,8 +122,8 @@ public class RedAutoFar extends LinearOpMode {
                 .afterTime(0, ServoGate.closeGateAction())
 
                 //Intake Human
-                .strafeToLinearHeading(trunc(HumanAlign), poseAngle(HumanAlign),drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint)
-                .lineToYSplineHeading(trunc(HumanGrab).y, poseAngle(HumanAlign), drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint)
+                .strafeToLinearHeading(trunc(HumanAlign), poseAngle(HumanAlign)/*drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint*/)
+                .lineToYSplineHeading(trunc(HumanGrab).y, poseAngle(HumanAlign)/*drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint*/)
                 .waitSeconds(intakePause)
                 .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
@@ -137,8 +140,8 @@ public class RedAutoFar extends LinearOpMode {
                 .afterTime(0.5, scoringSystem.intakeAction(0, 1))
 
                 //Intake Human
-                .strafeToLinearHeading(trunc(HumanAlign), poseAngle(HumanAlign),drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint)
-                .lineToYSplineHeading(trunc(HumanGrab).y, poseAngle(HumanAlign), drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint)
+                .strafeToLinearHeading(trunc(HumanAlign), poseAngle(HumanAlign)/*drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint*/)
+                .lineToYSplineHeading(trunc(HumanGrab).y, poseAngle(HumanAlign) /*drivetrain.defaultVelConstraint, drivetrain.slowAccelConstraint*/)
                 .waitSeconds(intakePause)
                 .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
