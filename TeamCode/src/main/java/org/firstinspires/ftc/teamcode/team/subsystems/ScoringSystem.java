@@ -85,12 +85,6 @@ public class ScoringSystem {
         launcher2.setPower(0);
     }
 
-    public void launcherIdle(){
-        launcher.setVelocity(750);
-        launcher.setVelocityPIDFCoefficients(0,0,0,16);
-        launcher2.setPower(launcher.getPower());
-    }
-
     public Action launcherOffAction(){
         return new InstantAction(
                 this::launcherOff
@@ -125,9 +119,9 @@ public class ScoringSystem {
     }
 
     public void intake(double out, double in){
-        intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
-        //intake2.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
-        intake.setVelocity((2800*out)-(3600*in));
+        //intake.setVelocityPIDFCoefficients(intakePIDF.P, intakePIDF.I, intakePIDF.D, intakePIDF.F);
+        //intake.setVelocity((2800*out)-(3600*in));
+        intake.setPower(0.75*out-in);
     }
 
     public Action intakeAction(double out, double in) {
