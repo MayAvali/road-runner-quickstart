@@ -171,12 +171,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
             frequency = (float) 1000 /(time-oldTime);;
 
-            if (dist.getState() & scoringsystem.getIntakeCurrent() > 6){
-                IndicatorLED.setPosition(1);
-            } else {
-                IndicatorLED.setPosition(0);
-            }
-
             pinpoint.update();
 
             Pose2D  pinpointPose = pinpoint.getPosition();
