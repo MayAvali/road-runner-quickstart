@@ -13,19 +13,13 @@ public class ServoGate {
     public ServoGate(Servo gate) {
         this.gate = gate;
     }
+    private double lastPosition = 0.0;
 
-    public void toggleGate() {
-        if (isGateOpen) {
-            isGateOpen = false;
-            gate.setPosition(0.18);
-        } else {
-            isGateOpen = true;
-            gate.setPosition(0.5);
-        }
-    }
     public void openGate() {
-        isGateOpen = true;
-        gate.setPosition(0.22);
+        if (!isGateOpen){
+            isGateOpen = true;
+            gate.setPosition(0.22);
+        }
     }
 
     public Action openGateAction() {
@@ -34,8 +28,10 @@ public class ServoGate {
         );
     }
     public void closeGate() {
-        isGateOpen = false;
-        gate.setPosition(0.4);
+        if (isGateOpen) {
+            isGateOpen = false;
+            gate.setPosition(0.4);
+        }
     }
 
     public Action closeGateAction() {
