@@ -37,7 +37,6 @@ import java.util.Locale;
 @TeleOp(name = "1. TeleOp BLUE", group = "Linear OpMode")
 public class TeleOpCompetitionBlue extends LinearOpMode {
     private String infoIMU = "";
-    private Limelight3A limelight;
     public GoBildaPinpointDriver pinpoint;
 
     @Override
@@ -87,8 +86,6 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         telemetry.addData("Heading Scalar", pinpoint.getYawScalar());
         telemetry.update();
 
-        limelight = hardwareMap.get(Limelight3A.class, "limelight");
-
         waitForStart();
         if (isStopRequested()) return;
 
@@ -99,8 +96,6 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         /*
          * Starts polling for data.
          */
-        limelight.start();
-
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
@@ -160,8 +155,8 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         double target = 0;
         double frequency = 0;
-        long time = 0;
-        long oldTime = 0;
+        long time = 1;
+        long oldTime = 1;
 
         boolean targetResetIdle = false;
 
@@ -169,7 +164,11 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            frequency = time-oldTime;
+            for (LynxModule hub : allHubs) {
+                hub.clearBulkCache();
+            }
+
+            frequency = (float) 1000 /(time-oldTime);
 
             if (dist.getState() & scoringsystem.getIntakeCurrent() > 6){
                 IndicatorLED.setPosition(1);
@@ -177,41 +176,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
                 IndicatorLED.setPosition(0);
             }
 
-
-            for (LynxModule hub : allHubs) {
-                hub.clearBulkCache();
-            }
-
             pinpoint.update();
-
-//            LLResult result = limelight.getLatestResult();
-//
-//            if (result != null) {
-//                Pose3D botpose = result.getBotpose();
-//                telemetry.addData("tx", result.getTx());
-//                telemetry.addData("ty", result.getTy());
-//                telemetry.addData("Botpose", botpose.toString());
-//            }
-//            double tx_value = result.getTx()
-
-            //vision based targeting j
-
-//            if (!result.isValid() && ((last_detection - detection_start) > 0)) {
-//                //
-//                target = ((getRuntime() - last_detection) <= 0.25) ? last_tx_value : 0;
-//                last_was_valid = false;
-//            } else if (result.isValid()) {
-//                target = tx_value;
-//
-//                if (!last_was_valid) {
-//                    detection_start = getRuntime();
-//                }
-//                last_detection = getRuntime();
-//                last_was_valid = true;
-//                last_tx_value = tx_value;
-//            } else {
-//                target = 0;
-//            }
 
             Pose2D  pinpointPose = pinpoint.getPosition();
 

@@ -25,9 +25,21 @@ public class TeleOpDrivetrainTest extends LinearOpMode {
                 hardwareMap.get(IMU.class, "imu")
         );
 
+        double Time = 1;
+        double oldTime = 1;
+        double frequency = 0;
+
         while (opModeIsActive())
         {
+
+            frequency = (float) 1000 /(Time-oldTime);
+
             drivetrain.botOrientedDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
+
+            oldTime = Time;
+            Time = System.currentTimeMillis();
+
+            telemetry.addData("RefreshRateHz", frequency);
 
             telemetry.addData("RightBumper", gamepad1.right_bumper);
 

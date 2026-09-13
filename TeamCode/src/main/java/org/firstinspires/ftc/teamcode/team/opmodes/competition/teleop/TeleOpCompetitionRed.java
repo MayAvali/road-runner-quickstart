@@ -37,7 +37,6 @@ import java.util.Locale;
 @TeleOp(name = "2. TeleOp RED", group = "Linear OpMode")
 public class TeleOpCompetitionRed extends LinearOpMode {
     private String infoIMU = "";
-    private Limelight3A limelight;
     public GoBildaPinpointDriver pinpoint;
 
     @Override
@@ -87,8 +86,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         telemetry.addData("Heading Scalar", pinpoint.getYawScalar());
         telemetry.update();
 
-        limelight = hardwareMap.get(Limelight3A.class, "limelight");
-
         waitForStart();
         if (isStopRequested()) return;
 
@@ -99,8 +96,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         /*
          * Starts polling for data.
          */
-        limelight.start();
-
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
@@ -170,7 +165,11 @@ public class TeleOpCompetitionRed extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            frequency = time-oldTime;
+            for (LynxModule hub : allHubs) {
+                hub.clearBulkCache();
+            }
+
+            frequency = (float) 1000 /(time-oldTime);;
 
             if (dist.getState() & scoringsystem.getIntakeCurrent() > 6){
                 IndicatorLED.setPosition(1);
@@ -178,40 +177,7 @@ public class TeleOpCompetitionRed extends LinearOpMode {
                 IndicatorLED.setPosition(0);
             }
 
-            for (LynxModule hub : allHubs) {
-                hub.clearBulkCache();
-            }
-
             pinpoint.update();
-
-//            LLResult result = limelight.getLatestResult();
-//
-//            if (result != null) {
-//                Pose3D botpose = result.getBotpose();
-//                telemetry.addData("tx", result.getTx());
-//                telemetry.addData("ty", result.getTy());
-//                telemetry.addData("Botpose", botpose.toString());
-//            }
-//            double tx_value = result.getTx();
-
-            //vision based targeting
-
-//            if (!result.isValid() && ((last_detection - detection_start) > 0)) {
-//                //
-//                target = ((getRuntime() - last_detection) <= 0.25) ? last_tx_value : 0;
-//                last_was_valid = false;
-//            } else if (result.isValid()) {
-//                target = tx_value;
-//
-//                if (!last_was_valid) {
-//                    detection_start = getRuntime();
-//                }
-//                last_detection = getRuntime();
-//                last_was_valid = true;
-//                last_tx_value = tx_value;
-//            } else {
-//                target = 0;
-//            }
 
             Pose2D  pinpointPose = pinpoint.getPosition();
 
@@ -371,11 +337,11 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         Pose2D pos = pinpoint.getPosition();
         String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));
         String velocity = String.format(Locale.US,"{XVel: %.3f, YVel: %.3f, HVel: %.3f}", pinpoint.getVelX(DistanceUnit.MM), pinpoint.getVelY(DistanceUnit.MM), pinpoint.getHeadingVelocity(UnnormalizedAngleUnit.DEGREES));
-        publishDashboard(dashboardTelementry, drivetrain, scoringSystem, gamepad1, data, velocity, frequency);
+        publishDashboard(dashboardTelementry, drivetrain, scoringSystem, gamepad1, data, velocity, frequency, time);
         publishTelemetry(state, drivetrain, scoringSystem, TargetPose, result, data, velocity, frequency);
     }
 
-    private void publishDashboard(Telemetry dashboardTelemetry, MecanumDrive drivetrain, ScoringSystem scoringsystem, Gamepad gamepad1, String data, String velocity, double frequency) {
+    private void publishDashboard(Telemetry dashboardTelemetry, MecanumDrive drivetrain, ScoringSystem scoringsystem, Gamepad gamepad1, String data, String velocity, double frequency, double time) {
         dashboardTelemetry.addData("Front Left Motor Power: ", drivetrain.getFrontLeftPower());
         dashboardTelemetry.addData("Back Left Motor Power: ", drivetrain.getBackLeftPower());
         dashboardTelemetry.addData("Front Right Motor Power: ", drivetrain.getFrontRightPower());
@@ -418,8 +384,6 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         telemetry.addData("Launcher Motor Velocity ", scoringsystem.getLauncherVel());
 
         telemetry.addData("Launcher Motor TargetPose Vel: ", scoringsystem.LaunchVel);
-
-        //telemetry.addData("Launcher Motor Multiplier: ", ScoringSystem.LaunchMult);
 
         telemetry.addData("Left Stick X: ", gamepad1.left_stick_x);
         telemetry.addData("Left Stick Y: ", gamepad1.left_stick_y);
