@@ -145,8 +145,8 @@ public class TeleOpCompetitionRed extends LinearOpMode {
         GamepadButton LeftDecelSmol = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.DPAD_LEFT);
         GamepadButton ManualSpeedToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.triangle);
         GamepadButton ManualTurretToggle = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.circle);
-        GamepadButton PinpointReset = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.START);
-        GamepadButton TargetReset = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.SHARE);
+        GamepadButton PinpointReset = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.SHARE);
+        GamepadButton TargetReset = new GamepadButton(gamepad1, GamepadButton.gamepadKeys.START);
 
 
         boolean ManualSpeedOn = false;
