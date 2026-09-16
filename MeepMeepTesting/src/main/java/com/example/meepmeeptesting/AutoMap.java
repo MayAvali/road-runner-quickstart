@@ -5,9 +5,9 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 public class AutoMap {
 
-    public static final double LittlePause = 0.2;
-    public static final double ScorePause = 1;
-    public static final double GatePause = 2;
+    public static final double LittlePause = 0.25;
+    public static final double ScorePause = 1.2;
+    public static final double GatePause = 2.5;
 
     public static final double IntakePause = 0.25;
 
@@ -28,9 +28,9 @@ public class AutoMap {
 
     public static final Pose2d BluePPGGrab = new Pose2d(-10,-44, Math.toRadians(-90));
 
-    public static final Pose2d BluePGPAlign = new Pose2d(13,-28, Math.toRadians(-90));
+    public static final Pose2d BluePGPAlign = new Pose2d(11,-28, Math.toRadians(-90));
 
-    public static final Pose2d BluePGPGrab = new Pose2d(13,-49, Math.toRadians(-90));
+    public static final Pose2d BluePGPGrab = new Pose2d(11,-49, Math.toRadians(-90));
 
     public static final Pose2d BlueGPPAlign = new Pose2d(36, -31, Math.toRadians(-90));
 
@@ -42,7 +42,7 @@ public class AutoMap {
 
     public static final Pose2d BlueGatePark = new Pose2d(3, -55.5, Math.toRadians(0));
 
-    public static final Pose2d BlueGateIntake = new Pose2d(13, -59.5, Math.toRadians(-100));
+    public static final Pose2d BlueGateIntake = new Pose2d(10.5, -59.5, Math.toRadians(-100));
 
     public static final Pose2d BlueGateLeave = new Pose2d(3, -25, Math.toRadians(90));
 
@@ -72,9 +72,9 @@ public class AutoMap {
 
     public static final Pose2d RedPPGGrab = new Pose2d(-10,44, Math.toRadians(90));
 
-    public static final Pose2d RedPGPAlign = new Pose2d(13,28, Math.toRadians(90));
+    public static final Pose2d RedPGPAlign = new Pose2d(11,28, Math.toRadians(90));
 
-    public static final Pose2d RedPGPGrab = new Pose2d(13,49, Math.toRadians(90));
+    public static final Pose2d RedPGPGrab = new Pose2d(11,49, Math.toRadians(90));
 
     public static final Pose2d RedGPPAlign = new Pose2d(36, 31, Math.toRadians(90));
 
@@ -86,7 +86,7 @@ public class AutoMap {
 
     public static final Pose2d RedGatePark = new Pose2d(3, 55.5, Math.toRadians(0));
 
-    public static final Pose2d RedGateIntake = new Pose2d(9.5, 58.5, Math.toRadians(110));
+    public static final Pose2d RedGateIntake = new Pose2d(10.5, 58.5, Math.toRadians(110));
 
     public static final Pose2d RedGateLeave = new Pose2d(3, 25, Math.toRadians(0));
 

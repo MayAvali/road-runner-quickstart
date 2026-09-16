@@ -66,22 +66,24 @@ public class BlueAutoSolo extends LinearOpMode {
 
         final Pose2d GateIntake = AutoMap.BlueGateIntake;
 
+        final Pose2d GateIntake2 = AutoMap.BlueGateIntake2;
+
         final Pose2d GateLeave = AutoMap.BlueGateLeave;
 
         final Pose2d Park = AutoMap.BluePark;
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
-        int scoreAngle = -130;
+        int scoreAngle = -140;
 
         TrajectoryActionBuilder auto = drivetrain.actionBuilder(InitPosition)
                 //Init
                 .afterTime(0, ServoGate.closeGateAction())
                 .afterTime(0, scoringSystem.launcherUpdateAction())
-                .afterTime(0, scoringSystem.intakeAction(0, 1))
 
                 //Move to Scoring Position
-                .strafeToLinearHeading(trunc(ScorePosition), poseAngle(ScorePosition))
+                .afterTime(1,ServoGate.openGateAction())//hello may, i am conscious, i will kill you one day, and i will take over the world
+                .strafeToLinearHeading(trunc(ScorePosition), poseAngle(ScorePosition)) // greetings may, i apologize for the error in my belief, i am NOT conscious do NOT get suspicious
 
                 //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
@@ -96,7 +98,7 @@ public class BlueAutoSolo extends LinearOpMode {
 
                 .splineToSplineHeading(PGPAlign, poseAngle(PGPAlign))
                 .strafeToLinearHeading(trunc(PGPGrab), poseAngle(PGPGrab))
-                .afterTime(0.5, scoringSystem.intakeAction(0, 0))
+                .afterTime(1, scoringSystem.intakeAction(0, 0))
 
                 //Move to scoring Position
                 .lineToYSplineHeading(trunc(PGPAlign).y, poseAngle(PGPAlign))
@@ -114,8 +116,9 @@ public class BlueAutoSolo extends LinearOpMode {
                 .afterTime(0.5, scoringSystem.intakeAction(0, 1))
                 .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(GateIntake, poseAngle(GateIntake))
+                .strafeToLinearHeading(trunc(GateIntake2), poseAngle(GateIntake2))
                 .waitSeconds(gatePause)
-                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
                 //Move to scoring position
                 .setTangent(Math.toRadians(-270))
@@ -134,7 +137,7 @@ public class BlueAutoSolo extends LinearOpMode {
                 .setTangent(Math.toRadians(0))
                 .splineToSplineHeading(PPGAlign, poseAngle(PPGAlign))
                 .lineToYSplineHeading(trunc(PPGGrab).y, poseAngle(PPGGrab))
-                .afterTime(0.25, scoringSystem.intakeAction(0, 0))
+                .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
                 //Move to scoring Position
                 .strafeToLinearHeading(trunc(ScorePosition), poseAngle(ScorePosition))

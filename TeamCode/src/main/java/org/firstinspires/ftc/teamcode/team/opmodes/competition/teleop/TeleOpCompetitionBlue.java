@@ -162,6 +162,8 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         drivetrain.zeroPowerBrake();
 
+        ServoGate.closeGate();
+
         while (opModeIsActive()) {
 
             for (LynxModule hub : allHubs) {
@@ -321,7 +323,6 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
             MecanumDrive drivetrain,
             ScoringSystem scoringSystem,
             Pose2D TargetPose,
-            LLResult result,
             RobotState state,
             Gamepad gamepad1,
             double frequency
@@ -330,7 +331,7 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));
         String velocity = String.format(Locale.US,"{XVel: %.3f, YVel: %.3f, HVel: %.3f}", pinpoint.getVelX(DistanceUnit.MM), pinpoint.getVelY(DistanceUnit.MM), pinpoint.getHeadingVelocity(UnnormalizedAngleUnit.DEGREES));
         publishDashboard(dashboardTelementry, drivetrain, scoringSystem, gamepad1, data, velocity, frequency);
-        publishTelementry(state, drivetrain, scoringSystem, TargetPose, result, data, velocity, frequency);
+        publishTelementry(state, drivetrain, scoringSystem, TargetPose, data, velocity, frequency);
     }
 
     private void publishDashboard(Telemetry dashboardTelemetry, MecanumDrive drivetrain, ScoringSystem scoringsystem, Gamepad gamepad1, String data, String velocity, double frequency) {
@@ -358,13 +359,11 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
         dashboardTelemetry.addData("REV Hub Frequency: ", frequency); //prints the control system refresh rate
         dashboardTelemetry.update();
     }
-    private void publishTelementry(RobotState robotState, MecanumDrive drivetrain, ScoringSystem scoringsystem, Pose2D TargetPose, LLResult result, String data, String velocity, double frequency) {
+    private void publishTelementry(RobotState robotState, MecanumDrive drivetrain, ScoringSystem scoringsystem, Pose2D TargetPose, String data, String velocity, double frequency) {
 
 
         telemetry.addData("BotInitPoseRR",(Pose2d) blackboard.get("BotPoseRR"));
         telemetry.addData("BotInitPoseConverted", AuxiliaryLocalizationSystem.ConvertRRPoseToDriverPose((Pose2d) blackboard.get("BotPoseRR")));
-
-        telemetry.addData("LimelightResultState", result == null ? "null" : (result.isValid() ? "Valid" : "Invalid"));
 
         telemetry.addData("RobotState", robotState);
 
@@ -392,7 +391,6 @@ public class TeleOpCompetitionBlue extends LinearOpMode {
 
         telemetry.addData("IMU Status", pinpoint.getDeviceStatus());
         telemetry.addData(" IMU Info", infoIMU);
-        telemetry.addData("Camera Calculated Distance", AuxiliaryLocalizationSystem.getDistancefromAngle(result.getTy(), 750));
         telemetry.addData("OdoCalculatedDistance", AuxiliaryLocalizationSystem.getDistance(pinpoint.getPosition(), TargetPose));
 
         telemetry.addData("TargetPose X", TargetPose.getX(DistanceUnit.MM));

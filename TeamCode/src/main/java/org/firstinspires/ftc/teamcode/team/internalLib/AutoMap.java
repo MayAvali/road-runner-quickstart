@@ -43,6 +43,7 @@ public class AutoMap {
     public static final Pose2d BlueGatePark = new Pose2d(3, -55.5, Math.toRadians(0));
 
     public static final Pose2d BlueGateIntake = new Pose2d(10, -51, Math.toRadians(-110));
+    public static final Pose2d BlueGateIntake2 = new Pose2d(16, -53, Math.toRadians(-130));
 
     public static final Pose2d BlueGateLeave = new Pose2d(3, -25, Math.toRadians(0));
 
@@ -89,6 +90,8 @@ public class AutoMap {
     public static final Pose2d RedGatePark = new Pose2d(3, 55.5, Math.toRadians(0));
 
     public static final Pose2d RedGateIntake = new Pose2d(10, 51, Math.toRadians(110));
+
+    public static final Pose2d RedGateIntake2 = new Pose2d(16, 53, Math.toRadians(130));
 
     public static final Pose2d RedGateLeave = new Pose2d(3, 25, Math.toRadians(0));
 
