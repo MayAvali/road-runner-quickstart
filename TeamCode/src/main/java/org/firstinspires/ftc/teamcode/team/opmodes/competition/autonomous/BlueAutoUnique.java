@@ -66,26 +66,27 @@ public class BlueAutoUnique extends LinearOpMode {
 
         final Pose2d GateIntake = AutoMap.BlueGateIntake;
 
+        final Pose2d GateIntake2 = AutoMap.BlueGateIntake2;
+
         final Pose2d GateLeave = AutoMap.BlueGateLeave;
 
         final Pose2d Park = AutoMap.BluePark;
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, InitPosition);
 
-        int scoreAngle = -130;
+        int scoreAngle = -140;
 
         TrajectoryActionBuilder auto = drivetrain.actionBuilder(InitPosition)
                 //Init
                 .afterTime(0, ServoGate.closeGateAction())
                 .afterTime(0, scoringSystem.launcherUpdateAction())
-                .afterTime(0, scoringSystem.intakeAction(0, 1))
 
                 //Move to Scoring Position
+                .afterTime(1,ServoGate.openGateAction())
                 .strafeToLinearHeading(trunc(ScorePosition), poseAngle(ScorePosition))
 
                 //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
-                .afterTime(0,ServoGate.openGateAction())
                 .waitSeconds(littlePause)
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .waitSeconds(scorePause)
@@ -96,6 +97,7 @@ public class BlueAutoUnique extends LinearOpMode {
 
                 .splineToSplineHeading(PGPAlign, poseAngle(PGPAlign))
                 .strafeToLinearHeading(trunc(PGPGrab), poseAngle(PGPGrab))
+                .waitSeconds(littlePause)
                 .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
                 .setTangent(Math.toRadians(-270))
@@ -118,8 +120,9 @@ public class BlueAutoUnique extends LinearOpMode {
                 .afterTime(0.5, scoringSystem.intakeAction(0, 1))
                 .setTangent(Math.toRadians(0))
                 .splineToLinearHeading(GateIntake, poseAngle(GateIntake))
+                .strafeToLinearHeading(trunc(GateIntake2), poseAngle(GateIntake2))
                 .waitSeconds(gatePause)
-                .afterTime(0, scoringSystem.intakeAction(0, 0))
+                .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
                 //Move to scoring position
                 .setTangent(Math.toRadians(-270))

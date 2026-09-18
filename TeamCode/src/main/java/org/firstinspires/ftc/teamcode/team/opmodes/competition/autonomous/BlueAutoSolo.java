@@ -87,7 +87,6 @@ public class BlueAutoSolo extends LinearOpMode {
 
                 //Score
                 .afterTime(0, scoringSystem.intakeAction(0, 0))
-                .afterTime(0,ServoGate.openGateAction())
                 .waitSeconds(littlePause)
                 .afterTime(0, scoringSystem.intakeAction(0, 1))
                 .waitSeconds(scorePause)
@@ -98,6 +97,7 @@ public class BlueAutoSolo extends LinearOpMode {
 
                 .splineToSplineHeading(PGPAlign, poseAngle(PGPAlign))
                 .strafeToLinearHeading(trunc(PGPGrab), poseAngle(PGPGrab))
+                .waitSeconds(littlePause)
                 .afterTime(1, scoringSystem.intakeAction(0, 0))
 
                 //Move to scoring Position

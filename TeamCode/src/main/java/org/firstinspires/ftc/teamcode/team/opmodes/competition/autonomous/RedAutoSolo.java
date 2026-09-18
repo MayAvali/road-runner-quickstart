@@ -96,6 +96,7 @@ public class RedAutoSolo extends LinearOpMode {
 
                 .splineToSplineHeading(PGPAlign, poseAngle(PGPAlign))
                 .strafeToLinearHeading(trunc(PGPGrab), poseAngle(PGPGrab))
+                .waitSeconds(littlePause)
                 .afterTime(1, scoringSystem.intakeAction(0, 0))
 
                 //Move to scoring Positon
