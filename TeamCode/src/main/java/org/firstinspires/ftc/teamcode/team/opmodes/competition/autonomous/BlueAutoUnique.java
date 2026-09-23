@@ -162,7 +162,8 @@ public class BlueAutoUnique extends LinearOpMode {
                 .afterTime(0.5, scoringSystem.intakeAction(0, 0))
 
                 //Move to Scoring Position
-                .strafeToLinearHeading(trunc(ScorePosition), poseAngle(ScorePosition))
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading((ScorePosition), poseAngle(ScorePosition))
 
                 //Score
                 .afterTime(0,ServoGate.openGateAction())

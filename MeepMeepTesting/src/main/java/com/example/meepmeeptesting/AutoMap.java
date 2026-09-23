@@ -5,9 +5,9 @@ import com.acmerobotics.roadrunner.Vector2d;
 
 public class AutoMap {
 
-    public static final double LittlePause = 0.25;
-    public static final double ScorePause = 1.2;
-    public static final double GatePause = 2.5;
+    public static final double LittlePause = 0.1;
+    public static final double ScorePause = 1;
+    public static final double GatePause = 1.75;
 
     public static final double IntakePause = 0.25;
 
@@ -26,25 +26,26 @@ public class AutoMap {
 
     public static final Pose2d BluePPGAlign = new Pose2d(-10,-40, Math.toRadians(-90));
 
-    public static final Pose2d BluePPGGrab = new Pose2d(-10,-44, Math.toRadians(-90));
+    public static final Pose2d BluePPGGrab = new Pose2d(-10,-48, Math.toRadians(-90));
 
-    public static final Pose2d BluePGPAlign = new Pose2d(11,-28, Math.toRadians(-90));
+    public static final Pose2d BluePGPAlign = new Pose2d(10,-28, Math.toRadians(-90));
 
-    public static final Pose2d BluePGPGrab = new Pose2d(11,-49, Math.toRadians(-90));
+    public static final Pose2d BluePGPGrab = new Pose2d(10,-52, Math.toRadians(-90));
 
     public static final Pose2d BlueGPPAlign = new Pose2d(36, -31, Math.toRadians(-90));
 
-    public static final Pose2d BlueGPPGrab = new Pose2d(36, -48, Math.toRadians(-90));
+    public static final Pose2d BlueGPPGrab = new Pose2d(36, -52, Math.toRadians(-90));
 
     public static final Pose2d BlueHumanAlign = new Pose2d(63.5,-52, -90);
 
-    public static final Pose2d BlueHumanGrab = new Pose2d(63.5,-90, -90);
+    public static final Pose2d BlueHumanGrab = new Pose2d(63.5,-72, -90);
 
     public static final Pose2d BlueGatePark = new Pose2d(3, -55.5, Math.toRadians(0));
 
-    public static final Pose2d BlueGateIntake = new Pose2d(10.5, -59.5, Math.toRadians(-100));
+    public static final Pose2d BlueGateIntake = new Pose2d(10, -51, Math.toRadians(-110));
+    public static final Pose2d BlueGateIntake2 = new Pose2d(16, -53, Math.toRadians(-130));
 
-    public static final Pose2d BlueGateLeave = new Pose2d(3, -25, Math.toRadians(90));
+    public static final Pose2d BlueGateLeave = new Pose2d(3, -25, Math.toRadians(0));
 
     public static final Pose2d BluePark = new Pose2d(-17, -36, Math.toRadians(-90));
 
@@ -70,15 +71,17 @@ public class AutoMap {
 
     public static final Pose2d RedPPGAlign = new Pose2d(-10,40, Math.toRadians(90));
 
-    public static final Pose2d RedPPGGrab = new Pose2d(-10,44, Math.toRadians(90));
+    public static final Pose2d RedPPGGrab = new Pose2d(-10,48, Math.toRadians(90));
 
-    public static final Pose2d RedPGPAlign = new Pose2d(11,28, Math.toRadians(90));
+    public static final Pose2d RedPGPAlign = new Pose2d(10,28, Math.toRadians(90));
 
-    public static final Pose2d RedPGPGrab = new Pose2d(11,49, Math.toRadians(90));
+    public static final Pose2d RedPGPGrab = new Pose2d(10,52, Math.toRadians(90));
 
-    public static final Pose2d RedGPPAlign = new Pose2d(36, 31, Math.toRadians(90));
+    public static final Pose2d RedGPPAlign = new Pose2d(30, 31, Math.toRadians(90));
+    //public static final Pose2d RedGPPAlign = new Pose2d(36, 31, Math.toRadians(90));
 
-    public static final Pose2d RedGPPGrab = new Pose2d(36, 48, Math.toRadians(90));
+    public static final Pose2d RedGPPGrab = new Pose2d(36, 52, Math.toRadians(90));
+    //public static final Pose2d RedGPPGrab = new Pose2d(36, 48, Math.toRadians(90)); (for um.. farside autop for some reasog
 
     public static final Pose2d RedHumanAlign = new Pose2d(63.5,52, 90);
 
@@ -86,7 +89,9 @@ public class AutoMap {
 
     public static final Pose2d RedGatePark = new Pose2d(3, 55.5, Math.toRadians(0));
 
-    public static final Pose2d RedGateIntake = new Pose2d(10.5, 58.5, Math.toRadians(110));
+    public static final Pose2d RedGateIntake = new Pose2d(10, 51, Math.toRadians(110));
+
+    public static final Pose2d RedGateIntake2 = new Pose2d(16, 53, Math.toRadians(130));
 
     public static final Pose2d RedGateLeave = new Pose2d(3, 25, Math.toRadians(0));
 

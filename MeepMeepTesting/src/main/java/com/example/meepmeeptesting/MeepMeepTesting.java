@@ -24,9 +24,9 @@ public class MeepMeepTesting {
         double smallPause = 250.0;
         double gateIntakePause = 1500.0;
 
-        final Pose2d InitPosition = AutoMap.RedFarInitPosition;
+        final Pose2d InitPosition = AutoMap.RedGoalInitPosition;
 
-        final Pose2d ScorePosition = AutoMap.RedFarScorePosition;
+        final Pose2d ScorePosition = AutoMap.RedScorePosition;
 
         final Pose2d HumanAlign = AutoMap.RedHumanAlign;
 
@@ -43,25 +43,12 @@ public class MeepMeepTesting {
 
         myBot.runAction(myBot.getDrive().actionBuilder(InitPosition)
 
-                //Init
-
-                //Move to Scoring Position
-                .strafeToLinearHeading(trunc(ScorePosition), poseAngle(ScorePosition))
-
-                //Scor
-
-                //Intake GPP
-                .setTangent(Math.toRadians(0))
                 .splineToSplineHeading(GPPAlign, poseAngle(GPPAlign))
                 .lineToYSplineHeading(trunc(GPPGrab).y, poseAngle(GPPGrab))
 
                 //Move to Scoring Position
-                .strafeToLinearHeading(trunc(ScorePosition), poseAngle(ScorePosition))
-
-                .waitSeconds(scorePause)
-
-                //Park
-                .strafeToLinearHeading(trunc(Park), poseAngle(Park))
+                .setTangent(Math.toRadians(-90))
+                .splineToLinearHeading((ScorePosition), poseAngle(ScorePosition))
 
                         .build());
 
