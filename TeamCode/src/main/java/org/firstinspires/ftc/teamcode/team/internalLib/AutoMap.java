@@ -13,6 +13,7 @@ public class AutoMap {
 
     // Blue Positions
     public static final Pose2d BlueGoalInitPosition = new Pose2d(-49.4, -47.9, Math.toRadians(-125));
+    //-49.4 , -47.9 , -125
 
     public static final Pose2d BlueFarInitPosition = new Pose2d(66.7, -18, Math.toRadians(-180));
 
@@ -26,24 +27,24 @@ public class AutoMap {
 
     public static final Pose2d BluePPGAlign = new Pose2d(-10,-40, Math.toRadians(-90));
 
-    public static final Pose2d BluePPGGrab = new Pose2d(-10,-48, Math.toRadians(-90));
+    public static final Pose2d BluePPGGrab = new Pose2d(-10,-44, Math.toRadians(-90));
 
-    public static final Pose2d BluePGPAlign = new Pose2d(10,-28, Math.toRadians(-90));
+    public static final Pose2d BluePGPAlign = new Pose2d(14,-28, Math.toRadians(-90));
 
-    public static final Pose2d BluePGPGrab = new Pose2d(10,-52, Math.toRadians(-90));
+    public static final Pose2d BluePGPGrab = new Pose2d(14,-48, Math.toRadians(-90));
 
     public static final Pose2d BlueGPPAlign = new Pose2d(36, -31, Math.toRadians(-90));
 
-    public static final Pose2d BlueGPPGrab = new Pose2d(36, -52, Math.toRadians(-90));
+    public static final Pose2d BlueGPPGrab = new Pose2d(36, -48, Math.toRadians(-90));
 
-    public static final Pose2d BlueHumanAlign = new Pose2d(63.5,-52, -90);
+    public static final Pose2d BlueHumanAlign = new Pose2d(63.5,-48, -90);
 
     public static final Pose2d BlueHumanGrab = new Pose2d(63.5,-72, -90);
 
     public static final Pose2d BlueGatePark = new Pose2d(3, -55.5, Math.toRadians(0));
 
-    public static final Pose2d BlueGateIntake = new Pose2d(10, -51, Math.toRadians(-110));
-    public static final Pose2d BlueGateIntake2 = new Pose2d(16, -53, Math.toRadians(-130));
+    public static final Pose2d BlueGateIntake = new Pose2d(10, -49, Math.toRadians(-110));
+    public static final Pose2d BlueGateIntake2 = new Pose2d(16, -51.5, Math.toRadians(-130));
 
     public static final Pose2d BlueGateLeave = new Pose2d(3, -25, Math.toRadians(0));
 
@@ -58,6 +59,7 @@ public class AutoMap {
 
 
     public static final Pose2d RedGoalInitPosition = new Pose2d(-49.4, 47.9, Math.toRadians(125));
+
 
     public static final Pose2d RedFarInitPosition = new Pose2d(66.7, 18, Math.toRadians(180));
 
